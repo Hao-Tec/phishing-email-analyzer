@@ -3,7 +3,7 @@
 A comprehensive, modular Python tool for analyzing emails to detect phishing attacks. The tool extracts key email information, evaluates suspicious patterns using multiple heuristics, and generates detailed reports with risk scoring.
 
 ![CI](https://github.com/Hao-Tec/phishing-email-analyzer/actions/workflows/ci.yml/badge.svg)
-
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 ## Features
 
 ### Core Functionality
