@@ -1,0 +1,25 @@
+From: support@bank-security.tk
+To: john.doe@gmail.com
+Subject: URGENT: Verify Your Account Now!
+Date: Fri, 29 Nov 2024 10:30:00 +0000
+Message-ID: <12345.67890@bank-security.tk>
+MIME-Version: 1.0
+Content-Type: text/html; charset="UTF-8"
+
+<html>
+<body>
+<p>Dear Valued Customer,</p>
+
+<p>We detected unusual activity on your account. <b>IMMEDIATE ACTION REQUIRED!</b></p>
+
+<p>Click here to verify your account: <a href="http://192.168.1.100/verify">Verify Now</a></p>
+
+<p>Or visit: http://bit.ly/verify-account-now</p>
+
+<p>If you don't act within 24 hours, your account will be suspended.</p>
+
+<p>Best regards,<br>
+Bank Security Team</p>
+
+</body>
+</html>

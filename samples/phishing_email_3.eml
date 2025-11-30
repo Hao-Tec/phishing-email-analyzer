@@ -1,0 +1,27 @@
+From: sender@suspicious-domain-with-lots-of-subdomains.co.uk
+To: recipient@example.com
+Subject: Congratulations! You've Won a Prize!
+Date: Fri, 29 Nov 2024 11:45:00 +0000
+Message-ID: <spam.msg@suspicious.com>
+MIME-Version: 1.0
+Content-Type: text/html; charset="UTF-8"
+
+<html>
+<body>
+
+<h2>CONGRATULATIONS!</h2>
+
+<p>You have been randomly selected to receive a $5000 Amazon Gift Card!</p>
+
+<p><a href="https://amaz0n-reward.tk/claim?user=abc123&token=xyz789">Claim Your Prize Now!</a></p>
+
+<p>Act now before this offer expires in 6 hours!</p>
+
+<p>Click the button: 
+<a href="https://amaz0n-reward.tk/claim">
+https://amazon.com/gifts
+</a>
+</p>
+
+</body>
+</html>
