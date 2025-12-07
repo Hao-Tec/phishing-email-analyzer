@@ -146,7 +146,7 @@ class EmailReporter:
             report.append("-" * 80)
             for i, attachment in enumerate(attachments, 1):
                 report.append(f"{i}. {attachment.get('filename', 'N/A')}")
-                report.append(f"   Type: " f"{attachment.get('content_type', 'N/A')}")
+                report.append(f"   Type: {attachment.get('content_type', 'N/A')}")
                 report.append(f"   Size: {attachment.get('size', 0)} bytes")
             report.append("")
 
@@ -212,7 +212,8 @@ class EmailReporter:
         <html lang="en">
         <head>
             <meta charset="UTF-8">
-            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <meta name="viewport"
+                  content="width=device-width, initial-scale=1.0">
             <title>Phishing Analysis Report</title>
             <style>
                 body {{
@@ -397,9 +398,7 @@ class EmailReporter:
         report.append(
             f"MEDIUM_RISK (60-84): {risk_counts.get('MEDIUM_RISK')} " f"emails"
         )
-        report.append(
-            f"HIGH_RISK (85-99):   {risk_counts.get('HIGH_RISK')} " f"emails"
-        )
+        report.append(f"HIGH_RISK (85-99):   {risk_counts.get('HIGH_RISK')} " f"emails")
         report.append(f"CRITICAL (100):      {risk_counts['CRITICAL']} emails")
         report.append(f"ERRORS:              {risk_counts['ERROR']} emails")
         report.append("")
@@ -418,9 +417,7 @@ class EmailReporter:
                 file_path = Path(result.get("file", "")).name
                 score = result.get("phishing_suspicion_score", 0)
                 risk_level = result.get("risk_level", "UNKNOWN")
-                subject = result.get("email_metadata", {}).get(
-                    "subject", "N/A"
-                )[:50]
+                subject = result.get("email_metadata", {}).get("subject", "N/A")[:50]
 
                 report.append(f"{i}. {file_path}")
                 report.append(f"   Subject: {subject}")

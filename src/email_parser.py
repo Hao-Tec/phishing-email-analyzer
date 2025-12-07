@@ -56,15 +56,17 @@ class EmailParser:
             if email_path.suffix.lower() == ".gz":
                 with gzip.open(email_path, "rb") as f:
                     raw_content = f.read()
+                with gzip.open(email_path, "rb") as f:
+                    raw_content = f.read()
                     msg = email.message_from_bytes(raw_content, policy=policy.default)
 
             # Handle .msg (Outlook)
             elif email_path.suffix.lower() == ".msg":
                 if extract_msg:
                     msg_obj = extract_msg.Message(email_path)
-                    # Convert to standard email object structure or extract directly
-                    # For consistency, we'll try to map it to our structure
-                    # manually since it's not a python email.message object.
+                    # Convert to standard email object structure or extract
+                    # directly. For consistency, we'll try to map it to our
+                    # structure manually since it's not a python object.
                     return self._extract_msg_data(msg_obj)
                 else:
                     raise ImportError("extract-msg library needed for .msg files")

@@ -50,9 +50,14 @@ class ExternalScanners:
     def _check_phishtank(self, url: str) -> bool:
         """Check URL against PhishTank."""
         try:
-            # Note: This is an example endpoint. Real implementation needs specific API logic.
+            # Note: This is an example endpoint. Real implementation needs
+            # specific API logic.
             # Using a simplified POST request logic often used with PhishTank.
-            payload = {"url": url, "format": "json", "app_key": self.phishtank_key}
+            payload = {
+                "url": url,
+                "format": "json",
+                "app_key": self.phishtank_key,
+            }
             response = requests.post(
                 "https://checkurl.phishtank.com/checkurl/", data=payload
             )
@@ -68,7 +73,10 @@ class ExternalScanners:
     def _check_safebrowsing(self, url: str) -> bool:
         """Check URL against Google Safe Browsing."""
         try:
-            api_url = f"https://safebrowsing.googleapis.com/v4/threatMatches:find?key={self.safebrowsing_key}"
+            api_url = (
+                f"https://safebrowsing.googleapis.com/v4/threatMatches:find"
+                f"?key={self.safebrowsing_key}"
+            )
             payload = {
                 "client": {
                     "clientId": "phishing-email-analyzer",

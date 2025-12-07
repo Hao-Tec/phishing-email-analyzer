@@ -1,5 +1,3 @@
-import dns.resolver
-import dkim
 from typing import Dict, List
 import logging
 
@@ -35,7 +33,10 @@ class AuthValidator:
             self.resolver.lifetime = 2.0
             self.resolver.timeout = 2.0
         else:
-            logging.warning("dnspython not installed. SPF/DMARC checks disabled.")
+        else:
+            logging.warning(
+                "dnspython not installed. SPF/DMARC checks disabled."
+            )
 
         if not DKIM_AVAILABLE:
             logging.warning("dkimpy not installed. DKIM checks disabled.")
@@ -84,7 +85,8 @@ class AuthValidator:
         # SPF Check (Active DNS lookup)
         if DNS_AVAILABLE and self.resolver:
             try:
-                # This is a simplified check. A full SPF check requires the sending IP.
+                # This is a simplified check. A full SPF check requires
+                # the sending IP.
                 spf_record = self._get_dns_record(domain, "TXT")
                 has_spf = any("v=spf1" in str(r) for r in spf_record)
 

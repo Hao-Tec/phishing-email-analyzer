@@ -66,8 +66,10 @@ class TestEnhancements(unittest.TestCase):
         self.assertIn("PhishTank", res["sources"])
 
     def test_analyzer_integration(self):
-        """Test that analyze_email_from_string runs without crashing including new components."""
-        # This will use real components where possible (e.g. ML might be disabled if no model)
+        """Test that analyze_email_from_string runs without crashing including
+        new components."""
+        # This will use real components where possible (e.g. ML might be
+        # disabled if no model)
         email_content = """From: user@example.com
 To: victim@example.com
 Subject: Test Email

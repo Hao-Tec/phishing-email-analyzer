@@ -87,6 +87,7 @@ class EmailAnalyzer:
                 # check for suspicious keywords in OCR text
                 # We can reuse heuristics or just checking simple urgent keywords
                 # For now, just add it to body for ML and LLM
+                # For now, just add it to body for ML and LLM
                 email_data["body"] += "\n\n[OCR EXTRACTED CONTENT]\n" + ocr_text
 
                 # Simple check
