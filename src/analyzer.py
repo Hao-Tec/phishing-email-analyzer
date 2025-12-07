@@ -208,7 +208,8 @@ class EmailAnalyzer:
         # 6. LLM Analysis (Existing - kept as is, but using augmented body)
         llm_data = {}
         if email_data.get("body"):
-            # We skip if score is already critical to save tokens, unless we want full report
+            # We skip if score is already critical to save tokens,
+            # unless we want full report
             # We skip if score is already critical to save tokens,
             # unless we want full report
             llm_score, llm_data = self.llm_analyzer.analyze(email_data["body"])
@@ -274,7 +275,8 @@ class EmailAnalyzer:
             raise ValueError(f"Invalid folder path: {email_folder}")
 
         results = []
-        email_extensions = {".eml", ".txt", ".msg", ".gz"}  # Added .msg and .gz
+        # Added .msg and .gz
+        email_extensions = {".eml", ".txt", ".msg", ".gz"}
 
         for email_file in folder_path.iterdir():
             if email_file.is_file() and email_file.suffix.lower() in email_extensions:
