@@ -6,7 +6,7 @@ Integrates with external phishing databases (PhishTank, Google Safe Browsing).
 import os
 import requests
 import logging
-from typing import Dict, Tuple
+from typing import Dict
 
 from src.config import PHISHTANK_API_KEY_ENV, SAFE_BROWSING_API_KEY_ENV
 

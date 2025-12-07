@@ -112,7 +112,9 @@ class EmailAnalyzer:
         # 3. Authentication Verification (DKIM/SPF/DMARC)
         if email_data.get("raw_content") and email_data.get("sender"):
             auth_results = self.auth_validator.validate(
-                email_data["raw_content"], email_data["headers"], email_data["sender"]
+                email_data["raw_content"],
+                email_data["headers"],
+                email_data["sender"],
             )
 
             # Map auth results to findings
@@ -186,7 +188,10 @@ class EmailAnalyzer:
                     {
                         "heuristic": "external_db_positive",
                         "severity": "CRITICAL",
-                        "description": f"URL found in phishing database ({', '.join(ext_scan['sources'])}): {url}",
+                        "description": (
+                            f"URL found in phishing database "
+                            f"({', '.join(ext_scan['sources'])}): {url}"
+                        ),
                         "weight": 100,
                         "adjusted_weight": 100,
                         "details": ext_scan,
@@ -219,7 +224,8 @@ class EmailAnalyzer:
                         }
                     )
                     score = min(
-                        100, score + (HEURISTIC_WEIGHTS["llm_analysis"] * llm_score)
+                        100,
+                        score + (HEURISTIC_WEIGHTS["llm_analysis"] * llm_score),
                     )
 
         # Cap score

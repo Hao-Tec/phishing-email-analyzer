@@ -7,7 +7,7 @@ import os
 import hashlib
 import requests
 import base64
-from typing import Dict, List, Optional, Tuple
+from typing import Dict
 
 
 class VirusTotalScanner:

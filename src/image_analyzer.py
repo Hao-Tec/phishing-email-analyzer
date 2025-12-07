@@ -4,7 +4,7 @@ Uses OCR to extract text from images for analysis.
 """
 
 import logging
-from typing import List, Tuple
+from typing import List
 from io import BytesIO
 
 try:

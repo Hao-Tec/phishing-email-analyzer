@@ -6,11 +6,11 @@ import os
 # Add src to path
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 
-from src.analyzer import EmailAnalyzer
-from src.auth_validator import AuthValidator, DKIM_AVAILABLE
-from src.image_analyzer import ImageAnalyzer
-from src.ml_analyzer import MLAnalyzer
-from src.external_scanners import ExternalScanners
+from src.analyzer import EmailAnalyzer  # noqa: E402
+from src.auth_validator import AuthValidator, DKIM_AVAILABLE  # noqa: E402
+from src.image_analyzer import ImageAnalyzer  # noqa: E402
+from src.ml_analyzer import MLAnalyzer  # noqa: E402
+from src.external_scanners import ExternalScanners  # noqa: E402
 
 
 class TestEnhancements(unittest.TestCase):

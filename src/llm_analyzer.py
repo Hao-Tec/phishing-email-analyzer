@@ -5,7 +5,7 @@ Uses Google Gemini to analyze emails for sophisticated phishing attempts.
 
 import os
 import google.generativeai as genai
-from typing import Dict, Optional, Tuple
+from typing import Dict, Tuple
 import json
 
 
@@ -32,16 +32,17 @@ class LLMAnalyzer:
 
         Returns:
             Tuple containing:
-            - Confidence score (0.0 to 1.0, where 1.0 is high confidence of phishing)
+            - Confidence score (0.0 to 1.0, where 1.0 is high confidence
+              of phishing)
             - Analysis details dictionary
         """
         if not self.model:
             return 0.0, {"error": "No API key configured"}
 
         prompt = f"""
-        You are a cybersecurity expert specializing in phishing detection. 
-        Analyze the following email for signs of phishing, social engineering, urgency, 
-        or other malicious intent.
+        You are a cybersecurity expert specializing in phishing detection.
+        Analyze the following email for signs of phishing, social engineering,
+        urgency, or other malicious intent.
 
         Email Content:
         '''
@@ -55,7 +56,8 @@ class LLMAnalyzer:
         - reasoning: list of strings (key suspicious indicators)
         - summary: string (brief explanation of the verdict)
 
-        Do not use markdown formatting in your response. Just the raw JSON string.
+        Do not use markdown formatting in your response. Just the raw JSON
+        string.
         """
 
         try:
@@ -63,7 +65,8 @@ class LLMAnalyzer:
             data = self._parse_response(response.text)
 
             score = data.get("confidence_score", 0.0)
-            # Normalize score to 0-100 scale for consistency with existing system if needed,
+            # Normalize score to 0-100 scale for consistency with existing
+            # system if needed,
             # but here we return 0-1 float as requested, handled by caller.
 
             return score, data

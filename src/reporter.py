@@ -215,22 +215,92 @@ class EmailReporter:
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
             <title>Phishing Analysis Report</title>
             <style>
-                body {{ font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f8f9fa; margin: 0; padding: 20px; }}
-                .container {{ max-width: 900px; margin: 0 auto; background: white; padding: 30px; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }}
-                .header {{ border-bottom: 2px solid #eee; padding-bottom: 20px; margin-bottom: 20px; }}
-                .badge {{ display: inline-block; padding: 8px 16px; border-radius: 20px; color: white; font-weight: bold; font-size: 1.2em; background-color: {risk_color}; }}
-                .score {{ font-size: 2.5em; font-weight: bold; color: {risk_color}; margin: 10px 0; }}
+                body {{
+                    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+                    background-color: #f8f9fa;
+                    margin: 0;
+                    padding: 20px;
+                }}
+                .container {{
+                    max-width: 900px;
+                    margin: 0 auto;
+                    background: white;
+                    padding: 30px;
+                    border-radius: 12px;
+                    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+                }}
+                .header {{
+                    border-bottom: 2px solid #eee;
+                    padding-bottom: 20px;
+                    margin-bottom: 20px;
+                }}
+                .badge {{
+                    display: inline-block;
+                    padding: 8px 16px;
+                    border-radius: 20px;
+                    color: white;
+                    font-weight: bold;
+                    font-size: 1.2em;
+                    background-color: {risk_color};
+                }}
+                .score {{
+                    font-size: 2.5em;
+                    font-weight: bold;
+                    color: {risk_color};
+                    margin: 10px 0;
+                }}
                 .section {{ margin-bottom: 30px; }}
-                h2 {{ color: #343a40; border-left: 5px solid {risk_color}; padding-left: 10px; }}
-                table {{ width: 100%; border-collapse: collapse; margin-top: 10px; }}
-                th, td {{ padding: 12px; text-align: left; border-bottom: 1px solid #dee2e6; }}
+                h2 {{
+                    color: #343a40;
+                    border-left: 5px solid {risk_color};
+                    padding-left: 10px;
+                }}
+                table {{
+                    width: 100%;
+                    border-collapse: collapse;
+                    margin-top: 10px;
+                }}
+                th, td {{
+                    padding: 12px;
+                    text-align: left;
+                    border-bottom: 1px solid #dee2e6;
+                }}
                 th {{ background-color: #f8f9fa; color: #495057; }}
-                .finding {{ background-color: #fff3cd; border-left: 4px solid #ffc107; padding: 15px; margin-bottom: 15px; }}
-                .finding.HIGH {{ background-color: #f8d7da; border-left-color: #dc3545; }}
-                .finding.LOW {{ background-color: #d1e7dd; border-left-color: #198754; }}
-                .meta-grid {{ display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; background: #f8f9fa; padding: 20px; border-radius: 8px; }}
-                .meta-item label {{ display: block; color: #6c757d; font-size: 0.9em; }}
-                .meta-item span {{ font-weight: 500; font-size: 1.1em; color: #212529; word-break: break-word; overflow-wrap: break-word; display: block; }}
+                .finding {{
+                    background-color: #fff3cd;
+                    border-left: 4px solid #ffc107;
+                    padding: 15px;
+                    margin-bottom: 15px;
+                }}
+                .finding.HIGH {{
+                    background-color: #f8d7da;
+                    border-left-color: #dc3545;
+                }}
+                .finding.LOW {{
+                    background-color: #d1e7dd;
+                    border-left-color: #198754;
+                }}
+                .meta-grid {{
+                    display: grid;
+                    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+                    gap: 20px;
+                    background: #f8f9fa;
+                    padding: 20px;
+                    border-radius: 8px;
+                }}
+                .meta-item label {{
+                    display: block;
+                    color: #6c757d;
+                    font-size: 0.9em;
+                }}
+                .meta-item span {{
+                    font-weight: 500;
+                    font-size: 1.1em;
+                    color: #212529;
+                    word-break: break-word;
+                    overflow-wrap: break-word;
+                    display: block;
+                }}
             </style>
         </head>
         <body>
@@ -327,7 +397,9 @@ class EmailReporter:
         report.append(
             f"MEDIUM_RISK (60-84): {risk_counts.get('MEDIUM_RISK')} " f"emails"
         )
-        report.append(f"HIGH_RISK (85-99):   {risk_counts.get('HIGH_RISK')} " f"emails")
+        report.append(
+            f"HIGH_RISK (85-99):   {risk_counts.get('HIGH_RISK')} " f"emails"
+        )
         report.append(f"CRITICAL (100):      {risk_counts['CRITICAL']} emails")
         report.append(f"ERRORS:              {risk_counts['ERROR']} emails")
         report.append("")
@@ -346,7 +418,9 @@ class EmailReporter:
                 file_path = Path(result.get("file", "")).name
                 score = result.get("phishing_suspicion_score", 0)
                 risk_level = result.get("risk_level", "UNKNOWN")
-                subject = result.get("email_metadata", {}).get("subject", "N/A")[:50]
+                subject = result.get("email_metadata", {}).get(
+                    "subject", "N/A"
+                )[:50]
 
                 report.append(f"{i}. {file_path}")
                 report.append(f"   Subject: {subject}")

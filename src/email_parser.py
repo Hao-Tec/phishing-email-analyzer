@@ -63,8 +63,8 @@ class EmailParser:
                 if extract_msg:
                     msg_obj = extract_msg.Message(email_path)
                     # Convert to standard email object structure or extract directly
-                    # For consistency, we'll try to map it to our structure manually
-                    # since it's not a python email.message object.
+                    # For consistency, we'll try to map it to our structure
+                    # manually since it's not a python email.message object.
                     return self._extract_msg_data(msg_obj)
                 else:
                     raise ImportError("extract-msg library needed for .msg files")
@@ -150,7 +150,8 @@ class EmailParser:
             "attachments": attachments,
             "is_html": is_html,
             "reply_to": headers.get("Reply-To", ""),
-            "raw_content": None,  # .msg parsing doesn't easily give original raw MIME bytes suitable for DKIM verify
+            "raw_content": None,  # .msg parsing doesn't easily give original
+            # raw MIME bytes suitable for DKIM verify
         }
 
     def _extract_email_data(self, msg) -> Dict:
@@ -240,14 +241,14 @@ class EmailParser:
                         "utf-8", errors="ignore"
                     )
                     is_html = True
-                except:
+                except Exception:
                     pass
             elif text_part:
                 try:
                     body = text_part.get_payload(decode=True).decode(
                         "utf-8", errors="ignore"
                     )
-                except:
+                except Exception:
                     pass
         else:
             try:
@@ -257,7 +258,8 @@ class EmailParser:
                 if payload:
                     body = payload.decode("utf-8", errors="ignore")
                 else:
-                    # Fallback if decode=True returns None (sometimes happens with empty bodies)
+                    # Fallback if decode=True returns None
+                    # (sometimes happens with empty bodies)
                     body = str(msg.get_payload())
 
                 is_html = content_type == "text/html"

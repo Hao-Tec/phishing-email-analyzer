@@ -94,7 +94,8 @@ MIN_URL_LENGTH = 10
 
 # --- New Configurations for Enhancements ---
 
-# External API Keys (Load from env vars in real app, these are placeholders/names)
+# External API Keys
+# (Load from env vars in real app, these are placeholders/names)
 PHISHTANK_API_KEY_ENV = "PHISHTANK_API_KEY"
 SAFE_BROWSING_API_KEY_ENV = "SAFE_BROWSING_API_KEY"
 
@@ -108,11 +109,13 @@ ML_VECTORIZER_PATH = "models/vectorizer.pkl"
 TESSERACT_CMD_PATH = None
 
 # Update Heuristic Weights with new components
-HEURISTIC_WEIGHTS.update({
-    "ml_confidence_high": 40,
-    "ocr_suspicious_content": 20,
-    "external_db_positive": 100,  # Critical if found in PhishTank/Google SB
-    "auth_dkim_fail": 25,
-    "auth_spf_fail": 25,
-    "auth_dmarc_fail": 25,
-})
+HEURISTIC_WEIGHTS.update(
+    {
+        "ml_confidence_high": 40,
+        "ocr_suspicious_content": 20,
+        "external_db_positive": 100,  # Critical if found in PhishTank/Google SB
+        "auth_dkim_fail": 25,
+        "auth_spf_fail": 25,
+        "auth_dmarc_fail": 25,
+    }
+)
