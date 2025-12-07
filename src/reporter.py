@@ -217,7 +217,8 @@ class EmailReporter:
             <title>Phishing Analysis Report</title>
             <style>
                 body {{
-                    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+                    font-family: 'Segoe UI', Tahoma, Geneva, Verdana,
+                    sans-serif;
                     background-color: #f8f9fa;
                     margin: 0;
                     padding: 20px;
@@ -283,7 +284,8 @@ class EmailReporter:
                 }}
                 .meta-grid {{
                     display: grid;
-                    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+                    grid-template-columns: repeat(auto-fit,
+                    minmax(200px, 1fr));
                     gap: 20px;
                     background: #f8f9fa;
                     padding: 20px;
@@ -337,14 +339,16 @@ class EmailReporter:
 
                 <div class="section">
                     <h2>Findings</h2>
-                    {'<p>No suspicious patterns detected.</p>' if not findings else ''}
+                    {'<p>No suspicious patterns detected.</p>'
+                     if not findings else ''}
         """
 
         for finding in findings:
             severity = finding.get("severity", "LOW")
             html += f"""
                     <div class="finding {severity}">
-                        <strong>[{severity}] {finding.get('heuristic', 'Unknown')}</strong>
+                        <strong>[{severity}]
+                        {finding.get('heuristic', 'Unknown')}</strong>
                         <p>{finding.get('description', '')}</p>
             """
             if finding.get("details"):
