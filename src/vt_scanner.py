@@ -36,8 +36,8 @@ class VirusTotalScanner:
             return {"error": "No API key configured"}
 
         try:
-            # First, extract the analysis ID by submitting or just getting the URL ID
-            # VT requires base64 encoding of the URL for lookups
+            # First, extract the analysis ID by submitting or just getting
+            # the URL ID. VT requires base64 encoding of the URL for lookups
             url_id = base64.urlsafe_b64encode(url.encode()).decode().strip("=")
 
             # Check if already analyzed
@@ -48,9 +48,9 @@ class VirusTotalScanner:
             if response.status_code == 200:
                 return self._parse_analysis(response.json())
             elif response.status_code == 404:
-                # Need to submit it (skipping submission for now to avoid quota burn on unknowns,
-                # but could implement submission logic if desired.
-                # For now just return unknown)
+                # Need to submit it (skipping submission for now to avoid
+                # quota burn on unknowns, but could implement submission logic
+                # if desired. For now just return unknown)
                 return {"status": "unknown", "harmless": 0, "malicious": 0}
             else:
                 return {"error": f"API Error: {response.status_code}"}

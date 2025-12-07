@@ -35,7 +35,8 @@ class ImageAnalyzer:
         Extract text from a list of image attachment dictionaries.
 
         Args:
-            image_attachments: List of dicts with 'content' (bytes) and 'filename'.
+            image_attachments: List of dicts with 'content' (bytes) and
+            'filename'.
 
         Returns:
             Concatenated string of extracted text.
@@ -55,7 +56,8 @@ class ImageAnalyzer:
                 text = pytesseract.image_to_string(image)
                 if text.strip():
                     extracted_text.append(
-                        f"--- Extracted from {img_data.get('filename', 'image')} ---\n{text}"
+                        f"--- Extracted from "
+                        f"{img_data.get('filename', 'image')} ---\n{text}"
                     )
             except Exception as e:
                 logging.warning(f"OCR failed for image {img_data.get('filename')}: {e}")
