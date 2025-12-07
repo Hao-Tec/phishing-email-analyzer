@@ -203,7 +203,7 @@ class PhishingHeuristics:
                 self._add_finding(
                     "url_obfuscation",
                     "HIGH",
-                    f"Shortened URL detected: {domain} " f"- destination is hidden",
+                    (f"Shortened URL detected: {domain} " f"- destination is hidden"),
                     {"url": url, "domain": domain},
                 )
 
@@ -212,7 +212,7 @@ class PhishingHeuristics:
                 self._add_finding(
                     "url_obfuscation",
                     "HIGH",
-                    "URL contains hex-encoded characters " "(obfuscation technique)",
+                    ("URL contains hex-encoded characters " "(obfuscation technique)"),
                     {"url": url},
                 )
 
@@ -222,7 +222,7 @@ class PhishingHeuristics:
                 self._add_finding(
                     "url_obfuscation",
                     "MEDIUM",
-                    f"Excessive subdomains detected in URL " f"({subdomain_count})",
+                    (f"Excessive subdomains detected in URL " f"({subdomain_count})"),
                     {"domain": domain},
                 )
 

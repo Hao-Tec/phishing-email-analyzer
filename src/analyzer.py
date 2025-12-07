@@ -209,27 +209,26 @@ class EmailAnalyzer:
         llm_data = {}
         if email_data.get("body"):
             # We skip if score is already critical to save tokens, unless we want full report
-            if score < 100:
-                llm_score, llm_data = self.llm_analyzer.analyze(email_data["body"])
-                if (
-                    llm_data.get("risk_level") in ["HIGH", "CRITICAL"]
-                    or llm_score > 0.7
-                ):
-                    findings.append(
-                        {
-                            "heuristic": "llm_analysis",
-                            "severity": "HIGH",
-                            "description": "AI-detected suspicious content",
-                            "weight": HEURISTIC_WEIGHTS["llm_analysis"],
-                            "adjusted_weight": HEURISTIC_WEIGHTS["llm_analysis"]
-                            * llm_score,
-                            "details": llm_data,
-                        }
-                    )
-                    score = min(
-                        100,
-                        score + (HEURISTIC_WEIGHTS["llm_analysis"] * llm_score),
-                    )
+            # We skip if score is already critical to save tokens,
+            # unless we want full report
+            llm_score, llm_data = self.llm_analyzer.analyze(email_data["body"])
+            if llm_data.get("risk_level") in ["HIGH", "CRITICAL"] or llm_score > 0.7:
+                findings.append(
+                    {
+                        "heuristic": "llm_analysis",
+                        "severity": "HIGH",
+                        "description": "AI-detected suspicious content",
+                        "weight": HEURISTIC_WEIGHTS["llm_analysis"],
+                        "adjusted_weight": (
+                            HEURISTIC_WEIGHTS["llm_analysis"] * llm_score
+                        ),
+                        "details": llm_data,
+                    }
+                )
+                score = min(
+                    100,
+                    score + (HEURISTIC_WEIGHTS["llm_analysis"] * llm_score),
+                )
 
         # Cap score
         score = min(100, score)
