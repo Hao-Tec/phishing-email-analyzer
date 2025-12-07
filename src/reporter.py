@@ -230,7 +230,7 @@ class EmailReporter:
                 .finding.LOW {{ background-color: #d1e7dd; border-left-color: #198754; }}
                 .meta-grid {{ display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; background: #f8f9fa; padding: 20px; border-radius: 8px; }}
                 .meta-item label {{ display: block; color: #6c757d; font-size: 0.9em; }}
-                .meta-item span {{ font-weight: 500; font-size: 1.1em; color: #212529; }}
+                .meta-item span {{ font-weight: 500; font-size: 1.1em; color: #212529; word-break: break-word; overflow-wrap: break-word; display: block; }}
             </style>
         </head>
         <body>
