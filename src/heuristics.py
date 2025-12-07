@@ -44,6 +44,7 @@ class PhishingHeuristics:
         self._check_url_obfuscation(email_data)
         self._check_suspicious_attachments(email_data)
         self._check_header_anomalies(email_data)
+        self._check_authentication_headers(email_data)
         self._check_urgent_language(email_data)
         self._check_suspicious_tlds(email_data)
         self._check_ip_based_urls(email_data)
@@ -132,9 +133,7 @@ class PhishingHeuristics:
             if displayed_text:
                 # Check if displayed text contains a different domain
                 displayed_domain_match = re.search(
-                    r"([a-z0-9][a-z0-9-]*\.)+[a-z0-9-]+",
-                    displayed_text,
-                    re.IGNORECASE
+                    r"([a-z0-9][a-z0-9-]*\.)+[a-z0-9-]+", displayed_text, re.IGNORECASE
                 )
 
                 if displayed_domain_match:
@@ -198,39 +197,30 @@ class PhishingHeuristics:
                 "ow.ly",
                 "goo.gl",
             ]
-            if any(
-                shortener in domain for shortener in shorteners
-            ):
+            if any(shortener in domain for shortener in shorteners):
                 self._add_finding(
                     "url_obfuscation",
                     "HIGH",
-                    f"Shortened URL detected: {domain} "
-                    f"- destination is hidden",
+                    f"Shortened URL detected: {domain} " f"- destination is hidden",
                     {"url": url, "domain": domain},
                 )
 
             # Check for hex-encoded or base64-like patterns in domain
-            if re.search(
-                r"%[0-9a-f]{2}", url, re.IGNORECASE
-            ):
+            if re.search(r"%[0-9a-f]{2}", url, re.IGNORECASE):
                 self._add_finding(
                     "url_obfuscation",
                     "HIGH",
-                    "URL contains hex-encoded characters "
-                    "(obfuscation technique)",
+                    "URL contains hex-encoded characters " "(obfuscation technique)",
                     {"url": url},
                 )
 
             # Check for excessive subdomains (typosquatting)
-            subdomain_count = (
-                domain.count(".") if domain else 0
-            )
+            subdomain_count = domain.count(".") if domain else 0
             if subdomain_count > 3:
                 self._add_finding(
                     "url_obfuscation",
                     "MEDIUM",
-                    f"Excessive subdomains detected in URL "
-                    f"({subdomain_count})",
+                    f"Excessive subdomains detected in URL " f"({subdomain_count})",
                     {"domain": domain},
                 )
 
@@ -271,8 +261,7 @@ class PhishingHeuristics:
 
             # Check for suspicious content-type mismatch
             if content_type.startswith("application/") and not any(
-                content_type.endswith(ext.strip("."))
-                for ext in SUSPICIOUS_EXTENSIONS
+                content_type.endswith(ext.strip(".")) for ext in SUSPICIOUS_EXTENSIONS
             ):
                 pass  # This is normal for most application files
 
@@ -301,6 +290,35 @@ class PhishingHeuristics:
                     f"Missing or empty header: {header}",
                     {"header": header},
                 )
+
+    def _check_authentication_headers(self, email_data: Dict):
+        """Check for authentication failures (SPF, DKIM, DMARC)."""
+        headers = email_data.get("headers", {})
+        auth_results = headers.get("Authentication-Results", "").lower()
+        received_spf = headers.get("Received-SPF", "").lower()
+
+        failures = []
+
+        # Check Authentication-Results header
+        if auth_results:
+            if "dkim=fail" in auth_results:
+                failures.append("DKIM verification failed")
+            if "spf=fail" in auth_results:
+                failures.append("SPF verification failed")
+            if "dmarc=fail" in auth_results:
+                failures.append("DMARC verification failed")
+
+        # Check Received-SPF header
+        if received_spf and "fail" in received_spf:
+            failures.append("Received-SPF reported failure")
+
+        if failures:
+            self._add_finding(
+                "authentication_failure",
+                "HIGH",
+                "Email authentication validation failed",
+                {"failures": list(set(failures))},
+            )
 
     def _check_urgent_language(self, email_data: Dict):
         """Check for urgent/threatening language in subject and body."""

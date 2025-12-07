@@ -6,6 +6,7 @@ Extracts key information from raw or EML-format emails.
 import email
 from email import policy
 import re
+import gzip
 from urllib.parse import urlparse
 from typing import Dict, List
 from pathlib import Path
@@ -16,6 +17,11 @@ try:
     from urlextract import URLExtract
 except ImportError:
     URLExtract = None
+
+try:
+    import extract_msg
+except ImportError:
+    extract_msg = None
 
 
 class EmailParser:
@@ -42,13 +48,39 @@ class EmailParser:
         if not email_path.exists():
             raise FileNotFoundError(f"Email file not found: {email_path}")
 
+        raw_content = b""
+        msg = None
+
         try:
-            with open(email_path, "rb") as f:
-                msg = email.message_from_binary_file(f, policy=policy.default)
+            # Handle .eml.gz
+            if email_path.suffix.lower() == ".gz":
+                with gzip.open(email_path, "rb") as f:
+                    raw_content = f.read()
+                    msg = email.message_from_bytes(raw_content, policy=policy.default)
+
+            # Handle .msg (Outlook)
+            elif email_path.suffix.lower() == ".msg":
+                if extract_msg:
+                    msg_obj = extract_msg.Message(email_path)
+                    # Convert to standard email object structure or extract directly
+                    # For consistency, we'll try to map it to our structure manually
+                    # since it's not a python email.message object.
+                    return self._extract_msg_data(msg_obj)
+                else:
+                    raise ImportError("extract-msg library needed for .msg files")
+
+            # Handle standard .eml / .txt
+            else:
+                with open(email_path, "rb") as f:
+                    raw_content = f.read()
+                    msg = email.message_from_bytes(raw_content, policy=policy.default)
+
         except Exception as e:
             raise ValueError(f"Failed to parse email: {e}")
 
-        return self._extract_email_data(msg)
+        data = self._extract_email_data(msg)
+        data["raw_content"] = raw_content  # Add raw content for DKIM
+        return data
 
     def parse_email_from_string(self, email_string: str) -> Dict:
         """
@@ -61,11 +93,65 @@ class EmailParser:
             Dictionary containing parsed email data
         """
         try:
+            # Attempt to encode back to bytes for raw consistency if possible
+            raw_content = email_string.encode("utf-8", errors="ignore")
             msg = email.message_from_string(email_string, policy=policy.default)
         except Exception as e:
             raise ValueError(f"Failed to parse email string: {e}")
 
-        return self._extract_email_data(msg)
+        data = self._extract_email_data(msg)
+        data["raw_content"] = raw_content
+        return data
+
+    def _extract_msg_data(self, msg_obj) -> Dict:
+        """
+        Extract data specifically from an Outlook .msg object.
+        """
+        body = msg_obj.body
+        html_body = msg_obj.htmlBody
+
+        # Prefer HTML if available for URL extraction
+        content_body = (
+            html_body.decode("utf-8", errors="ignore") if html_body else (body or "")
+        )
+        is_html = bool(html_body)
+
+        sender = msg_obj.sender
+        to = msg_obj.to
+        subject = msg_obj.subject
+        date = msg_obj.date
+        headers = {k: v for k, v in msg_obj.header.items()}
+
+        urls = self._extract_urls(
+            None, content_body, is_html
+        )  # msg object not needed for regex extraction
+
+        # Attachments in msg are tricky, simple extraction
+        attachments = []
+        for att in msg_obj.attachments:
+            # Basic info
+            attachments.append(
+                {
+                    "filename": att.longFilename or att.shortFilename,
+                    "size": len(att.data) if hasattr(att, "data") else 0,
+                    "content_type": "application/octet-stream",  # Generic
+                    "content": att.data if hasattr(att, "data") else None,
+                }
+            )
+
+        return {
+            "sender": str(sender),
+            "recipient": str(to),
+            "subject": str(subject),
+            "date": str(date),
+            "headers": headers,
+            "body": body or "",
+            "urls": urls,
+            "attachments": attachments,
+            "is_html": is_html,
+            "reply_to": headers.get("Reply-To", ""),
+            "raw_content": None,  # .msg parsing doesn't easily give original raw MIME bytes suitable for DKIM verify
+        }
 
     def _extract_email_data(self, msg) -> Dict:
         """
@@ -165,10 +251,18 @@ class EmailParser:
                     pass
         else:
             try:
-                body = msg.get_payload(decode=True).decode("utf-8", errors="ignore")
-                is_html = msg.get_content_type() == "text/html"
+                # If not multipart, check content type
+                content_type = msg.get_content_type()
+                payload = msg.get_payload(decode=True)
+                if payload:
+                    body = payload.decode("utf-8", errors="ignore")
+                else:
+                    # Fallback if decode=True returns None (sometimes happens with empty bodies)
+                    body = str(msg.get_payload())
+
+                is_html = content_type == "text/html"
             except Exception:
-                body = msg.get_payload()
+                body = str(msg.get_payload())
 
         return body.strip(), is_html
 
@@ -248,15 +342,14 @@ class EmailParser:
                 if part.get_content_disposition() == "attachment":
                     filename = part.get_filename("")
                     if filename:
+                        # Extract content for OCR if possible
+                        content = part.get_payload(decode=True)
                         attachments.append(
                             {
                                 "filename": filename,
-                                "size": (
-                                    len(part.get_payload(decode=True))
-                                    if part.get_payload()
-                                    else 0
-                                ),
+                                "size": len(content) if content else 0,
                                 "content_type": part.get_content_type(),
+                                "content": content,  # Added content for OCR
                             }
                         )
 

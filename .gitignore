@@ -73,5 +73,6 @@ Thumbs.db
 # Ignore local helper scripts
 push_to_github.py
 
-# Ignore batch summary file
+# Ignore batch summary & Report file
 batch_summary.txt
+report.html

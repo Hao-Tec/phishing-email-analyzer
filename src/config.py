@@ -31,6 +31,8 @@ HEURISTIC_WEIGHTS = {
     "suspicious_tld": 10,
     "ip_based_url": 15,
     "llm_analysis": 30,
+    "authentication_failure": 30,
+    "virustotal_positive": 100,
 }
 
 # Suspicious file extensions
@@ -89,3 +91,28 @@ MAX_URL_LENGTH = 100
 
 # Minimum URL length that's considered valid
 MIN_URL_LENGTH = 10
+
+# --- New Configurations for Enhancements ---
+
+# External API Keys (Load from env vars in real app, these are placeholders/names)
+PHISHTANK_API_KEY_ENV = "PHISHTANK_API_KEY"
+SAFE_BROWSING_API_KEY_ENV = "SAFE_BROWSING_API_KEY"
+
+# ML Model Paths
+ML_MODEL_PATH = "models/phishing_model.pkl"
+ML_VECTORIZER_PATH = "models/vectorizer.pkl"
+
+# OCR Configuration
+# If Tesseract is not in PATH, specify absolute path here
+# e.g., r"C:\Program Files\Tesseract-OCR\tesseract.exe"
+TESSERACT_CMD_PATH = None
+
+# Update Heuristic Weights with new components
+HEURISTIC_WEIGHTS.update({
+    "ml_confidence_high": 40,
+    "ocr_suspicious_content": 20,
+    "external_db_positive": 100,  # Critical if found in PhishTank/Google SB
+    "auth_dkim_fail": 25,
+    "auth_spf_fail": 25,
+    "auth_dmarc_fail": 25,
+})
