@@ -316,10 +316,22 @@ class EmailReporter:
                 <div class="section">
                     <h2>Email Metadata</h2>
                     <div class="meta-grid">
-                        <div class="meta-item"><label>From</label><span>{metadata.get('sender', 'N/A')}</span></div>
-                        <div class="meta-item"><label>To</label><span>{metadata.get('recipient', 'N/A')}</span></div>
-                        <div class="meta-item"><label>Subject</label><span>{metadata.get('subject', 'N/A')}</span></div>
-                        <div class="meta-item"><label>Date</label><span>{metadata.get('date', 'N/A')}</span></div>
+                        <div class="meta-item">
+                            <label>From</label>
+                            <span>{metadata.get('sender', 'N/A')}</span>
+                        </div>
+                        <div class="meta-item">
+                            <label>To</label>
+                            <span>{metadata.get('recipient', 'N/A')}</span>
+                        </div>
+                        <div class="meta-item">
+                            <label>Subject</label>
+                            <span>{metadata.get('subject', 'N/A')}</span>
+                        </div>
+                        <div class="meta-item">
+                            <label>Date</label>
+                            <span>{metadata.get('date', 'N/A')}</span>
+                        </div>
                     </div>
                 </div>
 

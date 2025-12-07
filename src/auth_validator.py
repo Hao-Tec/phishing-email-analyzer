@@ -7,7 +7,6 @@ try:
 
     DNS_AVAILABLE = True
 except ImportError:
-    dns = None
     DNS_AVAILABLE = False
 
 try:
@@ -15,7 +14,6 @@ try:
 
     DKIM_AVAILABLE = True
 except ImportError:
-    dkim = None
     DKIM_AVAILABLE = False
 
 
@@ -33,10 +31,7 @@ class AuthValidator:
             self.resolver.lifetime = 2.0
             self.resolver.timeout = 2.0
         else:
-        else:
-            logging.warning(
-                "dnspython not installed. SPF/DMARC checks disabled."
-            )
+            logging.warning("dnspython not installed. SPF/DMARC checks disabled.")
 
         if not DKIM_AVAILABLE:
             logging.warning("dkimpy not installed. DKIM checks disabled.")
