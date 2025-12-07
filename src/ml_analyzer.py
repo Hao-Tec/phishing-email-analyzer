@@ -45,7 +45,7 @@ class MLAnalyzer:
                 self.enabled = True
             else:
                 logging.info(
-                    f"ML model not found at {ML_MODEL_PATH}. ML analysis disabled."
+                    f"ML model not found at {ML_MODEL_PATH}. " "ML analysis disabled."
                 )
         except Exception as e:
             logging.error(f"Failed to load ML model: {e}")
@@ -84,7 +84,8 @@ class MLAnalyzer:
             logging.error(f"ML prediction error: {e}")
             return 0.0, {"error": str(e)}
 
-    # Optional: Method to train a dummy model for testing purposes if none exists
+    # Optional: Method to train a dummy model for testing purposes
+    # if none exists
     def train_dummy_model(self):
         """Train a basic model for demonstration if file doesn't exist."""
         if self.enabled:

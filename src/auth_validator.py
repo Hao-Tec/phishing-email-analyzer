@@ -1,10 +1,6 @@
-"""
-Authentication Validator Module
-Performs active verification of email authentication protocols (SPF, DKIM, DMARC).
-"""
-
-import re
-from typing import Dict, List, Tuple
+import dns.resolver
+import dkim
+from typing import Dict, List
 import logging
 
 # Optional imports handled gracefully
@@ -129,7 +125,11 @@ class AuthValidator:
                 for rdata in answers
                 for txt_string in rdata.strings
             ]
-        except (dns.resolver.NoAnswer, dns.resolver.NXDOMAIN, dns.exception.Timeout):
+        except (
+            dns.resolver.NoAnswer,
+            dns.resolver.NXDOMAIN,
+            dns.exception.Timeout,
+        ):
             return []
         except Exception:
             return []

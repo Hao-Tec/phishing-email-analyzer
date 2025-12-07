@@ -133,7 +133,9 @@ class PhishingHeuristics:
             if displayed_text:
                 # Check if displayed text contains a different domain
                 displayed_domain_match = re.search(
-                    r"([a-z0-9][a-z0-9-]*\.)+[a-z0-9-]+", displayed_text, re.IGNORECASE
+                    r"([a-z0-9][a-z0-9-]*\.)+[a-z0-9-]+",
+                    displayed_text,
+                    re.IGNORECASE,
                 )
 
                 if displayed_domain_match:
