@@ -1,0 +1,58 @@
+
+        <!DOCTYPE html>
+        <html lang="en">
+        <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title>Phishing Analysis Report</title>
+            <style>
+                body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f8f9fa; margin: 0; padding: 20px; }
+                .container { max-width: 900px; margin: 0 auto; background: white; padding: 30px; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+                .header { border-bottom: 2px solid #eee; padding-bottom: 20px; margin-bottom: 20px; }
+                .badge { display: inline-block; padding: 8px 16px; border-radius: 20px; color: white; font-weight: bold; font-size: 1.2em; background-color: #28a745; }
+                .score { font-size: 2.5em; font-weight: bold; color: #28a745; margin: 10px 0; }
+                .section { margin-bottom: 30px; }
+                h2 { color: #343a40; border-left: 5px solid #28a745; padding-left: 10px; }
+                table { width: 100%; border-collapse: collapse; margin-top: 10px; }
+                th, td { padding: 12px; text-align: left; border-bottom: 1px solid #dee2e6; }
+                th { background-color: #f8f9fa; color: #495057; }
+                .finding { background-color: #fff3cd; border-left: 4px solid #ffc107; padding: 15px; margin-bottom: 15px; }
+                .finding.HIGH { background-color: #f8d7da; border-left-color: #dc3545; }
+                .finding.LOW { background-color: #d1e7dd; border-left-color: #198754; }
+                .meta-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; background: #f8f9fa; padding: 20px; border-radius: 8px; }
+                .meta-item label { display: block; color: #6c757d; font-size: 0.9em; }
+                .meta-item span { font-weight: 500; font-size: 1.1em; color: #212529; }
+            </style>
+        </head>
+        <body>
+            <div class="container">
+                <div class="header">
+                    <h1>Phishing Analysis Report</h1>
+                    <div class="score">27.0/100</div>
+                    <div class="badge">SAFE</div>
+                    <p>Generated on 2025-12-07 19:12:47</p>
+                </div>
+
+                <div class="section">
+                    <h2>Email Metadata</h2>
+                    <div class="meta-grid">
+                        <div class="meta-item"><label>From</label><span>noreply@github.com</span></div>
+                        <div class="meta-item"><label>To</label><span>techyhub07@gmail.com</span></div>
+                        <div class="meta-item"><label>Subject</label><span>[GitHub] A third-party OAuth application has been added to your account</span></div>
+                        <div class="meta-item"><label>Date</label><span>Sun, 07 Dec 2025 18:06:23 +0000</span></div>
+                    </div>
+                </div>
+
+                <div class="section">
+                    <h2>Findings</h2>
+                    
+        
+                    <div class="finding HIGH">
+                        <strong>[HIGH] llm_analysis</strong>
+                        <p>AI-detected suspicious content</p>
+            <ul><li>is_phishing: False</li><li>confidence_score: 0.9</li><li>risk_level: LOW</li><li>reasoning: ['All provided hyperlinks are clean and point directly to the official, expected domain (github.com) and legitimate security configuration paths (e.g., /settings/security-log, /settings/connections).', 'The content addresses a realistic security event (third-party OAuth application authorization) that automated security systems are designed to report.', 'The tone is professional, informative, and lacks high-pressure urgency or threat of account suspension.', 'The email requests the user to review security logs, not to input credentials directly into a form or respond with sensitive information.']</li><li>summary: Based strictly on the provided text and URL analysis, this email is highly likely to be a legitimate automated security notification from GitHub. The absence of URL masking, domain spoofing, or requests for credentials indicates a low risk of phishing. If this were a malicious email, the links would almost certainly point to a spoofed external domain.</li></ul></div>
+                </div>
+            </div>
+        </body>
+        </html>
+        

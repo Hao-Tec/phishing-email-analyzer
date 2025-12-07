@@ -30,6 +30,7 @@ HEURISTIC_WEIGHTS = {
     "urgent_language": 5,
     "suspicious_tld": 10,
     "ip_based_url": 15,
+    "llm_analysis": 30,
 }
 
 # Suspicious file extensions

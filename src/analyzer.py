@@ -9,6 +9,7 @@ from typing import Dict, List
 from src.email_parser import EmailParser
 from src.heuristics import PhishingHeuristics
 from src.config import SCORE_THRESHOLD
+from src.llm_analyzer import LLMAnalyzer
 
 
 class EmailAnalyzer:
@@ -20,6 +21,7 @@ class EmailAnalyzer:
         """Initialize the analyzer."""
         self.parser = EmailParser()
         self.heuristics = PhishingHeuristics()
+        self.llm_analyzer = LLMAnalyzer()
 
     def analyze_email(self, email_path: str) -> Dict:
         """
@@ -40,6 +42,27 @@ class EmailAnalyzer:
         # Evaluate with heuristics
         score, findings = self.heuristics.evaluate(email_data)
 
+        # Analyze with LLM
+        llm_score = 0.0
+        llm_data = {}
+
+        # Only query LLM if we have some content
+        if email_data.get("body"):
+            llm_score, llm_data = self.llm_analyzer.analyze(email_data["body"])
+
+            if llm_data.get("risk_level") in ["HIGH", "CRITICAL"] or llm_score > 0.7:
+                findings.append(
+                    {
+                        "heuristic": "llm_analysis",
+                        "severity": "HIGH",
+                        "description": "AI-detected suspicious content",
+                        "weight": 30,
+                        "adjusted_weight": 30 * llm_score,
+                        "details": llm_data,
+                    }
+                )
+                score = min(100, score + (30 * llm_score))
+
         # Determine risk level
         risk_level = self._determine_risk_level(score)
 
@@ -56,6 +79,7 @@ class EmailAnalyzer:
             "phishing_suspicion_score": score,
             "risk_level": risk_level,
             "findings": findings,
+            "llm_analysis": llm_data if llm_data else None,
             "urls_detected": len(email_data.get("urls", [])),
             "attachments_detected": len(email_data.get("attachments", [])),
             "extracted_data": {
@@ -125,10 +149,7 @@ class EmailAnalyzer:
         email_extensions = {".eml", ".txt", ".msg"}
 
         for email_file in folder_path.iterdir():
-            if (
-                email_file.is_file()
-                and email_file.suffix.lower() in email_extensions
-            ):
+            if email_file.is_file() and email_file.suffix.lower() in email_extensions:
                 result = self.analyze_email(str(email_file))
                 results.append(result)
 

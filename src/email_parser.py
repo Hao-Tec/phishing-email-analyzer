@@ -9,6 +9,8 @@ import re
 from urllib.parse import urlparse
 from typing import Dict, List
 from pathlib import Path
+from email.utils import parseaddr
+from bs4 import BeautifulSoup
 
 try:
     from urlextract import URLExtract
@@ -59,9 +61,7 @@ class EmailParser:
             Dictionary containing parsed email data
         """
         try:
-            msg = email.message_from_string(
-                email_string, policy=policy.default
-            )
+            msg = email.message_from_string(email_string, policy=policy.default)
         except Exception as e:
             raise ValueError(f"Failed to parse email string: {e}")
 
@@ -77,16 +77,17 @@ class EmailParser:
         Returns:
             Dictionary with extracted email data
         """
+        body, is_html = self._extract_body(msg)
         return {
             "sender": self._extract_sender(msg),
             "recipient": self._extract_recipient(msg),
             "subject": self._get_header(msg, "Subject", ""),
             "date": self._get_header(msg, "Date", ""),
             "headers": self._extract_headers(msg),
-            "body": self._extract_body(msg),
-            "urls": self._extract_urls(msg),
+            "body": body,
+            "urls": self._extract_urls(msg, body, is_html),
             "attachments": self._extract_attachments(msg),
-            "is_html": self._is_html_email(msg),
+            "is_html": is_html,
             "reply_to": self._get_header(msg, "Reply-To", ""),
         }
 
@@ -96,13 +97,9 @@ class EmailParser:
         if not from_header:
             return ""
 
-        # Parse email address from "Name <email@domain.com>" format
-        match = re.search(r"<(.+?)>", from_header)
-        if match:
-            return match.group(1).lower()
-
-        # If no angle brackets, assume the entire header is the email
-        return from_header.strip().lower()
+        # improved parsing
+        _, email_address = parseaddr(from_header)
+        return email_address.lower() if email_address else from_header.lower()
 
     def _extract_recipient(self, msg) -> str:
         """Extract recipient email address from To header."""
@@ -110,11 +107,8 @@ class EmailParser:
         if not to_header:
             return ""
 
-        match = re.search(r"<(.+?)>", to_header)
-        if match:
-            return match.group(1).lower()
-
-        return to_header.strip().lower()
+        _, email_address = parseaddr(to_header)
+        return email_address.lower() if email_address else to_header.lower()
 
     def _get_header(self, msg, header_name: str, default: str = "") -> str:
         """Safely get header value."""
@@ -134,39 +128,51 @@ class EmailParser:
                 pass
         return headers
 
-    def _extract_body(self, msg) -> str:
-        """Extract email body (text and/or HTML)."""
+    def _extract_body(self, msg) -> tuple[str, bool]:
+        """
+        Extract email body (text and/or HTML).
+        Returns tuple (body_content, is_html)
+        """
         body = ""
+        is_html = False
 
         if msg.is_multipart():
+            # Prioritize HTML then Text
+            html_part = None
+            text_part = None
+
             for part in msg.walk():
                 content_type = part.get_content_type()
+                if content_type == "text/html":
+                    html_part = part
+                elif content_type == "text/plain":
+                    text_part = part
 
-                if content_type == "text/plain":
-                    try:
-                        body += part.get_payload(decode=True).decode(
-                            "utf-8", errors="ignore"
-                        )
-                    except Exception:
-                        pass
-                elif content_type == "text/html":
-                    try:
-                        body += part.get_payload(decode=True).decode(
-                            "utf-8", errors="ignore"
-                        )
-                    except Exception:
-                        pass
+            if html_part:
+                try:
+                    body = html_part.get_payload(decode=True).decode(
+                        "utf-8", errors="ignore"
+                    )
+                    is_html = True
+                except:
+                    pass
+            elif text_part:
+                try:
+                    body = text_part.get_payload(decode=True).decode(
+                        "utf-8", errors="ignore"
+                    )
+                except:
+                    pass
         else:
             try:
-                body = msg.get_payload(decode=True).decode(
-                    "utf-8", errors="ignore"
-                )
+                body = msg.get_payload(decode=True).decode("utf-8", errors="ignore")
+                is_html = msg.get_content_type() == "text/html"
             except Exception:
                 body = msg.get_payload()
 
-        return body.strip()
+        return body.strip(), is_html
 
-    def _extract_urls(self, msg) -> List[Dict]:
+    def _extract_urls(self, msg, body: str, is_html: bool) -> List[Dict]:
         """
         Extract all URLs from email body and HTML.
 
@@ -174,9 +180,23 @@ class EmailParser:
             List of dictionaries containing URL and context
         """
         urls = []
-        body = self._extract_body(msg)
 
-        # Extract URLs from body
+        # If HTML, use BeautifulSoup
+        if is_html:
+            try:
+                soup = BeautifulSoup(body, "html.parser")
+                for a_tag in soup.find_all("a", href=True):
+                    href = a_tag["href"]
+                    text = a_tag.get_text(strip=True)
+
+                    url_info = self._url_info(href)
+                    if text:
+                        url_info["displayed_text"] = text
+                    urls.append(url_info)
+            except Exception:
+                pass  # Fallback to regex if BS4 fails
+
+        # Regex extraction for plain text or as backup
         if self.url_extractor:
             extracted_urls = self.url_extractor.find_urls(body)
             for url in extracted_urls:
@@ -188,24 +208,7 @@ class EmailParser:
             for url in matches:
                 urls.append(self._url_info(url))
 
-        # Extract URLs from href attributes if HTML
-        href_pattern = r'href=["\'](https?://[^\s"\'<>]+)'
-        href_matches = re.findall(href_pattern, body)
-        for url in href_matches:
-            urls.append(self._url_info(url))
-
-        # Extract URLs from text vs displayed link mismatches (anchor tags)
-        # Format: <a href="real_url">displayed_text</a>
-        anchor_pattern = (
-            r'<a\s+href=["\'](https?://[^\s"\'<>]+)["\']>([^<]+)</a>'
-        )
-        anchors = re.findall(anchor_pattern, body, re.IGNORECASE)
-        for real_url, display_text in anchors:
-            url_info = self._url_info(real_url)
-            url_info["displayed_text"] = display_text.strip()
-            urls.append(url_info)
-
-        # Remove duplicates
+        # Remove duplicates based on URL
         unique_urls = []
         seen = set()
         for url_obj in urls:
@@ -258,11 +261,3 @@ class EmailParser:
                         )
 
         return attachments
-
-    def _is_html_email(self, msg) -> bool:
-        """Check if email contains HTML content."""
-        if msg.is_multipart():
-            for part in msg.walk():
-                if part.get_content_type() == "text/html":
-                    return True
-        return False
