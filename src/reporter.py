@@ -69,10 +69,7 @@ class EmailReporter:
         }
 
         report.append(
-            report.append(
-                f"Risk Level:           "
-                f"{risk_indicators.get(risk_level, risk_level)}"
-            )
+            f"Risk Level:           " f"{risk_indicators.get(risk_level, risk_level)}"
         )
         report.append(f"Suspicion Score:      {score:.1f}/100")
         report.append("")
@@ -388,9 +385,7 @@ class EmailReporter:
         report.append("")
 
         report.append(
-            report.append(
-                f"Analysis Date: " f"{datetime.now().strftime('%Y-%m-%d %H:%M:%S')}"
-            )
+            f"Analysis Date: " f"{datetime.now().strftime('%Y-%m-%d %H:%M:%S')}"
         )
         report.append(f"Total Emails Analyzed: {len(batch_results)}")
         report.append("")
@@ -504,9 +499,7 @@ class EmailReporter:
                 "Minor phishing indicators. " "Exercise normal caution."
             )
             recommendations.append(
-                recommendations.append(
-                    "Do not click links unless you verify " "the sender independently."
-                )
+                "Do not click links unless you verify " "the sender independently."
             )
 
         elif risk_level == "MEDIUM_RISK":
@@ -515,9 +508,7 @@ class EmailReporter:
                 "Exercise heightened caution."
             )
             recommendations.append(
-                recommendations.append(
-                    "Do NOT click links or download attachments " "from this email."
-                )
+                "Do NOT click links or download attachments " "from this email."
             )
             recommendations.append(
                 "Verify any requests directly with the sender "
@@ -531,9 +522,7 @@ class EmailReporter:
                 "or requests in this email."
             )
             recommendations.append(
-                recommendations.append(
-                    "Report this email to your IT security team " "or email provider."
-                )
+                "Report this email to your IT security team " "or email provider."
             )
             recommendations.append("Delete the email immediately if possible.")
 
@@ -552,7 +541,9 @@ class EmailReporter:
         ):
             recommendations.append(
                 recommendations.append(
-                    "This email contains potentially dangerous file " "attachments."
+                    recommendations.append(
+                        "This email contains potentially dangerous file " "attachments."
+                    )
                 )
             )
 
