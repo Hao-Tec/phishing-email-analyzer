@@ -113,7 +113,7 @@ HEURISTIC_WEIGHTS.update(
     {
         "ml_confidence_high": 40,
         "ocr_suspicious_content": 20,
-        "external_db_positive": 100,  # Critical if found in PhishTank/Google SB
+        "external_db_positive": 100,  # Critical if found in Ext DBs
         "auth_dkim_fail": 25,
         "auth_spf_fail": 25,
         "auth_dmarc_fail": 25,

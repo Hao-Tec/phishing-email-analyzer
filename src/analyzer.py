@@ -151,7 +151,9 @@ class EmailAnalyzer:
                     {
                         "heuristic": "ml_confidence_high",
                         "severity": "HIGH",
-                        "description": f"ML Model detected phishing pattern ({ml_prob:.2f})",
+                        "description": (
+                            f"ML Model detected phishing pattern " f"({ml_prob:.2f})"
+                        ),
                         "weight": HEURISTIC_WEIGHTS["ml_confidence_high"],
                         "adjusted_weight": HEURISTIC_WEIGHTS["ml_confidence_high"]
                         * ml_prob,
