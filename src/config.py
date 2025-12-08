@@ -64,6 +64,71 @@ WHITELIST_DOMAINS = {
     "apple.com",
     "google.com",
     "amazon.com",
+    "linkedin.com",
+}
+
+# Trusted Domain Groups (Eco-systems)
+# Maps a primary domain to its known safe related domains
+TRUSTED_DOMAIN_GROUPS = {
+    "microsoft.com": {
+        "aka.ms",
+        "office.com",
+        "office365.com",
+        "microsoftonline.com",
+        "azure.com",
+        "msdn.com",
+        "visualstudio.com",
+        "linkedin.com",
+        "github.com",
+        "live.com",
+    },
+    "google.com": {
+        "goo.gl",
+        "youtube.com",
+        "googleapis.com",
+        "gstatic.com",
+        "googleusercontent.com",
+    },
+    "amazon.com": {
+        "aws.amazon.com",
+        "ssl-images-amazon.com",
+        "media-amazon.com",
+    },
+}
+
+# Platform domains that are commonly used for legitimate business/events
+# Links to these domains should NOT trigger a "Mismatch" alert even if
+# sender differs
+PLATFORM_DOMAINS = {
+    "zoho.com",
+    "zoho.in",
+    "zoom.us",
+    "teams.microsoft.com",
+    "meet.google.com",
+    "docs.google.com",
+    "drive.google.com",
+    "dropbox.com",
+    "slack.com",
+    "trello.com",
+    "atlassian.net",
+    "jira.com",
+    "bitbucket.org",
+    "github.com",
+    "gitlab.com",
+    "mailchimp.com",
+    "surveymonkey.com",
+    "eventbrite.com",
+    "lu.ma",
+    "meetup.com",
+}
+
+# Maximum score contribution per heuristic type
+# Prevents a single issue (like many long URLs) from becoming CRITICAL
+MAX_SCORE_CONTRIBUTION = {
+    "url_obfuscation": 30,
+    "url_mismatch_with_text": 40,
+    "sender_domain_mismatch": 40,
+    "suspicious_tld": 20,
 }
 
 # Suspicious TLDs
@@ -87,7 +152,7 @@ URGENT_KEYWORDS = {
 }
 
 # Maximum URL length before suspicious (typically longer for obfuscation)
-MAX_URL_LENGTH = 100
+MAX_URL_LENGTH = 200
 
 # Minimum URL length that's considered valid
 MIN_URL_LENGTH = 10
