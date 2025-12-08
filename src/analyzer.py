@@ -88,7 +88,6 @@ class EmailAnalyzer:
                 # We can reuse heuristics or just checking simple urgent
                 # keywords
                 # For now, just add it to body for ML and LLM
-                # For now, just add it to body for ML and LLM
                 email_data["body"] += "\n\n[OCR EXTRACTED CONTENT]\n" + ocr_text
 
                 # Simple check
@@ -209,8 +208,6 @@ class EmailAnalyzer:
         # 6. LLM Analysis (Existing - kept as is, but using augmented body)
         llm_data = {}
         if email_data.get("body"):
-            # We skip if score is already critical to save tokens,
-            # unless we want full report
             # We skip if score is already critical to save tokens,
             # unless we want full report
             llm_score, llm_data = self.llm_analyzer.analyze(email_data["body"])

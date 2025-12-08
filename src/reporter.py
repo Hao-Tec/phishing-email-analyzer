@@ -36,7 +36,8 @@ class EmailReporter:
 
         # Timestamp
         report.append(
-            f"Analysis Date: " f"{datetime.now().strftime('%Y-%m-%d %H:%M:%S')}"
+            f"Analysis Date: "
+            f"{datetime.now().strftime('%Y-%m-%d %H:%M:%S')}"  # noqa: E501
         )
         report.append("")
 
@@ -48,9 +49,8 @@ class EmailReporter:
         report.append(f"To:        {metadata.get('recipient', 'N/A')}")
         report.append(f"Subject:   {metadata.get('subject', 'N/A')}")
         report.append(f"Date:      {metadata.get('date', 'N/A')}")
-        report.append(
-            f"Format:    {'HTML' if metadata.get('is_html') else 'Plain Text'}"
-        )
+        is_html = "HTML" if metadata.get("is_html") else "Plain Text"
+        report.append(f"Format:    {is_html}")
         report.append("")
 
         # Risk assessment
@@ -69,7 +69,8 @@ class EmailReporter:
         }
 
         report.append(
-            f"Risk Level:           " f"{risk_indicators.get(risk_level, risk_level)}"
+            f"Risk Level:           "
+            f"{risk_indicators.get(risk_level, risk_level)}"  # noqa: E501
         )
         report.append(f"Suspicion Score:      {score:.1f}/100")
         report.append("")
@@ -385,7 +386,8 @@ class EmailReporter:
         report.append("")
 
         report.append(
-            f"Analysis Date: " f"{datetime.now().strftime('%Y-%m-%d %H:%M:%S')}"
+            f"Analysis Date: "
+            f"{datetime.now().strftime('%Y-%m-%d %H:%M:%S')}"  # noqa: E501
         )
         report.append(f"Total Emails Analyzed: {len(batch_results)}")
         report.append("")
@@ -496,7 +498,7 @@ class EmailReporter:
 
         elif risk_level == "LOW_RISK":
             recommendations.append(
-                "Minor phishing indicators. " "Exercise normal caution."
+                "Minor phishing indicators. Exercise normal caution."
             )
             recommendations.append(
                 "Do not click links unless you verify " "the sender independently."
@@ -536,15 +538,11 @@ class EmailReporter:
         # Add specific recommendations based on findings
         high_severity_findings = [f for f in findings if f.get("severity") == "HIGH"]
         if any(
-            f.get("heuristic") == "suspicious_attachment"
+            f.get("heuristic") == "suspicious_attachment"  # noqa: E501
             for f in high_severity_findings
         ):
             recommendations.append(
-                recommendations.append(
-                    recommendations.append(
-                        "This email contains potentially dangerous file " "attachments."
-                    )
-                )
+                "This email contains potentially dangerous file " "attachments."
             )
 
         if any(
