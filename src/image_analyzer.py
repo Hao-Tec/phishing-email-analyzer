@@ -57,9 +57,13 @@ class ImageAnalyzer:
                 if text.strip():
                     extracted_text.append(
                         f"--- Extracted from "
-                        f"{img_data.get('filename', 'image')} ---\n{text}"
+                        f"{img_data.get('filename', 'image')} "
+                        f"---\n{text}"
                     )
             except Exception as e:
-                logging.warning(f"OCR failed for image {img_data.get('filename')}: {e}")
+                logging.warning(
+                    f"OCR failed for image "
+                    f"{img_data.get('filename')}: {e}"
+                )
 
         return "\n\n".join(extracted_text)

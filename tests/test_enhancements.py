@@ -22,8 +22,12 @@ class TestEnhancements(unittest.TestCase):
         """Test that all new components are initialized in the analyzer."""
         self.assertIsInstance(self.analyzer.auth_validator, AuthValidator)
         self.assertIsInstance(self.analyzer.image_analyzer, ImageAnalyzer)
-        self.assertIsInstance(self.analyzer.ml_analyzer, MLAnalyzer)
-        self.assertIsInstance(self.analyzer.external_scanners, ExternalScanners)
+        self.assertIsInstance(
+            self.analyzer.ml_analyzer, MLAnalyzer
+        )
+        self.assertIsInstance(
+            self.analyzer.external_scanners, ExternalScanners
+        )
 
     def test_auth_validator(self):
         """Test AuthValidator logic."""
@@ -31,17 +35,20 @@ class TestEnhancements(unittest.TestCase):
             print("Skipping DKIM test - library not installed")
             return
 
-        with patch("src.auth_validator.dkim.verify") as mock_dkim, patch(
-            "src.auth_validator.AuthValidator._get_dns_record"
-        ) as mock_dns:
+        with patch("src.auth_validator.dkim.verify") as mock_dkim:
+            with patch(
+                "src.auth_validator.AuthValidator._get_dns_record"
+            ) as mock_dns:
 
-            # Mock DKIM pass
-            mock_dkim.return_value = True
-            # Mock SPF record
-            mock_dns.return_value = ["v=spf1 include:_spf.google.com ~all"]
+                # Mock DKIM pass
+                mock_dkim.return_value = True
+                # Mock SPF record
+                mock_dns.return_value = ["v=spf1 include:_spf.google.com ~all"]
 
-            validator = AuthValidator()
-            results = validator.validate(b"raw email content", {}, "test@example.com")
+                validator = AuthValidator()
+                results = validator.validate(
+                    b"raw email content", {}, "test@example.com"
+                )
 
             self.assertTrue(results["dkim_pass"])
 

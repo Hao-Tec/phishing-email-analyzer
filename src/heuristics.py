@@ -203,16 +203,23 @@ class PhishingHeuristics:
                 self._add_finding(
                     "url_obfuscation",
                     "HIGH",
-                    (f"Shortened URL detected: {domain} " f"- destination is hidden"),
+                    (
+                        f"Shortened URL detected: {domain} "
+                        f"- destination is hidden"
+                    ),
                     {"url": url, "domain": domain},
                 )
 
-            # Check for hex-encoded or base64-like patterns in domain
+            # Check for hex-encoded or base64-like patterns
+            # in domain
             if re.search(r"%[0-9a-f]{2}", url, re.IGNORECASE):
                 self._add_finding(
                     "url_obfuscation",
                     "HIGH",
-                    ("URL contains hex-encoded characters " "(obfuscation technique)"),
+                    (
+                        "URL contains hex-encoded characters "
+                        "(obfuscation technique)"
+                    ),
                     {"url": url},
                 )
 
@@ -222,7 +229,10 @@ class PhishingHeuristics:
                 self._add_finding(
                     "url_obfuscation",
                     "MEDIUM",
-                    (f"Excessive subdomains detected in URL " f"({subdomain_count})"),
+                    (
+                        f"Excessive subdomains detected in URL "
+                        f"({subdomain_count})"
+                    ),
                     {"domain": domain},
                 )
 
@@ -263,9 +273,10 @@ class PhishingHeuristics:
 
             # Check for suspicious content-type mismatch
             if content_type.startswith("application/") and not any(
-                content_type.endswith(ext.strip(".")) for ext in SUSPICIOUS_EXTENSIONS
+                content_type.endswith(ext.strip("."))
+                for ext in SUSPICIOUS_EXTENSIONS
             ):
-                pass  # This is normal for most application files
+                pass  # This is normal for most files
 
     def _check_header_anomalies(self, email_data: Dict):
         """Check for anomalies in email headers."""

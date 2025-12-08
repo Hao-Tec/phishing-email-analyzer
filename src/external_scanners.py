@@ -63,9 +63,11 @@ class ExternalScanners:
             )
             if response.status_code == 200:
                 data = response.json()
-                return data.get("results", {}).get("in_database", False) and data.get(
-                    "results", {}
-                ).get("valid", False)
+                results = data.get("results", {})
+                return (
+                    results.get("in_database", False)
+                    and results.get("valid", False)
+                )
         except Exception as e:
             logging.warning(f"PhishTank check failed: {e}")
         return False

@@ -58,24 +58,31 @@ class EmailParser:
                     raw_content = f.read()
                 with gzip.open(email_path, "rb") as f:
                     raw_content = f.read()
-                    msg = email.message_from_bytes(raw_content, policy=policy.default)
+                    msg = email.message_from_bytes(
+                        raw_content, policy=policy.default
+                    )
 
             # Handle .msg (Outlook)
             elif email_path.suffix.lower() == ".msg":
                 if extract_msg:
                     msg_obj = extract_msg.Message(email_path)
-                    # Convert to standard email object structure or extract
-                    # directly. For consistency, we'll try to map it to our
-                    # structure manually since it's not a python object.
+                    # Convert to standard email object structure
+                    # or extract directly. For consistency,
+                    # we'll try to map it to our structure
+                    # manually since it's not a python object.
                     return self._extract_msg_data(msg_obj)
                 else:
-                    raise ImportError("extract-msg library needed for .msg files")
+                    raise ImportError(
+                        "extract-msg library needed for .msg files"
+                    )
 
             # Handle standard .eml / .txt
             else:
                 with open(email_path, "rb") as f:
                     raw_content = f.read()
-                    msg = email.message_from_bytes(raw_content, policy=policy.default)
+                    msg = email.message_from_bytes(
+                        raw_content, policy=policy.default
+                    )
 
         except Exception as e:
             raise ValueError(f"Failed to parse email: {e}")
@@ -95,9 +102,14 @@ class EmailParser:
             Dictionary containing parsed email data
         """
         try:
-            # Attempt to encode back to bytes for raw consistency if possible
-            raw_content = email_string.encode("utf-8", errors="ignore")
-            msg = email.message_from_string(email_string, policy=policy.default)
+            # Attempt to encode back to bytes for raw
+            # consistency if possible
+            raw_content = email_string.encode(
+                "utf-8", errors="ignore"
+            )
+            msg = email.message_from_string(
+                email_string, policy=policy.default
+            )
         except Exception as e:
             raise ValueError(f"Failed to parse email string: {e}")
 
@@ -114,7 +126,9 @@ class EmailParser:
 
         # Prefer HTML if available for URL extraction
         content_body = (
-            html_body.decode("utf-8", errors="ignore") if html_body else (body or "")
+            html_body.decode("utf-8", errors="ignore")
+            if html_body
+            else (body or "")
         )
         is_html = bool(html_body)
 
