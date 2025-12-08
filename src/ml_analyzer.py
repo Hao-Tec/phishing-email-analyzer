@@ -37,7 +37,10 @@ class MLAnalyzer:
     def _load_model(self):
         """Load the model and vectorizer from disk."""
         try:
-            if os.path.exists(ML_MODEL_PATH) and os.path.exists(ML_VECTORIZER_PATH):
+            if (
+                os.path.exists(ML_MODEL_PATH)
+                and os.path.exists(ML_VECTORIZER_PATH)
+            ):
                 with open(ML_MODEL_PATH, "rb") as f:
                     self.model = pickle.load(f)
                 with open(ML_VECTORIZER_PATH, "rb") as f:
@@ -45,10 +48,13 @@ class MLAnalyzer:
                 self.enabled = True
             else:
                 logging.info(
-                    f"ML model not found at {ML_MODEL_PATH}. " "ML analysis disabled."
+                    f"ML model not found at {ML_MODEL_PATH}. "
+                    f"ML analysis disabled."
                 )
         except Exception as e:
-            logging.error(f"Failed to load ML model: {e}")
+            logging.error(
+                f"Failed to load ML model: {e}"
+            )
             self.enabled = False
 
     def analyze(self, text: str) -> Tuple[float, Dict]:

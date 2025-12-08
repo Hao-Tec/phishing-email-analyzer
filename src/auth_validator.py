@@ -31,7 +31,10 @@ class AuthValidator:
             self.resolver.lifetime = 2.0
             self.resolver.timeout = 2.0
         else:
-            logging.warning("dnspython not installed. SPF/DMARC checks disabled.")
+            logging.warning(
+                "dnspython not installed. SPF/DMARC checks "
+                "disabled."
+            )
 
         if not DKIM_AVAILABLE:
             logging.warning("dkimpy not installed. DKIM checks disabled.")
