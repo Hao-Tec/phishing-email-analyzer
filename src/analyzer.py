@@ -203,7 +203,7 @@ class EmailAnalyzer:
                         "severity": "LOW",
                         "description": (
                             f"Unverified Platform Link: {domain} "
-                            "(Configure VirusTotal to verify safety)"
+                            "(Configure VirusTotal)"
                         ),
                         "weight": 10,
                         "adjusted_weight": 10,
@@ -253,7 +253,10 @@ class EmailAnalyzer:
             # We skip if score is already critical to save tokens,
             # unless we want full report
             llm_score, llm_data = self.llm_analyzer.analyze(email_data["body"])
-            if llm_data.get("risk_level") in ["HIGH", "CRITICAL"] or llm_score > 0.7:
+
+            # Update score if high risk
+            is_high_risk = llm_data.get("risk_level") in ["HIGH", "CRITICAL"]
+            if is_high_risk or llm_score > 0.7:
                 findings.append(
                     {
                         "heuristic": "llm_analysis",
@@ -266,9 +269,19 @@ class EmailAnalyzer:
                         "details": llm_data,
                     }
                 )
-                score = min(
-                    100,
-                    score + (HEURISTIC_WEIGHTS["llm_analysis"] * llm_score),
+                score += HEURISTIC_WEIGHTS["llm_analysis"] * llm_score
+
+            # Transparency: Report AI findings even if SAFE
+            elif llm_data:
+                findings.append(
+                    {
+                        "heuristic": "llm_analysis",
+                        "severity": "LOW",
+                        "description": "AI Analysis: Content appears safe",
+                        "weight": 0,
+                        "adjusted_weight": 0,
+                        "details": llm_data,
+                    }
                 )
 
         # Cap score

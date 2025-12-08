@@ -1,0 +1,5002 @@
+[
+  {
+    "text": "Voicemail: You missed a call from HR. Listen here: http://bit.ly/secure",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Security Alert: A new device signed in from Russia. If this wasn't you, secure data here: http://cloud-storage.net/login",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Invoice #9982 is overdue. Please pay immediately via this secure portal: http://login-verification.com",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Your password for Microsoft 365 expires today. Renew now: http://cloud-storage.net/login",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Account Hacked: We detected malware. Download scanner: http://verify-identity.org",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Congratulations! You've won a Rolex Watch value at $2500. Claim here: http://bit.ly/secure",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Exclusive Deal: Get 90% off on iPhone 15 today only! Buy now: http://bit.ly/secure",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Charity Donation: verify your contribution of $5,000 to avoid tax penalties.",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Charity Donation: verify your contribution of $550 to avoid tax penalties.",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Your package delivery failed. Reschedule delivery here: http://cloud-storage.net/login within 24 hours.",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Charity Donation: verify your contribution of $550 to avoid tax penalties.",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Payment Confirmation: You sent $45,000 to Russia. Cancel if unauthorized: http://cloud-storage.net/login",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Unusual sign-in detected from Nigeria on your PlayStation 5. Is this you?",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Invoice #1123 is overdue. Please pay immediately via this secure portal: http://cloud-storage.net/login",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "HR Update: Review the new salary structure attached. Login required.",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "HR Update: Review the new salary structure attached. Login required.",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Action Required: Your banking profile needs an update. Visit http://login-verification.com",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Unusual sign-in detected from Unknown IP on your PlayStation 5. Is this you?",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "IT Support: Please install the attached security patch immediately.",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Dear User, Your account has been suspended due to suspicious activity. Click http://secure-portal.net to verify.",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Your password for Microsoft 365 expires today. Renew now: http://bit.ly/secure",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "URGENT: Verify your identity immediately or access will be revoked. http://secure-portal.net",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Your package delivery failed. Reschedule delivery here: http://secure-portal.net within 24 hours.",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Subscription payment failed for Netflix. Update payment info: http://cloud-storage.net/login",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Dear User, Your account has been suspended due to suspicious activity. Click http://bit.ly/secure to verify.",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Your password for Microsoft 365 expires today. Renew now: http://bit.ly/secure",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Tax Refund Notification: You have a pending refund of $5,000. Claim at http://bit.ly/secure.",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Congratulations! You've won a PlayStation 5 value at $99. Claim here: http://cloud-storage.net/login",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Dear User, Your account has been suspended due to suspicious activity. Click http://verify-identity.org to verify.",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "CEO Request: I need you to handle a wire transfer of $5,000 ASAP. Confidential.",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Subscription payment failed for Netflix. Update payment info: http://bit.ly/secure",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Charity Donation: verify your contribution of $1,200 to avoid tax penalties.",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Security Alert: A new device signed in from Nigeria. If this wasn't you, secure data here: http://login-verification.com",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Your password for Microsoft 365 expires today. Renew now: http://login-verification.com",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Tax Refund Notification: You have a pending refund of $9,999. Claim at http://secure-portal.net.",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Payment Confirmation: You sent $9,999 to Brazil. Cancel if unauthorized: http://verify-identity.org",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Account Hacked: We detected malware. Download scanner: http://cloud-storage.net/login",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "IT Support: Please install the attached security patch immediately.",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Exclusive Deal: Get 90% off on $1000 Gift Card today only! Buy now: http://secure-portal.net",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Dear User, Your account has been suspended due to suspicious activity. Click http://secure-portal.net to verify.",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Dear User, Your account has been suspended due to suspicious activity. Click http://bit.ly/secure to verify.",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Your password for Microsoft 365 expires today. Renew now: http://login-verification.com",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Your password for Microsoft 365 expires today. Renew now: http://secure-portal.net",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Your package delivery failed. Reschedule delivery here: http://secure-portal.net within 24 hours.",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "CEO Request: I need you to handle a wire transfer of $45,000 ASAP. Confidential.",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Subscription payment failed for Netflix. Update payment info: http://secure-portal.net",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Dear User, Your account has been suspended due to suspicious activity. Click http://verify-identity.org to verify.",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Action Required: Your banking profile needs an update. Visit http://login-verification.com",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Unusual sign-in detected from Dallas on your iPhone 15. Is this you?",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "IT Support: Please install the attached security patch immediately.",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Invoice #8821 is overdue. Please pay immediately via this secure portal: http://verify-identity.org",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Tax Refund Notification: You have a pending refund of $45,000. Claim at http://login-verification.com.",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Subscription payment failed for Netflix. Update payment info: http://secure-portal.net",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Payment Confirmation: You sent $12,500 to Russia. Cancel if unauthorized: http://secure-portal.net",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Charity Donation: verify your contribution of $5,000 to avoid tax penalties.",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Subscription payment failed for Netflix. Update payment info: http://bit.ly/secure",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Dear User, Your account has been suspended due to suspicious activity. Click http://cloud-storage.net/login to verify.",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "IT Support: Please install the attached security patch immediately.",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Charity Donation: verify your contribution of $1,200 to avoid tax penalties.",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Security Alert: A new device signed in from Nigeria. If this wasn't you, secure data here: http://bit.ly/secure",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Final Warning: Your storage is full. Upgrade now or lose files: http://bit.ly/secure",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Your package delivery failed. Reschedule delivery here: http://secure-portal.net within 24 hours.",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Your package delivery failed. Reschedule delivery here: http://bit.ly/secure within 24 hours.",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Your password for Microsoft 365 expires today. Renew now: http://verify-identity.org",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "CEO Request: I need you to handle a wire transfer of $5,000 ASAP. Confidential.",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "URGENT: Verify your identity immediately or access will be revoked. http://bit.ly/secure",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "CEO Request: I need you to handle a wire transfer of $1,200 ASAP. Confidential.",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Action Required: Your banking profile needs an update. Visit http://bit.ly/secure",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Unusual sign-in detected from China on your Samsung Galaxy. Is this you?",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "URGENT: Verify your identity immediately or access will be revoked. http://verify-identity.org",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Account Hacked: We detected malware. Download scanner: http://secure-portal.net",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "URGENT: Verify your identity immediately or access will be revoked. http://cloud-storage.net/login",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Your password for Microsoft 365 expires today. Renew now: http://secure-portal.net",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Your package delivery failed. Reschedule delivery here: http://verify-identity.org within 24 hours.",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Action Required: Your banking profile needs an update. Visit http://cloud-storage.net/login",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Invoice #9982 is overdue. Please pay immediately via this secure portal: http://bit.ly/secure",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "IT Support: Please install the attached security patch immediately.",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Exclusive Deal: Get 90% off on Rolex Watch today only! Buy now: http://bit.ly/secure",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Payment Confirmation: You sent $1,200 to Unknown IP. Cancel if unauthorized: http://login-verification.com",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Your package delivery failed. Reschedule delivery here: http://login-verification.com within 24 hours.",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Unusual sign-in detected from Nigeria on your iPhone 15. Is this you?",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Final Warning: Your storage is full. Upgrade now or lose files: http://cloud-storage.net/login",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Payment Confirmation: You sent $9,999 to Kiev. Cancel if unauthorized: http://bit.ly/secure",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Tax Refund Notification: You have a pending refund of $12,500. Claim at http://bit.ly/secure.",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "CEO Request: I need you to handle a wire transfer of $45,000 ASAP. Confidential.",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Unusual sign-in detected from China on your Walmart Voucher. Is this you?",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Action Required: Your banking profile needs an update. Visit http://bit.ly/secure",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Unusual sign-in detected from Brazil on your Tesla Model S. Is this you?",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Your password for Microsoft 365 expires today. Renew now: http://login-verification.com",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Charity Donation: verify your contribution of $45,000 to avoid tax penalties.",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Final Warning: Your storage is full. Upgrade now or lose files: http://login-verification.com",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Exclusive Deal: Get 90% off on PlayStation 5 today only! Buy now: http://secure-portal.net",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Unusual sign-in detected from Nigeria on your MacBook Pro. Is this you?",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Charity Donation: verify your contribution of $9,999 to avoid tax penalties.",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Charity Donation: verify your contribution of $550 to avoid tax penalties.",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Congratulations! You've won a Rolex Watch value at $10. Claim here: http://cloud-storage.net/login",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Action Required: Your banking profile needs an update. Visit http://verify-identity.org",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Unusual sign-in detected from Kiev on your $1000 Gift Card. Is this you?",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Final Warning: Your storage is full. Upgrade now or lose files: http://secure-portal.net",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Charity Donation: verify your contribution of $5,000 to avoid tax penalties.",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Unusual sign-in detected from Unknown IP on your Rolex Watch. Is this you?",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Payment Confirmation: You sent $550 to Russia. Cancel if unauthorized: http://secure-portal.net",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Dear User, Your account has been suspended due to suspicious activity. Click http://verify-identity.org to verify.",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Account Hacked: We detected malware. Download scanner: http://bit.ly/secure",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Subscription payment failed for Netflix. Update payment info: http://login-verification.com",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Your password for Microsoft 365 expires today. Renew now: http://bit.ly/secure",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Your package delivery failed. Reschedule delivery here: http://cloud-storage.net/login within 24 hours.",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "URGENT: Verify your identity immediately or access will be revoked. http://login-verification.com",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "HR Update: Review the new salary structure attached. Login required.",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Security Alert: A new device signed in from Kiev. If this wasn't you, secure data here: http://cloud-storage.net/login",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Security Alert: A new device signed in from Brazil. If this wasn't you, secure data here: http://verify-identity.org",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Your password for Microsoft 365 expires today. Renew now: http://cloud-storage.net/login",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Payment Confirmation: You sent $550 to Dallas. Cancel if unauthorized: http://secure-portal.net",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Security Alert: A new device signed in from Unknown IP. If this wasn't you, secure data here: http://cloud-storage.net/login",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Your password for Microsoft 365 expires today. Renew now: http://secure-portal.net",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "CEO Request: I need you to handle a wire transfer of $12,500 ASAP. Confidential.",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Dear User, Your account has been suspended due to suspicious activity. Click http://bit.ly/secure to verify.",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Your package delivery failed. Reschedule delivery here: http://cloud-storage.net/login within 24 hours.",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Congratulations! You've won a Walmart Voucher value at $99. Claim here: http://secure-portal.net",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "IT Support: Please install the attached security patch immediately.",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Subscription payment failed for Netflix. Update payment info: http://verify-identity.org",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "URGENT: Verify your identity immediately or access will be revoked. http://secure-portal.net",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Subscription payment failed for Netflix. Update payment info: http://cloud-storage.net/login",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Account Hacked: We detected malware. Download scanner: http://verify-identity.org",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "HR Update: Review the new salary structure attached. Login required.",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Dear User, Your account has been suspended due to suspicious activity. Click http://cloud-storage.net/login to verify.",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Action Required: Your banking profile needs an update. Visit http://secure-portal.net",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Security Alert: A new device signed in from Nigeria. If this wasn't you, secure data here: http://cloud-storage.net/login",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Your package delivery failed. Reschedule delivery here: http://secure-portal.net within 24 hours.",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Security Alert: A new device signed in from Brazil. If this wasn't you, secure data here: http://verify-identity.org",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Your password for Microsoft 365 expires today. Renew now: http://cloud-storage.net/login",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Your password for Microsoft 365 expires today. Renew now: http://cloud-storage.net/login",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Security Alert: A new device signed in from Russia. If this wasn't you, secure data here: http://login-verification.com",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Your password for Microsoft 365 expires today. Renew now: http://secure-portal.net",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "CEO Request: I need you to handle a wire transfer of $12,500 ASAP. Confidential.",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "HR Update: Review the new salary structure attached. Login required.",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Congratulations! You've won a Walmart Voucher value at $1000. Claim here: http://secure-portal.net",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Dear User, Your account has been suspended due to suspicious activity. Click http://login-verification.com to verify.",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Charity Donation: verify your contribution of $12,500 to avoid tax penalties.",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Dear User, Your account has been suspended due to suspicious activity. Click http://login-verification.com to verify.",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Action Required: Your banking profile needs an update. Visit http://secure-portal.net",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Payment Confirmation: You sent $550 to China. Cancel if unauthorized: http://bit.ly/secure",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Charity Donation: verify your contribution of $5,000 to avoid tax penalties.",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "URGENT: Verify your identity immediately or access will be revoked. http://cloud-storage.net/login",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Tax Refund Notification: You have a pending refund of $12,500. Claim at http://cloud-storage.net/login.",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Your package delivery failed. Reschedule delivery here: http://verify-identity.org within 24 hours.",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Congratulations! You've won a Rolex Watch value at $500. Claim here: http://bit.ly/secure",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Invoice #1123 is overdue. Please pay immediately via this secure portal: http://bit.ly/secure",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Your password for Microsoft 365 expires today. Renew now: http://login-verification.com",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Your password for Microsoft 365 expires today. Renew now: http://secure-portal.net",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Charity Donation: verify your contribution of $9,999 to avoid tax penalties.",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Your password for Microsoft 365 expires today. Renew now: http://bit.ly/secure",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Final Warning: Your storage is full. Upgrade now or lose files: http://bit.ly/secure",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "URGENT: Verify your identity immediately or access will be revoked. http://cloud-storage.net/login",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Account Hacked: We detected malware. Download scanner: http://login-verification.com",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Exclusive Deal: Get 90% off on Rolex Watch today only! Buy now: http://verify-identity.org",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Subscription payment failed for Netflix. Update payment info: http://bit.ly/secure",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Security Alert: A new device signed in from Brazil. If this wasn't you, secure data here: http://bit.ly/secure",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Congratulations! You've won a $1000 Gift Card value at $150. Claim here: http://secure-portal.net",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Payment Confirmation: You sent $550 to Russia. Cancel if unauthorized: http://cloud-storage.net/login",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Unusual sign-in detected from Kiev on your Walmart Voucher. Is this you?",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Charity Donation: verify your contribution of $12,500 to avoid tax penalties.",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Exclusive Deal: Get 90% off on Samsung Galaxy today only! Buy now: http://verify-identity.org",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Unusual sign-in detected from Russia on your Rolex Watch. Is this you?",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Final Warning: Your storage is full. Upgrade now or lose files: http://cloud-storage.net/login",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Dear User, Your account has been suspended due to suspicious activity. Click http://secure-portal.net to verify.",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Final Warning: Your storage is full. Upgrade now or lose files: http://cloud-storage.net/login",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Congratulations! You've won a Samsung Galaxy value at $500. Claim here: http://secure-portal.net",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Payment Confirmation: You sent $12,500 to Brazil. Cancel if unauthorized: http://bit.ly/secure",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Account Hacked: We detected malware. Download scanner: http://cloud-storage.net/login",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Congratulations! You've won a Tesla Model S value at $2500. Claim here: http://verify-identity.org",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "CEO Request: I need you to handle a wire transfer of $550 ASAP. Confidential.",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Payment Confirmation: You sent $9,999 to Russia. Cancel if unauthorized: http://bit.ly/secure",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "CEO Request: I need you to handle a wire transfer of $45,000 ASAP. Confidential.",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "URGENT: Verify your identity immediately or access will be revoked. http://bit.ly/secure",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Final Warning: Your storage is full. Upgrade now or lose files: http://secure-portal.net",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Unusual sign-in detected from Russia on your iPhone 15. Is this you?",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Exclusive Deal: Get 90% off on MacBook Pro today only! Buy now: http://secure-portal.net",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Congratulations! You've won a Samsung Galaxy value at $2500. Claim here: http://bit.ly/secure",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "CEO Request: I need you to handle a wire transfer of $1,200 ASAP. Confidential.",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Congratulations! You've won a Walmart Voucher value at $99. Claim here: http://bit.ly/secure",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Invoice #1123 is overdue. Please pay immediately via this secure portal: http://cloud-storage.net/login",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Action Required: Your banking profile needs an update. Visit http://verify-identity.org",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Voicemail: You missed a call from HR. Listen here: http://bit.ly/secure",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Exclusive Deal: Get 90% off on $1000 Gift Card today only! Buy now: http://bit.ly/secure",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Exclusive Deal: Get 90% off on Tesla Model S today only! Buy now: http://login-verification.com",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Action Required: Your banking profile needs an update. Visit http://secure-portal.net",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "CEO Request: I need you to handle a wire transfer of $550 ASAP. Confidential.",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Account Hacked: We detected malware. Download scanner: http://login-verification.com",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Your package delivery failed. Reschedule delivery here: http://cloud-storage.net/login within 24 hours.",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Account Hacked: We detected malware. Download scanner: http://bit.ly/secure",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Action Required: Your banking profile needs an update. Visit http://verify-identity.org",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Your package delivery failed. Reschedule delivery here: http://verify-identity.org within 24 hours.",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Final Warning: Your storage is full. Upgrade now or lose files: http://login-verification.com",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Subscription payment failed for Netflix. Update payment info: http://secure-portal.net",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Voicemail: You missed a call from HR. Listen here: http://bit.ly/secure",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Invoice #3392 is overdue. Please pay immediately via this secure portal: http://cloud-storage.net/login",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "CEO Request: I need you to handle a wire transfer of $1,200 ASAP. Confidential.",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Subscription payment failed for Netflix. Update payment info: http://secure-portal.net",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "IT Support: Please install the attached security patch immediately.",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Your password for Microsoft 365 expires today. Renew now: http://verify-identity.org",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Charity Donation: verify your contribution of $550 to avoid tax penalties.",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Your package delivery failed. Reschedule delivery here: http://verify-identity.org within 24 hours.",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Final Warning: Your storage is full. Upgrade now or lose files: http://secure-portal.net",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "IT Support: Please install the attached security patch immediately.",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "IT Support: Please install the attached security patch immediately.",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Security Alert: A new device signed in from Brazil. If this wasn't you, secure data here: http://login-verification.com",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Invoice #1123 is overdue. Please pay immediately via this secure portal: http://bit.ly/secure",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "CEO Request: I need you to handle a wire transfer of $12,500 ASAP. Confidential.",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Final Warning: Your storage is full. Upgrade now or lose files: http://login-verification.com",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Your password for Microsoft 365 expires today. Renew now: http://verify-identity.org",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Security Alert: A new device signed in from Nigeria. If this wasn't you, secure data here: http://verify-identity.org",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Security Alert: A new device signed in from Dallas. If this wasn't you, secure data here: http://bit.ly/secure",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "IT Support: Please install the attached security patch immediately.",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Invoice #5501 is overdue. Please pay immediately via this secure portal: http://cloud-storage.net/login",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Security Alert: A new device signed in from Unknown IP. If this wasn't you, secure data here: http://bit.ly/secure",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Congratulations! You've won a Samsung Galaxy value at $1000. Claim here: http://verify-identity.org",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Congratulations! You've won a Walmart Voucher value at $99. Claim here: http://login-verification.com",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Congratulations! You've won a Samsung Galaxy value at $99. Claim here: http://cloud-storage.net/login",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Charity Donation: verify your contribution of $1,200 to avoid tax penalties.",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Unusual sign-in detected from Unknown IP on your MacBook Pro. Is this you?",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Your package delivery failed. Reschedule delivery here: http://bit.ly/secure within 24 hours.",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Security Alert: A new device signed in from Brazil. If this wasn't you, secure data here: http://secure-portal.net",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Tax Refund Notification: You have a pending refund of $45,000. Claim at http://verify-identity.org.",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Voicemail: You missed a call from HR. Listen here: http://login-verification.com",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "CEO Request: I need you to handle a wire transfer of $5,000 ASAP. Confidential.",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Congratulations! You've won a Tesla Model S value at $10. Claim here: http://bit.ly/secure",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "HR Update: Review the new salary structure attached. Login required.",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Voicemail: You missed a call from HR. Listen here: http://cloud-storage.net/login",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Subscription payment failed for Netflix. Update payment info: http://bit.ly/secure",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Tax Refund Notification: You have a pending refund of $1,200. Claim at http://login-verification.com.",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "IT Support: Please install the attached security patch immediately.",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Account Hacked: We detected malware. Download scanner: http://verify-identity.org",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "HR Update: Review the new salary structure attached. Login required.",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Dear User, Your account has been suspended due to suspicious activity. Click http://verify-identity.org to verify.",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Unusual sign-in detected from Unknown IP on your $1000 Gift Card. Is this you?",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "IT Support: Please install the attached security patch immediately.",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Final Warning: Your storage is full. Upgrade now or lose files: http://verify-identity.org",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "HR Update: Review the new salary structure attached. Login required.",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "IT Support: Please install the attached security patch immediately.",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Payment Confirmation: You sent $550 to Russia. Cancel if unauthorized: http://secure-portal.net",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Congratulations! You've won a Samsung Galaxy value at $500. Claim here: http://login-verification.com",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Account Hacked: We detected malware. Download scanner: http://secure-portal.net",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "HR Update: Review the new salary structure attached. Login required.",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Invoice #3392 is overdue. Please pay immediately via this secure portal: http://verify-identity.org",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "IT Support: Please install the attached security patch immediately.",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Tax Refund Notification: You have a pending refund of $12,500. Claim at http://bit.ly/secure.",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Payment Confirmation: You sent $5,000 to Brazil. Cancel if unauthorized: http://cloud-storage.net/login",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Your package delivery failed. Reschedule delivery here: http://bit.ly/secure within 24 hours.",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Subscription payment failed for Netflix. Update payment info: http://verify-identity.org",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Voicemail: You missed a call from HR. Listen here: http://cloud-storage.net/login",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Voicemail: You missed a call from HR. Listen here: http://verify-identity.org",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Voicemail: You missed a call from HR. Listen here: http://verify-identity.org",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Tax Refund Notification: You have a pending refund of $1,200. Claim at http://verify-identity.org.",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Exclusive Deal: Get 90% off on Samsung Galaxy today only! Buy now: http://cloud-storage.net/login",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Charity Donation: verify your contribution of $5,000 to avoid tax penalties.",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "CEO Request: I need you to handle a wire transfer of $5,000 ASAP. Confidential.",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Subscription payment failed for Netflix. Update payment info: http://secure-portal.net",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Your package delivery failed. Reschedule delivery here: http://cloud-storage.net/login within 24 hours.",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "URGENT: Verify your identity immediately or access will be revoked. http://cloud-storage.net/login",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Account Hacked: We detected malware. Download scanner: http://verify-identity.org",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Your password for Microsoft 365 expires today. Renew now: http://login-verification.com",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Charity Donation: verify your contribution of $45,000 to avoid tax penalties.",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Unusual sign-in detected from Nigeria on your Tesla Model S. Is this you?",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Your package delivery failed. Reschedule delivery here: http://cloud-storage.net/login within 24 hours.",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Charity Donation: verify your contribution of $45,000 to avoid tax penalties.",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "IT Support: Please install the attached security patch immediately.",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Unusual sign-in detected from Kiev on your Rolex Watch. Is this you?",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Dear User, Your account has been suspended due to suspicious activity. Click http://bit.ly/secure to verify.",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Security Alert: A new device signed in from China. If this wasn't you, secure data here: http://bit.ly/secure",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "CEO Request: I need you to handle a wire transfer of $12,500 ASAP. Confidential.",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "HR Update: Review the new salary structure attached. Login required.",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Your package delivery failed. Reschedule delivery here: http://bit.ly/secure within 24 hours.",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Subscription payment failed for Netflix. Update payment info: http://secure-portal.net",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Your password for Microsoft 365 expires today. Renew now: http://secure-portal.net",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Unusual sign-in detected from Dallas on your PlayStation 5. Is this you?",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Dear User, Your account has been suspended due to suspicious activity. Click http://login-verification.com to verify.",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Your package delivery failed. Reschedule delivery here: http://cloud-storage.net/login within 24 hours.",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Congratulations! You've won a $1000 Gift Card value at $1000. Claim here: http://bit.ly/secure",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Dear User, Your account has been suspended due to suspicious activity. Click http://cloud-storage.net/login to verify.",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Account Hacked: We detected malware. Download scanner: http://verify-identity.org",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Security Alert: A new device signed in from Nigeria. If this wasn't you, secure data here: http://bit.ly/secure",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "IT Support: Please install the attached security patch immediately.",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Voicemail: You missed a call from HR. Listen here: http://bit.ly/secure",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Your password for Microsoft 365 expires today. Renew now: http://cloud-storage.net/login",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Congratulations! You've won a Walmart Voucher value at $150. Claim here: http://login-verification.com",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Exclusive Deal: Get 90% off on $1000 Gift Card today only! Buy now: http://bit.ly/secure",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "HR Update: Review the new salary structure attached. Login required.",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "URGENT: Verify your identity immediately or access will be revoked. http://verify-identity.org",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "CEO Request: I need you to handle a wire transfer of $550 ASAP. Confidential.",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Account Hacked: We detected malware. Download scanner: http://secure-portal.net",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "URGENT: Verify your identity immediately or access will be revoked. http://login-verification.com",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "CEO Request: I need you to handle a wire transfer of $45,000 ASAP. Confidential.",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Tax Refund Notification: You have a pending refund of $550. Claim at http://login-verification.com.",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Account Hacked: We detected malware. Download scanner: http://cloud-storage.net/login",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "CEO Request: I need you to handle a wire transfer of $5,000 ASAP. Confidential.",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Congratulations! You've won a iPhone 15 value at $10. Claim here: http://login-verification.com",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Payment Confirmation: You sent $9,999 to Russia. Cancel if unauthorized: http://secure-portal.net",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "URGENT: Verify your identity immediately or access will be revoked. http://verify-identity.org",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "CEO Request: I need you to handle a wire transfer of $5,000 ASAP. Confidential.",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Congratulations! You've won a Samsung Galaxy value at $150. Claim here: http://secure-portal.net",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Invoice #4451 is overdue. Please pay immediately via this secure portal: http://verify-identity.org",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Security Alert: A new device signed in from Nigeria. If this wasn't you, secure data here: http://secure-portal.net",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Congratulations! You've won a iPhone 15 value at $1000. Claim here: http://cloud-storage.net/login",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Your password for Microsoft 365 expires today. Renew now: http://cloud-storage.net/login",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "HR Update: Review the new salary structure attached. Login required.",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Final Warning: Your storage is full. Upgrade now or lose files: http://cloud-storage.net/login",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Dear User, Your account has been suspended due to suspicious activity. Click http://login-verification.com to verify.",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "HR Update: Review the new salary structure attached. Login required.",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Congratulations! You've won a $1000 Gift Card value at $500. Claim here: http://verify-identity.org",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Dear User, Your account has been suspended due to suspicious activity. Click http://secure-portal.net to verify.",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Account Hacked: We detected malware. Download scanner: http://verify-identity.org",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Unusual sign-in detected from Dallas on your iPhone 15. Is this you?",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Security Alert: A new device signed in from Kiev. If this wasn't you, secure data here: http://verify-identity.org",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Tax Refund Notification: You have a pending refund of $5,000. Claim at http://login-verification.com.",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Security Alert: A new device signed in from China. If this wasn't you, secure data here: http://cloud-storage.net/login",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Dear User, Your account has been suspended due to suspicious activity. Click http://login-verification.com to verify.",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Charity Donation: verify your contribution of $9,999 to avoid tax penalties.",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "HR Update: Review the new salary structure attached. Login required.",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Account Hacked: We detected malware. Download scanner: http://secure-portal.net",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Final Warning: Your storage is full. Upgrade now or lose files: http://secure-portal.net",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Security Alert: A new device signed in from Nigeria. If this wasn't you, secure data here: http://secure-portal.net",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Dear User, Your account has been suspended due to suspicious activity. Click http://secure-portal.net to verify.",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Payment Confirmation: You sent $5,000 to Kiev. Cancel if unauthorized: http://login-verification.com",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Invoice #1123 is overdue. Please pay immediately via this secure portal: http://cloud-storage.net/login",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Your password for Microsoft 365 expires today. Renew now: http://login-verification.com",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Final Warning: Your storage is full. Upgrade now or lose files: http://secure-portal.net",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Charity Donation: verify your contribution of $550 to avoid tax penalties.",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Exclusive Deal: Get 90% off on MacBook Pro today only! Buy now: http://login-verification.com",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Invoice #8821 is overdue. Please pay immediately via this secure portal: http://verify-identity.org",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "IT Support: Please install the attached security patch immediately.",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Final Warning: Your storage is full. Upgrade now or lose files: http://cloud-storage.net/login",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Final Warning: Your storage is full. Upgrade now or lose files: http://cloud-storage.net/login",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Congratulations! You've won a $1000 Gift Card value at $10. Claim here: http://login-verification.com",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "CEO Request: I need you to handle a wire transfer of $9,999 ASAP. Confidential.",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Action Required: Your banking profile needs an update. Visit http://secure-portal.net",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Final Warning: Your storage is full. Upgrade now or lose files: http://verify-identity.org",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Invoice #8821 is overdue. Please pay immediately via this secure portal: http://login-verification.com",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Tax Refund Notification: You have a pending refund of $1,200. Claim at http://login-verification.com.",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "URGENT: Verify your identity immediately or access will be revoked. http://verify-identity.org",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Dear User, Your account has been suspended due to suspicious activity. Click http://bit.ly/secure to verify.",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Your password for Microsoft 365 expires today. Renew now: http://bit.ly/secure",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Dear User, Your account has been suspended due to suspicious activity. Click http://bit.ly/secure to verify.",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Exclusive Deal: Get 90% off on iPhone 15 today only! Buy now: http://bit.ly/secure",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Your package delivery failed. Reschedule delivery here: http://cloud-storage.net/login within 24 hours.",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Subscription payment failed for Netflix. Update payment info: http://bit.ly/secure",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "CEO Request: I need you to handle a wire transfer of $12,500 ASAP. Confidential.",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "HR Update: Review the new salary structure attached. Login required.",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Congratulations! You've won a $1000 Gift Card value at $1000. Claim here: http://bit.ly/secure",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Your password for Microsoft 365 expires today. Renew now: http://cloud-storage.net/login",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "IT Support: Please install the attached security patch immediately.",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "IT Support: Please install the attached security patch immediately.",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Tax Refund Notification: You have a pending refund of $12,500. Claim at http://verify-identity.org.",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "CEO Request: I need you to handle a wire transfer of $12,500 ASAP. Confidential.",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Security Alert: A new device signed in from Dallas. If this wasn't you, secure data here: http://secure-portal.net",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Invoice #9982 is overdue. Please pay immediately via this secure portal: http://login-verification.com",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Exclusive Deal: Get 90% off on iPhone 15 today only! Buy now: http://bit.ly/secure",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Tax Refund Notification: You have a pending refund of $12,500. Claim at http://cloud-storage.net/login.",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Your password for Microsoft 365 expires today. Renew now: http://cloud-storage.net/login",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "CEO Request: I need you to handle a wire transfer of $1,200 ASAP. Confidential.",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Charity Donation: verify your contribution of $12,500 to avoid tax penalties.",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Exclusive Deal: Get 90% off on iPhone 15 today only! Buy now: http://secure-portal.net",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Unusual sign-in detected from Unknown IP on your $1000 Gift Card. Is this you?",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "IT Support: Please install the attached security patch immediately.",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "HR Update: Review the new salary structure attached. Login required.",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Tax Refund Notification: You have a pending refund of $45,000. Claim at http://secure-portal.net.",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Dear User, Your account has been suspended due to suspicious activity. Click http://verify-identity.org to verify.",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Invoice #3392 is overdue. Please pay immediately via this secure portal: http://cloud-storage.net/login",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "HR Update: Review the new salary structure attached. Login required.",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Your password for Microsoft 365 expires today. Renew now: http://cloud-storage.net/login",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Invoice #5501 is overdue. Please pay immediately via this secure portal: http://cloud-storage.net/login",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Action Required: Your banking profile needs an update. Visit http://secure-portal.net",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Security Alert: A new device signed in from Brazil. If this wasn't you, secure data here: http://verify-identity.org",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Congratulations! You've won a Samsung Galaxy value at $99. Claim here: http://cloud-storage.net/login",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Invoice #5501 is overdue. Please pay immediately via this secure portal: http://cloud-storage.net/login",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Action Required: Your banking profile needs an update. Visit http://login-verification.com",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Final Warning: Your storage is full. Upgrade now or lose files: http://bit.ly/secure",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Exclusive Deal: Get 90% off on iPhone 15 today only! Buy now: http://verify-identity.org",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Voicemail: You missed a call from HR. Listen here: http://bit.ly/secure",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Action Required: Your banking profile needs an update. Visit http://secure-portal.net",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Dear User, Your account has been suspended due to suspicious activity. Click http://bit.ly/secure to verify.",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "IT Support: Please install the attached security patch immediately.",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Unusual sign-in detected from Nigeria on your Walmart Voucher. Is this you?",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Final Warning: Your storage is full. Upgrade now or lose files: http://login-verification.com",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Congratulations! You've won a Samsung Galaxy value at $10. Claim here: http://verify-identity.org",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Your password for Microsoft 365 expires today. Renew now: http://verify-identity.org",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Tax Refund Notification: You have a pending refund of $12,500. Claim at http://secure-portal.net.",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Account Hacked: We detected malware. Download scanner: http://cloud-storage.net/login",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "URGENT: Verify your identity immediately or access will be revoked. http://verify-identity.org",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Your package delivery failed. Reschedule delivery here: http://secure-portal.net within 24 hours.",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "CEO Request: I need you to handle a wire transfer of $5,000 ASAP. Confidential.",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Voicemail: You missed a call from HR. Listen here: http://cloud-storage.net/login",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "URGENT: Verify your identity immediately or access will be revoked. http://login-verification.com",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Final Warning: Your storage is full. Upgrade now or lose files: http://verify-identity.org",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "HR Update: Review the new salary structure attached. Login required.",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Congratulations! You've won a Walmart Voucher value at $2500. Claim here: http://cloud-storage.net/login",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Payment Confirmation: You sent $1,200 to Dallas. Cancel if unauthorized: http://cloud-storage.net/login",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Payment Confirmation: You sent $9,999 to China. Cancel if unauthorized: http://secure-portal.net",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Charity Donation: verify your contribution of $550 to avoid tax penalties.",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "CEO Request: I need you to handle a wire transfer of $45,000 ASAP. Confidential.",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Voicemail: You missed a call from HR. Listen here: http://verify-identity.org",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Voicemail: You missed a call from HR. Listen here: http://secure-portal.net",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Tax Refund Notification: You have a pending refund of $9,999. Claim at http://cloud-storage.net/login.",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Payment Confirmation: You sent $45,000 to Dallas. Cancel if unauthorized: http://secure-portal.net",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "HR Update: Review the new salary structure attached. Login required.",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Payment Confirmation: You sent $12,500 to China. Cancel if unauthorized: http://login-verification.com",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "CEO Request: I need you to handle a wire transfer of $1,200 ASAP. Confidential.",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Action Required: Your banking profile needs an update. Visit http://verify-identity.org",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Subscription payment failed for Netflix. Update payment info: http://login-verification.com",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Payment Confirmation: You sent $45,000 to Nigeria. Cancel if unauthorized: http://bit.ly/secure",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "IT Support: Please install the attached security patch immediately.",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Account Hacked: We detected malware. Download scanner: http://login-verification.com",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "URGENT: Verify your identity immediately or access will be revoked. http://secure-portal.net",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Action Required: Your banking profile needs an update. Visit http://login-verification.com",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Security Alert: A new device signed in from Dallas. If this wasn't you, secure data here: http://verify-identity.org",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Your package delivery failed. Reschedule delivery here: http://cloud-storage.net/login within 24 hours.",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Unusual sign-in detected from Dallas on your MacBook Pro. Is this you?",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Voicemail: You missed a call from HR. Listen here: http://verify-identity.org",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Your password for Microsoft 365 expires today. Renew now: http://secure-portal.net",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Dear User, Your account has been suspended due to suspicious activity. Click http://secure-portal.net to verify.",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Security Alert: A new device signed in from China. If this wasn't you, secure data here: http://login-verification.com",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Dear User, Your account has been suspended due to suspicious activity. Click http://cloud-storage.net/login to verify.",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Congratulations! You've won a Walmart Voucher value at $2500. Claim here: http://verify-identity.org",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Charity Donation: verify your contribution of $550 to avoid tax penalties.",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "IT Support: Please install the attached security patch immediately.",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Account Hacked: We detected malware. Download scanner: http://login-verification.com",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Subscription payment failed for Netflix. Update payment info: http://secure-portal.net",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "IT Support: Please install the attached security patch immediately.",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Exclusive Deal: Get 90% off on Rolex Watch today only! Buy now: http://secure-portal.net",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Subscription payment failed for Netflix. Update payment info: http://cloud-storage.net/login",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Invoice #4451 is overdue. Please pay immediately via this secure portal: http://bit.ly/secure",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Tax Refund Notification: You have a pending refund of $1,200. Claim at http://secure-portal.net.",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Account Hacked: We detected malware. Download scanner: http://verify-identity.org",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Action Required: Your banking profile needs an update. Visit http://login-verification.com",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Subscription payment failed for Netflix. Update payment info: http://secure-portal.net",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Voicemail: You missed a call from HR. Listen here: http://secure-portal.net",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "HR Update: Review the new salary structure attached. Login required.",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Payment Confirmation: You sent $12,500 to Unknown IP. Cancel if unauthorized: http://bit.ly/secure",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Final Warning: Your storage is full. Upgrade now or lose files: http://secure-portal.net",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "IT Support: Please install the attached security patch immediately.",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Your package delivery failed. Reschedule delivery here: http://secure-portal.net within 24 hours.",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "HR Update: Review the new salary structure attached. Login required.",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Dear User, Your account has been suspended due to suspicious activity. Click http://bit.ly/secure to verify.",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Your password for Microsoft 365 expires today. Renew now: http://verify-identity.org",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Exclusive Deal: Get 90% off on Samsung Galaxy today only! Buy now: http://verify-identity.org",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "CEO Request: I need you to handle a wire transfer of $45,000 ASAP. Confidential.",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Your package delivery failed. Reschedule delivery here: http://login-verification.com within 24 hours.",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Subscription payment failed for Netflix. Update payment info: http://login-verification.com",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Unusual sign-in detected from Unknown IP on your Samsung Galaxy. Is this you?",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Dear User, Your account has been suspended due to suspicious activity. Click http://secure-portal.net to verify.",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Account Hacked: We detected malware. Download scanner: http://bit.ly/secure",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Subscription payment failed for Netflix. Update payment info: http://secure-portal.net",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "IT Support: Please install the attached security patch immediately.",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Unusual sign-in detected from Dallas on your Walmart Voucher. Is this you?",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Exclusive Deal: Get 90% off on Samsung Galaxy today only! Buy now: http://secure-portal.net",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "URGENT: Verify your identity immediately or access will be revoked. http://secure-portal.net",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "IT Support: Please install the attached security patch immediately.",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Exclusive Deal: Get 90% off on Samsung Galaxy today only! Buy now: http://secure-portal.net",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Voicemail: You missed a call from HR. Listen here: http://login-verification.com",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Account Hacked: We detected malware. Download scanner: http://verify-identity.org",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Security Alert: A new device signed in from Unknown IP. If this wasn't you, secure data here: http://login-verification.com",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Your password for Microsoft 365 expires today. Renew now: http://secure-portal.net",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Payment Confirmation: You sent $1,200 to Russia. Cancel if unauthorized: http://secure-portal.net",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "URGENT: Verify your identity immediately or access will be revoked. http://secure-portal.net",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Dear User, Your account has been suspended due to suspicious activity. Click http://verify-identity.org to verify.",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Exclusive Deal: Get 90% off on Walmart Voucher today only! Buy now: http://verify-identity.org",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Charity Donation: verify your contribution of $9,999 to avoid tax penalties.",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Your package delivery failed. Reschedule delivery here: http://secure-portal.net within 24 hours.",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Exclusive Deal: Get 90% off on MacBook Pro today only! Buy now: http://login-verification.com",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Subscription payment failed for Netflix. Update payment info: http://verify-identity.org",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Exclusive Deal: Get 90% off on Tesla Model S today only! Buy now: http://verify-identity.org",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "CEO Request: I need you to handle a wire transfer of $1,200 ASAP. Confidential.",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Payment Confirmation: You sent $5,000 to Nigeria. Cancel if unauthorized: http://secure-portal.net",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Final Warning: Your storage is full. Upgrade now or lose files: http://secure-portal.net",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Exclusive Deal: Get 90% off on MacBook Pro today only! Buy now: http://bit.ly/secure",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Security Alert: A new device signed in from Kiev. If this wasn't you, secure data here: http://bit.ly/secure",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Voicemail: You missed a call from HR. Listen here: http://verify-identity.org",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Invoice #5501 is overdue. Please pay immediately via this secure portal: http://bit.ly/secure",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Tax Refund Notification: You have a pending refund of $45,000. Claim at http://bit.ly/secure.",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Tax Refund Notification: You have a pending refund of $1,200. Claim at http://verify-identity.org.",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "CEO Request: I need you to handle a wire transfer of $12,500 ASAP. Confidential.",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Final Warning: Your storage is full. Upgrade now or lose files: http://cloud-storage.net/login",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Account Hacked: We detected malware. Download scanner: http://login-verification.com",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Final Warning: Your storage is full. Upgrade now or lose files: http://bit.ly/secure",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Congratulations! You've won a Samsung Galaxy value at $500. Claim here: http://secure-portal.net",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Security Alert: A new device signed in from Kiev. If this wasn't you, secure data here: http://verify-identity.org",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "HR Update: Review the new salary structure attached. Login required.",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Your package delivery failed. Reschedule delivery here: http://login-verification.com within 24 hours.",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "HR Update: Review the new salary structure attached. Login required.",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Dear User, Your account has been suspended due to suspicious activity. Click http://bit.ly/secure to verify.",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "URGENT: Verify your identity immediately or access will be revoked. http://verify-identity.org",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Your package delivery failed. Reschedule delivery here: http://verify-identity.org within 24 hours.",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Your package delivery failed. Reschedule delivery here: http://secure-portal.net within 24 hours.",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Charity Donation: verify your contribution of $550 to avoid tax penalties.",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Invoice #9982 is overdue. Please pay immediately via this secure portal: http://bit.ly/secure",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "IT Support: Please install the attached security patch immediately.",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Invoice #9982 is overdue. Please pay immediately via this secure portal: http://verify-identity.org",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Invoice #4451 is overdue. Please pay immediately via this secure portal: http://cloud-storage.net/login",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "IT Support: Please install the attached security patch immediately.",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Security Alert: A new device signed in from Brazil. If this wasn't you, secure data here: http://bit.ly/secure",
+    "label": 1,
+    "source": "template-engine"
+  },
+  {
+    "text": "Just checking in on the status of the Q3 project timeline.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Can verifying the integration test results today?",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Please update the Jira ticket with your latest findings.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "I'll be out of office next week for vacation.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Welcome to the team! Here is your onboarding documentation.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Let's sync up on the marketing strategy tomorrow morning.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "The office will be closed on Monday for the holiday.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Please find the attached quarterly report for your review.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Lunch is in the breakroom. Pizza and soda provided!",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "The client meeting moved to Zoom. Here is the link.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Let's sync up on the marketing strategy tomorrow morning.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Hi team, Here are the minutes from today's meeting. Let me know if I missed anything.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Please find the attached quarterly report for your review.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Please find the attached quarterly report for your review.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "The potluck is scheduled for Friday at 12 PM. Don't forget to bring a dish!",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Great job on closing that deal yesterday!",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "The server maintenance is scheduled for Sunday at 3 AM.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Can you send me the latest slide deck for the presentation?",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Just checking in on the status of the Q3 project timeline.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Hi team, Here are the minutes from today's meeting. Let me know if I missed anything.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Please find the attached quarterly report for your review.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Please find the attached quarterly report for your review.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Can we reschedule our 1:1 to next Tuesday at 2 PM?",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "I'll be out of office next week for vacation.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Let's sync up on the marketing strategy tomorrow morning.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Thanks for the update. Looks good to proceed.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Please update the Jira ticket with your latest findings.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Reminder: Please submit your timesheets by end of day Friday.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Great job on closing that deal yesterday!",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "The office will be closed on Monday for the holiday.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Let's sync up on the marketing strategy tomorrow morning.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Lunch is in the breakroom. Pizza and soda provided!",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "The client meeting moved to Zoom. Here is the link.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "I'll be out of office next week for vacation.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Just checking in on the status of the Q3 project timeline.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Don't forget to enroll in benefits by the deadline.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Can verifying the integration test results today?",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "I'll be out of office next week for vacation.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Don't forget to enroll in benefits by the deadline.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Happy Birthday! Hope you have a great day.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Welcome to the team! Here is your onboarding documentation.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Just checking in on the status of the Q3 project timeline.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Let's sync up on the marketing strategy tomorrow morning.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "The server maintenance is scheduled for Sunday at 3 AM.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Great job on closing that deal yesterday!",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "The server maintenance is scheduled for Sunday at 3 AM.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "The potluck is scheduled for Friday at 12 PM. Don't forget to bring a dish!",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "The client meeting moved to Zoom. Here is the link.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Can you send me the latest slide deck for the presentation?",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "The office will be closed on Monday for the holiday.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "The potluck is scheduled for Friday at 12 PM. Don't forget to bring a dish!",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Welcome to the team! Here is your onboarding documentation.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Please update the Jira ticket with your latest findings.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Reminder: Please submit your timesheets by end of day Friday.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "I'll be out of office next week for vacation.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Please find the attached quarterly report for your review.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "The server maintenance is scheduled for Sunday at 3 AM.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Let's sync up on the marketing strategy tomorrow morning.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Please update the Jira ticket with your latest findings.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "The office will be closed on Monday for the holiday.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Reminder: Please submit your timesheets by end of day Friday.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "I'll be out of office next week for vacation.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Can we reschedule our 1:1 to next Tuesday at 2 PM?",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "The potluck is scheduled for Friday at 12 PM. Don't forget to bring a dish!",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Can verifying the integration test results today?",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Hi team, Here are the minutes from today's meeting. Let me know if I missed anything.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "I'll be out of office next week for vacation.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Great job on closing that deal yesterday!",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Happy Birthday! Hope you have a great day.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Can verifying the integration test results today?",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Please find the attached quarterly report for your review.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Welcome to the team! Here is your onboarding documentation.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Lunch is in the breakroom. Pizza and soda provided!",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Can we reschedule our 1:1 to next Tuesday at 2 PM?",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Can we reschedule our 1:1 to next Tuesday at 2 PM?",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "I'll be out of office next week for vacation.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Hi team, Here are the minutes from today's meeting. Let me know if I missed anything.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "I'll be out of office next week for vacation.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Please update the Jira ticket with your latest findings.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "The client meeting moved to Zoom. Here is the link.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Please update the Jira ticket with your latest findings.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Just checking in on the status of the Q3 project timeline.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "The office will be closed on Monday for the holiday.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Can we reschedule our 1:1 to next Tuesday at 2 PM?",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Welcome to the team! Here is your onboarding documentation.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "The office will be closed on Monday for the holiday.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "The office will be closed on Monday for the holiday.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Reminder: Please submit your timesheets by end of day Friday.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Please update the Jira ticket with your latest findings.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Reminder: Please submit your timesheets by end of day Friday.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Thanks for the update. Looks good to proceed.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Thanks for the update. Looks good to proceed.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Please find the attached quarterly report for your review.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Great job on closing that deal yesterday!",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Happy Birthday! Hope you have a great day.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "The office will be closed on Monday for the holiday.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Please find the attached quarterly report for your review.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "The potluck is scheduled for Friday at 12 PM. Don't forget to bring a dish!",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "The office will be closed on Monday for the holiday.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "The office will be closed on Monday for the holiday.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "The potluck is scheduled for Friday at 12 PM. Don't forget to bring a dish!",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Can we reschedule our 1:1 to next Tuesday at 2 PM?",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Please update the Jira ticket with your latest findings.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Can you send me the latest slide deck for the presentation?",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Can verifying the integration test results today?",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Please update the Jira ticket with your latest findings.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Thanks for the update. Looks good to proceed.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Thanks for the update. Looks good to proceed.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "The server maintenance is scheduled for Sunday at 3 AM.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Please update the Jira ticket with your latest findings.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Great job on closing that deal yesterday!",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Let's sync up on the marketing strategy tomorrow morning.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Please find the attached quarterly report for your review.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Don't forget to enroll in benefits by the deadline.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Great job on closing that deal yesterday!",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Hi team, Here are the minutes from today's meeting. Let me know if I missed anything.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Let's sync up on the marketing strategy tomorrow morning.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "I'll be out of office next week for vacation.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "The potluck is scheduled for Friday at 12 PM. Don't forget to bring a dish!",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Great job on closing that deal yesterday!",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "The server maintenance is scheduled for Sunday at 3 AM.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Can you send me the latest slide deck for the presentation?",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Happy Birthday! Hope you have a great day.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Can we reschedule our 1:1 to next Tuesday at 2 PM?",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "The office will be closed on Monday for the holiday.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Just checking in on the status of the Q3 project timeline.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Don't forget to enroll in benefits by the deadline.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "The office will be closed on Monday for the holiday.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "The client meeting moved to Zoom. Here is the link.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Let's sync up on the marketing strategy tomorrow morning.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Can you send me the latest slide deck for the presentation?",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Happy Birthday! Hope you have a great day.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Can verifying the integration test results today?",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Don't forget to enroll in benefits by the deadline.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Can we reschedule our 1:1 to next Tuesday at 2 PM?",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Hi team, Here are the minutes from today's meeting. Let me know if I missed anything.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "I'll be out of office next week for vacation.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Happy Birthday! Hope you have a great day.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "The office will be closed on Monday for the holiday.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Thanks for the update. Looks good to proceed.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "The client meeting moved to Zoom. Here is the link.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Happy Birthday! Hope you have a great day.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Let's sync up on the marketing strategy tomorrow morning.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Thanks for the update. Looks good to proceed.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Reminder: Please submit your timesheets by end of day Friday.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Hi team, Here are the minutes from today's meeting. Let me know if I missed anything.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Please find the attached quarterly report for your review.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "The potluck is scheduled for Friday at 12 PM. Don't forget to bring a dish!",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Reminder: Please submit your timesheets by end of day Friday.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Reminder: Please submit your timesheets by end of day Friday.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Hi team, Here are the minutes from today's meeting. Let me know if I missed anything.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Happy Birthday! Hope you have a great day.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "I'll be out of office next week for vacation.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Please update the Jira ticket with your latest findings.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Can verifying the integration test results today?",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "The office will be closed on Monday for the holiday.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Please update the Jira ticket with your latest findings.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Reminder: Please submit your timesheets by end of day Friday.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Please find the attached quarterly report for your review.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Happy Birthday! Hope you have a great day.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Welcome to the team! Here is your onboarding documentation.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Please update the Jira ticket with your latest findings.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Don't forget to enroll in benefits by the deadline.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "I'll be out of office next week for vacation.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Let's sync up on the marketing strategy tomorrow morning.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "The client meeting moved to Zoom. Here is the link.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "I'll be out of office next week for vacation.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Can verifying the integration test results today?",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Thanks for the update. Looks good to proceed.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Reminder: Please submit your timesheets by end of day Friday.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Happy Birthday! Hope you have a great day.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Let's sync up on the marketing strategy tomorrow morning.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Just checking in on the status of the Q3 project timeline.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Reminder: Please submit your timesheets by end of day Friday.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Let's sync up on the marketing strategy tomorrow morning.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Happy Birthday! Hope you have a great day.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Happy Birthday! Hope you have a great day.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Don't forget to enroll in benefits by the deadline.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "I'll be out of office next week for vacation.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Hi team, Here are the minutes from today's meeting. Let me know if I missed anything.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Can verifying the integration test results today?",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Hi team, Here are the minutes from today's meeting. Let me know if I missed anything.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Can you send me the latest slide deck for the presentation?",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "I'll be out of office next week for vacation.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Can we reschedule our 1:1 to next Tuesday at 2 PM?",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Please update the Jira ticket with your latest findings.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Hi team, Here are the minutes from today's meeting. Let me know if I missed anything.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "The office will be closed on Monday for the holiday.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Thanks for the update. Looks good to proceed.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Let's sync up on the marketing strategy tomorrow morning.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "I'll be out of office next week for vacation.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "I'll be out of office next week for vacation.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Reminder: Please submit your timesheets by end of day Friday.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Please find the attached quarterly report for your review.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "The potluck is scheduled for Friday at 12 PM. Don't forget to bring a dish!",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Can you send me the latest slide deck for the presentation?",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Please find the attached quarterly report for your review.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "The office will be closed on Monday for the holiday.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "The potluck is scheduled for Friday at 12 PM. Don't forget to bring a dish!",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "The server maintenance is scheduled for Sunday at 3 AM.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Can we reschedule our 1:1 to next Tuesday at 2 PM?",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "The office will be closed on Monday for the holiday.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Great job on closing that deal yesterday!",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Please update the Jira ticket with your latest findings.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Reminder: Please submit your timesheets by end of day Friday.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Can verifying the integration test results today?",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Thanks for the update. Looks good to proceed.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "The office will be closed on Monday for the holiday.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Happy Birthday! Hope you have a great day.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Lunch is in the breakroom. Pizza and soda provided!",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "I'll be out of office next week for vacation.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Please update the Jira ticket with your latest findings.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "The potluck is scheduled for Friday at 12 PM. Don't forget to bring a dish!",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Just checking in on the status of the Q3 project timeline.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Can you send me the latest slide deck for the presentation?",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Welcome to the team! Here is your onboarding documentation.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Hi team, Here are the minutes from today's meeting. Let me know if I missed anything.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Thanks for the update. Looks good to proceed.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "I'll be out of office next week for vacation.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Thanks for the update. Looks good to proceed.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Can you send me the latest slide deck for the presentation?",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Can we reschedule our 1:1 to next Tuesday at 2 PM?",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "I'll be out of office next week for vacation.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Don't forget to enroll in benefits by the deadline.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Welcome to the team! Here is your onboarding documentation.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Can verifying the integration test results today?",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Great job on closing that deal yesterday!",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Please find the attached quarterly report for your review.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Please find the attached quarterly report for your review.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "The client meeting moved to Zoom. Here is the link.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Great job on closing that deal yesterday!",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Just checking in on the status of the Q3 project timeline.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Please find the attached quarterly report for your review.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Just checking in on the status of the Q3 project timeline.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "The office will be closed on Monday for the holiday.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Please find the attached quarterly report for your review.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Hi team, Here are the minutes from today's meeting. Let me know if I missed anything.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Lunch is in the breakroom. Pizza and soda provided!",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Thanks for the update. Looks good to proceed.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Hi team, Here are the minutes from today's meeting. Let me know if I missed anything.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "The server maintenance is scheduled for Sunday at 3 AM.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "I'll be out of office next week for vacation.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "The office will be closed on Monday for the holiday.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Can you send me the latest slide deck for the presentation?",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Just checking in on the status of the Q3 project timeline.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "The client meeting moved to Zoom. Here is the link.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Happy Birthday! Hope you have a great day.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "The potluck is scheduled for Friday at 12 PM. Don't forget to bring a dish!",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Lunch is in the breakroom. Pizza and soda provided!",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Don't forget to enroll in benefits by the deadline.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Hi team, Here are the minutes from today's meeting. Let me know if I missed anything.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Please update the Jira ticket with your latest findings.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Please update the Jira ticket with your latest findings.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Great job on closing that deal yesterday!",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Can we reschedule our 1:1 to next Tuesday at 2 PM?",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Let's sync up on the marketing strategy tomorrow morning.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Can we reschedule our 1:1 to next Tuesday at 2 PM?",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Don't forget to enroll in benefits by the deadline.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Please find the attached quarterly report for your review.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Don't forget to enroll in benefits by the deadline.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Don't forget to enroll in benefits by the deadline.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "The office will be closed on Monday for the holiday.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Let's sync up on the marketing strategy tomorrow morning.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Can you send me the latest slide deck for the presentation?",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Can you send me the latest slide deck for the presentation?",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "The server maintenance is scheduled for Sunday at 3 AM.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Welcome to the team! Here is your onboarding documentation.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "The office will be closed on Monday for the holiday.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Can verifying the integration test results today?",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Just checking in on the status of the Q3 project timeline.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Welcome to the team! Here is your onboarding documentation.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Can we reschedule our 1:1 to next Tuesday at 2 PM?",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Hi team, Here are the minutes from today's meeting. Let me know if I missed anything.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Please update the Jira ticket with your latest findings.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "The office will be closed on Monday for the holiday.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Hi team, Here are the minutes from today's meeting. Let me know if I missed anything.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "The potluck is scheduled for Friday at 12 PM. Don't forget to bring a dish!",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Let's sync up on the marketing strategy tomorrow morning.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Can verifying the integration test results today?",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Welcome to the team! Here is your onboarding documentation.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "I'll be out of office next week for vacation.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Great job on closing that deal yesterday!",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "The client meeting moved to Zoom. Here is the link.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "The client meeting moved to Zoom. Here is the link.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Happy Birthday! Hope you have a great day.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "I'll be out of office next week for vacation.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Thanks for the update. Looks good to proceed.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "The potluck is scheduled for Friday at 12 PM. Don't forget to bring a dish!",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Welcome to the team! Here is your onboarding documentation.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Lunch is in the breakroom. Pizza and soda provided!",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Let's sync up on the marketing strategy tomorrow morning.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Hi team, Here are the minutes from today's meeting. Let me know if I missed anything.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "The server maintenance is scheduled for Sunday at 3 AM.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "The office will be closed on Monday for the holiday.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Let's sync up on the marketing strategy tomorrow morning.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Thanks for the update. Looks good to proceed.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Happy Birthday! Hope you have a great day.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "I'll be out of office next week for vacation.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Hi team, Here are the minutes from today's meeting. Let me know if I missed anything.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Can you send me the latest slide deck for the presentation?",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Welcome to the team! Here is your onboarding documentation.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Don't forget to enroll in benefits by the deadline.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Just checking in on the status of the Q3 project timeline.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Lunch is in the breakroom. Pizza and soda provided!",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Please update the Jira ticket with your latest findings.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Thanks for the update. Looks good to proceed.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Can verifying the integration test results today?",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Happy Birthday! Hope you have a great day.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Can you send me the latest slide deck for the presentation?",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "The potluck is scheduled for Friday at 12 PM. Don't forget to bring a dish!",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Lunch is in the breakroom. Pizza and soda provided!",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Reminder: Please submit your timesheets by end of day Friday.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Let's sync up on the marketing strategy tomorrow morning.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Hi team, Here are the minutes from today's meeting. Let me know if I missed anything.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Can we reschedule our 1:1 to next Tuesday at 2 PM?",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "The office will be closed on Monday for the holiday.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Happy Birthday! Hope you have a great day.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Thanks for the update. Looks good to proceed.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Lunch is in the breakroom. Pizza and soda provided!",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Please find the attached quarterly report for your review.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Can verifying the integration test results today?",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Happy Birthday! Hope you have a great day.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Can we reschedule our 1:1 to next Tuesday at 2 PM?",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Please update the Jira ticket with your latest findings.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "The server maintenance is scheduled for Sunday at 3 AM.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "The server maintenance is scheduled for Sunday at 3 AM.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Don't forget to enroll in benefits by the deadline.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Reminder: Please submit your timesheets by end of day Friday.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Great job on closing that deal yesterday!",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Please find the attached quarterly report for your review.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "The client meeting moved to Zoom. Here is the link.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Please update the Jira ticket with your latest findings.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Don't forget to enroll in benefits by the deadline.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Please update the Jira ticket with your latest findings.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Reminder: Please submit your timesheets by end of day Friday.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Don't forget to enroll in benefits by the deadline.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Let's sync up on the marketing strategy tomorrow morning.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Reminder: Please submit your timesheets by end of day Friday.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Can you send me the latest slide deck for the presentation?",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Please update the Jira ticket with your latest findings.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "The server maintenance is scheduled for Sunday at 3 AM.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Great job on closing that deal yesterday!",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Reminder: Please submit your timesheets by end of day Friday.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Happy Birthday! Hope you have a great day.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Let's sync up on the marketing strategy tomorrow morning.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "The server maintenance is scheduled for Sunday at 3 AM.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Great job on closing that deal yesterday!",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Great job on closing that deal yesterday!",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Welcome to the team! Here is your onboarding documentation.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Don't forget to enroll in benefits by the deadline.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "The potluck is scheduled for Friday at 12 PM. Don't forget to bring a dish!",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Don't forget to enroll in benefits by the deadline.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Please find the attached quarterly report for your review.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Great job on closing that deal yesterday!",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Can verifying the integration test results today?",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Can we reschedule our 1:1 to next Tuesday at 2 PM?",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Let's sync up on the marketing strategy tomorrow morning.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "The server maintenance is scheduled for Sunday at 3 AM.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Let's sync up on the marketing strategy tomorrow morning.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Can we reschedule our 1:1 to next Tuesday at 2 PM?",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "The potluck is scheduled for Friday at 12 PM. Don't forget to bring a dish!",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Please find the attached quarterly report for your review.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Please find the attached quarterly report for your review.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Hi team, Here are the minutes from today's meeting. Let me know if I missed anything.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Don't forget to enroll in benefits by the deadline.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Reminder: Please submit your timesheets by end of day Friday.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Can we reschedule our 1:1 to next Tuesday at 2 PM?",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Welcome to the team! Here is your onboarding documentation.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Can you send me the latest slide deck for the presentation?",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Lunch is in the breakroom. Pizza and soda provided!",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Lunch is in the breakroom. Pizza and soda provided!",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Hi team, Here are the minutes from today's meeting. Let me know if I missed anything.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Please find the attached quarterly report for your review.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "The server maintenance is scheduled for Sunday at 3 AM.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Happy Birthday! Hope you have a great day.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Can we reschedule our 1:1 to next Tuesday at 2 PM?",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "The potluck is scheduled for Friday at 12 PM. Don't forget to bring a dish!",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "The office will be closed on Monday for the holiday.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "The potluck is scheduled for Friday at 12 PM. Don't forget to bring a dish!",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Thanks for the update. Looks good to proceed.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Can we reschedule our 1:1 to next Tuesday at 2 PM?",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Lunch is in the breakroom. Pizza and soda provided!",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Can you send me the latest slide deck for the presentation?",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "The client meeting moved to Zoom. Here is the link.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Don't forget to enroll in benefits by the deadline.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Happy Birthday! Hope you have a great day.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Just checking in on the status of the Q3 project timeline.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Hi team, Here are the minutes from today's meeting. Let me know if I missed anything.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "The client meeting moved to Zoom. Here is the link.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "The potluck is scheduled for Friday at 12 PM. Don't forget to bring a dish!",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Hi team, Here are the minutes from today's meeting. Let me know if I missed anything.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Please update the Jira ticket with your latest findings.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Lunch is in the breakroom. Pizza and soda provided!",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Great job on closing that deal yesterday!",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Please update the Jira ticket with your latest findings.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Hi team, Here are the minutes from today's meeting. Let me know if I missed anything.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Can you send me the latest slide deck for the presentation?",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "The server maintenance is scheduled for Sunday at 3 AM.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Lunch is in the breakroom. Pizza and soda provided!",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Welcome to the team! Here is your onboarding documentation.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Don't forget to enroll in benefits by the deadline.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "I'll be out of office next week for vacation.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Just checking in on the status of the Q3 project timeline.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "The office will be closed on Monday for the holiday.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Don't forget to enroll in benefits by the deadline.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "The server maintenance is scheduled for Sunday at 3 AM.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Reminder: Please submit your timesheets by end of day Friday.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Can you send me the latest slide deck for the presentation?",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Hi team, Here are the minutes from today's meeting. Let me know if I missed anything.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "I'll be out of office next week for vacation.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Just checking in on the status of the Q3 project timeline.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Let's sync up on the marketing strategy tomorrow morning.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Don't forget to enroll in benefits by the deadline.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "The potluck is scheduled for Friday at 12 PM. Don't forget to bring a dish!",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Please find the attached quarterly report for your review.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "The office will be closed on Monday for the holiday.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Let's sync up on the marketing strategy tomorrow morning.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Welcome to the team! Here is your onboarding documentation.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Please update the Jira ticket with your latest findings.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Reminder: Please submit your timesheets by end of day Friday.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "The server maintenance is scheduled for Sunday at 3 AM.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Please update the Jira ticket with your latest findings.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "The potluck is scheduled for Friday at 12 PM. Don't forget to bring a dish!",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Can we reschedule our 1:1 to next Tuesday at 2 PM?",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Don't forget to enroll in benefits by the deadline.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Please find the attached quarterly report for your review.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Let's sync up on the marketing strategy tomorrow morning.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Please update the Jira ticket with your latest findings.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Hi team, Here are the minutes from today's meeting. Let me know if I missed anything.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Welcome to the team! Here is your onboarding documentation.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "The office will be closed on Monday for the holiday.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Let's sync up on the marketing strategy tomorrow morning.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Please find the attached quarterly report for your review.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Just checking in on the status of the Q3 project timeline.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Just checking in on the status of the Q3 project timeline.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Happy Birthday! Hope you have a great day.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Happy Birthday! Hope you have a great day.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Let's sync up on the marketing strategy tomorrow morning.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Hi team, Here are the minutes from today's meeting. Let me know if I missed anything.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Let's sync up on the marketing strategy tomorrow morning.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Great job on closing that deal yesterday!",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Thanks for the update. Looks good to proceed.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Hi team, Here are the minutes from today's meeting. Let me know if I missed anything.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Just checking in on the status of the Q3 project timeline.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Let's sync up on the marketing strategy tomorrow morning.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Thanks for the update. Looks good to proceed.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Thanks for the update. Looks good to proceed.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Hi team, Here are the minutes from today's meeting. Let me know if I missed anything.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "The office will be closed on Monday for the holiday.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Let's sync up on the marketing strategy tomorrow morning.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Reminder: Please submit your timesheets by end of day Friday.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "I'll be out of office next week for vacation.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "The server maintenance is scheduled for Sunday at 3 AM.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Can we reschedule our 1:1 to next Tuesday at 2 PM?",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Happy Birthday! Hope you have a great day.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Great job on closing that deal yesterday!",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Just checking in on the status of the Q3 project timeline.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Welcome to the team! Here is your onboarding documentation.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "The office will be closed on Monday for the holiday.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "The office will be closed on Monday for the holiday.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Thanks for the update. Looks good to proceed.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Just checking in on the status of the Q3 project timeline.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Please find the attached quarterly report for your review.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Please update the Jira ticket with your latest findings.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Please update the Jira ticket with your latest findings.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "The client meeting moved to Zoom. Here is the link.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "I'll be out of office next week for vacation.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "I'll be out of office next week for vacation.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Happy Birthday! Hope you have a great day.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Can we reschedule our 1:1 to next Tuesday at 2 PM?",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "The potluck is scheduled for Friday at 12 PM. Don't forget to bring a dish!",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Please find the attached quarterly report for your review.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Can we reschedule our 1:1 to next Tuesday at 2 PM?",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Reminder: Please submit your timesheets by end of day Friday.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Let's sync up on the marketing strategy tomorrow morning.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Don't forget to enroll in benefits by the deadline.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Just checking in on the status of the Q3 project timeline.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Just checking in on the status of the Q3 project timeline.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "The office will be closed on Monday for the holiday.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Let's sync up on the marketing strategy tomorrow morning.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Please find the attached quarterly report for your review.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Lunch is in the breakroom. Pizza and soda provided!",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Welcome to the team! Here is your onboarding documentation.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Please find the attached quarterly report for your review.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Hi team, Here are the minutes from today's meeting. Let me know if I missed anything.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "The client meeting moved to Zoom. Here is the link.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Let's sync up on the marketing strategy tomorrow morning.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Please find the attached quarterly report for your review.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Hi team, Here are the minutes from today's meeting. Let me know if I missed anything.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Please update the Jira ticket with your latest findings.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Thanks for the update. Looks good to proceed.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Don't forget to enroll in benefits by the deadline.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Please update the Jira ticket with your latest findings.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Can we reschedule our 1:1 to next Tuesday at 2 PM?",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "The client meeting moved to Zoom. Here is the link.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Happy Birthday! Hope you have a great day.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Welcome to the team! Here is your onboarding documentation.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "Don't forget to enroll in benefits by the deadline.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "The client meeting moved to Zoom. Here is the link.",
+    "label": 0,
+    "source": "template-engine"
+  },
+  {
+    "text": "The potluck is scheduled for Friday at 12 PM. Don't forget to bring a dish!",
+    "label": 0,
+    "source": "template-engine"
+  }
+]

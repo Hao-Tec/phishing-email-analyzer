@@ -76,3 +76,6 @@ push_to_github.py
 # Ignore batch summary & Report file
 batch_summary.txt
 report.html
+
+# ML Models (Large binaries)
+models/*.pkl

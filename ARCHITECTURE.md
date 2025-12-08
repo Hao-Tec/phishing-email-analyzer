@@ -21,7 +21,11 @@ Lockin/
 │   ├── image_analyzer.py   # [NEW] OCR Analysis
 │   └── external_scanners.py# [NEW] Threat Intel API integrations
 │
-├── models/                 # [NEW] ML Models directory
+├── tools/                  # [NEW] Dataset Generation Tools
+│   └── generate_advanced_dataset.py
+├── data/                   # [NEW] Local datasets
+│   └── phishing_dataset_v2.json
+├── models/                 # ML Models directory
 ├── tests/                  # Test suite
 └── samples/                # Sample test emails
 ```
@@ -61,10 +65,12 @@ The brain of the operation. It initializes all sub-components and runs them in s
 
 **ml_analyzer.py (MLAnalyzer)**
 
-- **Purpose**: Fast, local statistical detection.
-- **Key Methods**: `analyze(text)`
-- **Logic**: Uses a pre-trained `scikit-learn` pipeline (TF-IDF + RandomForest) to predict phishing probability.
-- **Graceful Detection**: Automatically disables if model files `models/phishing_model.pkl` are missing.
+- **Purpose**: Fast, local statistical detection & Zero-Day protection.
+- **Key Methods**: `analyze(text)`, `train_model()`
+- **Logic**:
+  - Uses a pre-trained `scikit-learn` pipeline (TF-IDF + RandomForest).
+  - **Auto-Training**: If model is missing, automatically trains on `data/phishing_dataset_v2.json` (1000+ samples) or falls back to embedded patterns.
+  - **Persistence**: Saves trained models to `models/` for future runs.
 
 **image_analyzer.py (ImageAnalyzer)**
 
