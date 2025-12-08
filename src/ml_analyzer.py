@@ -1,9 +1,11 @@
 """
 Machine Learning Analyzer Module
 Uses local ML models (scikit-learn) to detect phishing patterns.
+Supports loading vast external datasets (JSON) or falling back to embedded data.
 """
 
 import os
+import json
 import pickle
 import logging
 from typing import Tuple, Dict
@@ -17,7 +19,12 @@ except ImportError:
     RandomForestClassifier = None
     np = None
 
-from src.config import ML_MODEL_PATH, ML_VECTORIZER_PATH
+from src.config import (
+    ML_MODEL_PATH,
+    ML_VECTORIZER_PATH,
+    DATASET_PATH,
+    PHISHING_TRAINING_DATA,
+)
 
 
 class MLAnalyzer:
@@ -33,28 +40,26 @@ class MLAnalyzer:
 
         if TfidfVectorizer and RandomForestClassifier:
             self._load_model()
+            # If load failed (no model yet), train the embedded one
+            if not self.enabled:
+                self.train_model()
 
     def _load_model(self):
         """Load the model and vectorizer from disk."""
         try:
-            if (
-                os.path.exists(ML_MODEL_PATH)
-                and os.path.exists(ML_VECTORIZER_PATH)
-            ):
+            if os.path.exists(ML_MODEL_PATH) and os.path.exists(ML_VECTORIZER_PATH):
                 with open(ML_MODEL_PATH, "rb") as f:
                     self.model = pickle.load(f)
                 with open(ML_VECTORIZER_PATH, "rb") as f:
                     self.vectorizer = pickle.load(f)
                 self.enabled = True
+                logging.info(f"Loaded ML model from {ML_MODEL_PATH}")
             else:
                 logging.info(
-                    f"ML model not found at {ML_MODEL_PATH}. "
-                    f"ML analysis disabled."
+                    f"ML model not found at {ML_MODEL_PATH}. " f"Will attempt training."
                 )
         except Exception as e:
-            logging.error(
-                f"Failed to load ML model: {e}"
-            )
+            logging.error(f"Failed to load ML model: {e}")
             self.enabled = False
 
     def analyze(self, text: str) -> Tuple[float, Dict]:
@@ -90,29 +95,68 @@ class MLAnalyzer:
             logging.error(f"ML prediction error: {e}")
             return 0.0, {"error": str(e)}
 
-    # Optional: Method to train a dummy model for testing purposes
-    # if none exists
-    def train_dummy_model(self):
-        """Train a basic model for demonstration if file doesn't exist."""
+    def train_model(self):
+        """
+        Train the model using the best available data source.
+        1. Try DATASET_PATH (Vast JSON dataset)
+        2. Fallback to PHISHING_TRAINING_DATA (Embedded config)
+        """
         if self.enabled:
-            return  # Already loaded
+            logging.info("Model already loaded. Re-training requested...")
 
         if not TfidfVectorizer:
+            logging.error("Scikit-learn not installed. ML disabled.")
             return
 
-        logging.info("Training dummy ML model for demonstration...")
-        # Simple dataset
-        texts = [
-            "Hello, how are you?",
-            "Meeting at 3pm",
-            "Verify your account now",
-            "Click here to claim prize",
-            "Urgent: Account suspended",
-        ]
-        labels = [0, 0, 1, 1, 1]  # 0 = Safe, 1 = Phishing
+        texts = []
+        labels = []
+        source = "embedded"
 
-        self.vectorizer = TfidfVectorizer()
-        X = self.vectorizer.fit_transform(texts)
-        self.model = RandomForestClassifier(n_estimators=10)
-        self.model.fit(X, labels)
-        self.enabled = True
+        # 1. Try Loading Advanced Dataset
+        if os.path.exists(DATASET_PATH):
+            try:
+                logging.info(f"Loading advanced dataset from {DATASET_PATH}...")
+                with open(DATASET_PATH, "r") as f:
+                    data = json.load(f)
+                    for item in data:
+                        texts.append(item.get("text", ""))
+                        labels.append(item.get("label", 0))
+                source = f"external_json ({len(texts)} samples)"
+            except Exception as e:
+                logging.error(f"Failed to load external dataset: {e}")
+
+        # 2. Fallback to Embedded Data
+        if not texts:
+            logging.warning("External dataset not found/empty. Using embedded data.")
+            texts = [item[0] for item in PHISHING_TRAINING_DATA]
+            labels = [item[1] for item in PHISHING_TRAINING_DATA]
+            source = f"embedded_config ({len(texts)} samples)"
+
+        logging.info(f"Training Model on {source}...")
+
+        try:
+            # Vectorize
+            # Increased max_features for larger datasets
+            self.vectorizer = TfidfVectorizer(stop_words="english", max_features=3000)
+            X = self.vectorizer.fit_transform(texts)
+
+            # Train Model
+            # Increased estimators for better accuracy
+            self.model = RandomForestClassifier(n_estimators=100, random_state=42)
+            self.model.fit(X, labels)
+
+            # Save Artifacts
+            os.makedirs(os.path.dirname(ML_MODEL_PATH), exist_ok=True)
+            with open(ML_MODEL_PATH, "wb") as f:
+                pickle.dump(self.model, f)
+            with open(ML_VECTORIZER_PATH, "wb") as f:
+                pickle.dump(self.vectorizer, f)
+
+            self.enabled = True
+            logging.info(
+                f"ML Model trained & saved successfully on {len(texts)} samples."
+            )
+
+        except Exception as e:
+            logging.error(f"Failed to train model: {e}")
+            self.enabled = False

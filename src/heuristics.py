@@ -83,7 +83,8 @@ class PhishingHeuristics:
 
         # Apply score capping
         current_type_score = self.heuristic_scores.get(heuristic_name, 0)
-        max_allowed = MAX_SCORE_CONTRIBUTION.get(heuristic_name, 100)  # Default no cap
+        # Default no cap
+        max_allowed = MAX_SCORE_CONTRIBUTION.get(heuristic_name, 100)
 
         # Calculate how much room is left for this heuristic type
         allowed_increase = max(0, max_allowed - current_type_score)
@@ -191,19 +192,40 @@ class PhishingHeuristics:
                     displayed_domain = displayed_domain_match.group().lower()
                     self._display_domain_match_check(domain, displayed_domain, url)
 
-            # 2. Check URL domain vs Sender Domain
-            # Skip if sender domain is whitelisted/trusted to link externally
-            # (e.g. newsletter services) or if they are in the same ecosystem
-            if sender_domain:
+                # 2. Check URL domain vs Sender Domain
+                # Check if it's a subdomain of a trusted platform
+                is_platform = False
+                if domain in PLATFORM_DOMAINS:
+                    is_platform = True
+                else:
+                    for p_domain in PLATFORM_DOMAINS:
+                        if self._is_subdomain(domain, p_domain):
+                            is_platform = True
+                            break
+
+                # Check for "Transparent Links"
+                is_transparent = False
+                if displayed_text:
+                    disp_clean = (
+                        displayed_text.lower()
+                        .replace("https://", "")
+                        .replace("http://", "")
+                        .replace("www.", "")
+                        .strip("/")
+                    )
+                    dom_clean = domain.lower().replace("www.", "")
+                    if dom_clean in disp_clean or disp_clean in dom_clean:
+                        is_transparent = True
+
                 if (
                     domain
                     and domain != sender_domain
                     and not self._is_subdomain(domain, sender_domain)
                     and not self._is_trusted_ecosystem(sender_domain, domain)
-                    and domain not in PLATFORM_DOMAINS  # <-- Added check
+                    and not is_platform
+                    and not is_transparent
                 ):
                     # Only flag if not whitelisted generic sender
-                    # (like gmail, who naturally links elsewhere)
                     if sender_domain not in WHITELIST_DOMAINS:
                         self._add_finding(
                             "url_mismatch_with_text",
@@ -411,7 +433,7 @@ class PhishingHeuristics:
             self._add_finding(
                 "urgent_language",
                 "LOW",
-                f"Urgent language detected: {', '.join(unique_keywords)}",
+                f"Urgent language detected: " f"{', '.join(unique_keywords)}",
                 {"keywords": matched_keywords},
             )
 

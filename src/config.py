@@ -30,10 +30,58 @@ HEURISTIC_WEIGHTS = {
     "urgent_language": 5,
     "suspicious_tld": 10,
     "ip_based_url": 15,
-    "llm_analysis": 30,
+    "llm_analysis": 50,  # Boosted for "Advanced" analysis
     "authentication_failure": 30,
     "virustotal_positive": 100,
 }
+
+# Embedded Training Data for Local ML (Zero-Day Pattern Recognition)
+# Seeds the model with known "Intent Patterns" to detect generic phishing
+# content even without external updates.
+PHISHING_TRAINING_DATA = [
+    # CLASS 1: PHISHING (Malicious Intent)
+    ("Urgent: Your account will be suspended immediately", 1),
+    ("Verify your identity within 24 hours to avoid lock", 1),
+    ("Click here to claim your lottery winnings now", 1),
+    ("Unusual sign-in activity detected from Russia", 1),
+    ("Payment overdue: Invoice attached #99283", 1),
+    ("CEO Request: Wire transfer needed urgently", 1),
+    ("HR Update: Review the new salary structure", 1),
+    ("Microsoft 365: Password expiration notice", 1),
+    ("Deactivate request received. Cancel if not you.", 1),
+    ("Your package delivery attempted failed. Reschedule.", 1),
+    ("Confirm your bitcoin wallet credentials", 1),
+    ("IRS Notification: Tax refund pending", 1),
+    ("Netflix: Subscription payment failed", 1),
+    ("DocuSign: Please sign 'Contract_FWD.pdf'", 1),
+    ("Zoom: Missed meeting with HR. Recording available.", 1),
+    ("Kindly purchase iTunes gift cards for the team", 1),
+    ("Security Alert: New device logged in", 1),
+    ("Final Reminder: Update your payment information", 1),
+    ("Exclusive Offer: 90% discount expires today", 1),
+    ("Unauthorized access attempt blocked", 1),
+    # CLASS 0: SAFE (Normal Business Comms)
+    ("Meeting notes from today's sync", 0),
+    ("Can we reschedule our 1:1 to tomorrow?", 0),
+    ("Project timeline update - Q1 Goals", 0),
+    ("Lunch menu for the team event", 0),
+    ("Happy Birthday to our team member!", 0),
+    ("Attached is the quarterly report for review", 0),
+    ("Please find the requested documents attached", 0),
+    ("Let's connect on LinkedIn", 0),
+    ("Invitation: Annual Company Picnic", 0),
+    ("Feedback on the new design draft", 0),
+    ("Reminder: Submit your timesheets by Friday", 0),
+    ("Thank you for your business", 0),
+    ("Flight confirmation for your upcoming trip", 0),
+    ("Hotel reservation confirmed: Hilton", 0),
+    ("Welcome to the team! Onboarding info.", 0),
+    ("Great job on the presentation today", 0),
+    ("Checking in on the status of ticket #123", 0),
+    ("Recipe for the potluck", 0),
+    ("Office closure / Holiday announcement", 0),
+    ("Please ignore previous email, sent in error", 0),
+]
 
 # Suspicious file extensions
 SUSPICIOUS_EXTENSIONS = {
@@ -167,6 +215,7 @@ SAFE_BROWSING_API_KEY_ENV = "SAFE_BROWSING_API_KEY"
 # ML Model Paths
 ML_MODEL_PATH = "models/phishing_model.pkl"
 ML_VECTORIZER_PATH = "models/vectorizer.pkl"
+DATASET_PATH = "data/phishing_dataset_v2.json"
 
 # OCR Configuration
 # If Tesseract is not in PATH, specify absolute path here
@@ -184,3 +233,21 @@ HEURISTIC_WEIGHTS.update(
         "auth_dmarc_fail": 25,
     }
 )
+
+# Configuration for Gemini Data Generation
+GENERATION_CONFIG = {
+    "phishing_prompt": """
+    Generate 5 distinct, sophisticated phishing email examples.
+    Focus on these categories: CEO Fraud, Account Suspension,
+    Spear Phishing (HR/IT), Crypto Scams, fake invoice.
+    Return ONLY a JSON list of objects with 'text' (body) and 'label' (1).
+    Do not include markdown formatting.
+    """,
+    "safe_prompt": """
+    Generate 5 distinct, safe business email examples.
+    Focus on: Meeting invites, project updates, newsletters,
+    friendly check-ins, system notifications (legitimate).
+    Return ONLY a JSON list of objects with 'text' (body) and 'label' (0).
+    Do not include markdown formatting.
+    """,
+}

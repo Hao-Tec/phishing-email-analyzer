@@ -7,17 +7,18 @@ A world-class, enterprise-grade phishing detection system designed to identify s
 
 ## 🚀 Key Features
 
-### 🛡️ active Defense Layer
+### 🧠 Hybrid AI & Zero-Day Detection
 
-- **Authentication Verification (DKIM/SPF/DMARC)**: Actively validates sender identity protocols to detect spoofing attempts with high precision.
-- **External Threat Intelligence**: Real-time cross-referencing of URLs against **Google Safe Browsing** and **PhishTank** databases.
-- **VirusTotal Integration**: Scans URLs against 70+ antivirus engines for maximum threat coverage.
-
-### 🧠 Intelligent Analysis
-
-- **Machine Learning Engine**: Built-in local Random Forest model (scikit-learn) trained to detect phishing linguistic patterns with high confidence.
-- **Generative AI Integration**: Leverages **Google Gemini LLM** for deep semantic analysis, detecting social engineering nuances that rule-based systems miss.
+- **Dual-Engine Intelligence**: Combines the reasoning power of **Google Gemini Pro** (50% weight) with a local statistically-proven **Random Forest** model.
+- **Zero-Day Protection**: The local model is auto-trained on 1,000+ advanced samples (CEO fraud, crypto scams) to detect novel threats even without internet access.
 - **Visual OCR Analysis**: Uses **Tesseract OCR** to extract and analyze text embedded in images, defeating image-based spam filters.
+- **Explainable AI**: Every detection comes with clear, human-readable reasoning (e.g., "Urgent language detected", "Sender domain mismatch").
+
+### 🛡️ Smart Defense & False Positive Reduction
+
+- **Trusted Ecosystems**: Intelligently recognizes relationships between domains (e.g., `microsoft.com` ↔ `aka.ms`) to prevent false alarms on legitimate redirects.
+- **Dynamic Threat Intel**: Automatically checks generic links against **VirusTotal** and **Google Safe Browsing**, while whitelisting known business tools (Zoom, Jira) unless they fail specific integrity checks.
+- **Active Auth Verification**: Validates DKIM/SPF/DMARC to verify sender identity beyond just header inspection.
 
 ### 🔍 Comprehensive Parsing
 
