@@ -8,7 +8,11 @@ from typing import Dict, List
 
 from src.email_parser import EmailParser
 from src.heuristics import PhishingHeuristics
-from src.config import SCORE_THRESHOLD, HEURISTIC_WEIGHTS
+from src.config import (
+    SCORE_THRESHOLD,
+    HEURISTIC_WEIGHTS,
+    PLATFORM_DOMAINS,
+)
 from src.llm_analyzer import LLMAnalyzer
 from src.vt_scanner import VirusTotalScanner
 from src.auth_validator import AuthValidator
@@ -88,26 +92,18 @@ class EmailAnalyzer:
                 # We can reuse heuristics or just checking
                 # simple urgent keywords
                 # For now, just add it to body for ML and LLM
-                email_data["body"] += (
-                    "\n\n[OCR EXTRACTED CONTENT]\n" + ocr_text
-                )
+                email_data["body"] += "\n\n[OCR EXTRACTED CONTENT]\n" + ocr_text
 
                 # Simple check
-                if (
-                    "password" in ocr_text.lower()
-                    or "verify" in ocr_text.lower()
-                ):
+                if "password" in ocr_text.lower() or "verify" in ocr_text.lower():
                     findings.append(
                         {
                             "heuristic": "ocr_suspicious_content",
                             "severity": "MEDIUM",
                             "description": (
-                                "Suspicious text detected in image "
-                                "attachments"
+                                "Suspicious text detected in image " "attachments"
                             ),
-                            "weight": HEURISTIC_WEIGHTS[
-                                "ocr_suspicious_content"
-                            ],
+                            "weight": HEURISTIC_WEIGHTS["ocr_suspicious_content"],
                             "adjusted_weight": HEURISTIC_WEIGHTS[
                                 "ocr_suspicious_content"
                             ],
@@ -136,9 +132,7 @@ class EmailAnalyzer:
                         "severity": "HIGH",
                         "description": "DKIM verification failed",
                         "weight": HEURISTIC_WEIGHTS["auth_dkim_fail"],
-                        "adjusted_weight": (
-                            HEURISTIC_WEIGHTS["auth_dkim_fail"]
-                        ),
+                        "adjusted_weight": (HEURISTIC_WEIGHTS["auth_dkim_fail"]),
                     }
                 )
                 score += HEURISTIC_WEIGHTS["auth_dkim_fail"]
@@ -150,26 +144,21 @@ class EmailAnalyzer:
                         "severity": "MEDIUM",
                         "description": "Sender domain missing SPF record",
                         "weight": HEURISTIC_WEIGHTS["auth_spf_fail"],
-                        "adjusted_weight": (
-                            HEURISTIC_WEIGHTS["auth_spf_fail"]
-                        ),
+                        "adjusted_weight": (HEURISTIC_WEIGHTS["auth_spf_fail"]),
                     }
                 )
                 score += HEURISTIC_WEIGHTS["auth_spf_fail"]
 
         # 4. ML Analysis
         if self.ml_analyzer.enabled:
-            ml_prob, ml_details = self.ml_analyzer.analyze(
-                email_data.get("body", "")
-            )
+            ml_prob, ml_details = self.ml_analyzer.analyze(email_data.get("body", ""))
             if ml_prob > 0.7:
                 findings.append(
                     {
                         "heuristic": "ml_confidence_high",
                         "severity": "HIGH",
                         "description": (
-                            f"ML Model detected phishing pattern "
-                            f"({ml_prob:.2f})"
+                            f"ML Model detected phishing pattern " f"({ml_prob:.2f})"
                         ),
                         "weight": HEURISTIC_WEIGHTS["ml_confidence_high"],
                         "adjusted_weight": (
@@ -182,12 +171,47 @@ class EmailAnalyzer:
 
         # 5. External Scanners & VirusTotal
         urls = email_data.get("urls", [])
+
+        # Prioritize scanning PLATFORM_DOMAINS to ensure they are safe
+        # We want to use our limited external scans on these "trusted" links
+        # that bypass other heuristics.
+        sorted_urls = sorted(
+            urls,
+            key=lambda u: u.get("domain", "") in PLATFORM_DOMAINS,
+            reverse=True,
+        )
+
         scanned_urls_count = 0
-        for url_obj in urls[:3]:  # Limit to 3
+        MAX_EXTERNAL_SCANS = 5
+
+        for url_obj in sorted_urls:
+            if scanned_urls_count >= MAX_EXTERNAL_SCANS:
+                break
+
             url = url_obj.get("url")
+            domain = url_obj.get("domain", "")
+            is_platform_domain = domain in PLATFORM_DOMAINS
 
             # VirusTotal (Existing)
             vt_scan = self.vt_scanner.scan_url(url)
+
+            # Check for missing API key warning on Platform Domains
+            if is_platform_domain and vt_scan.get("error") == "No API key configured":
+                findings.append(
+                    {
+                        "heuristic": "url_obfuscation",  # Fallback category
+                        "severity": "LOW",
+                        "description": (
+                            f"Unverified Platform Link: {domain} "
+                            "(Configure VirusTotal to verify safety)"
+                        ),
+                        "weight": 10,
+                        "adjusted_weight": 10,
+                        "details": {"url": url, "domain": domain},
+                    }
+                )
+                score += 10
+
             if vt_scan.get("malicious", 0) > 0:
                 findings.append(
                     {
@@ -229,10 +253,7 @@ class EmailAnalyzer:
             # We skip if score is already critical to save tokens,
             # unless we want full report
             llm_score, llm_data = self.llm_analyzer.analyze(email_data["body"])
-            if (
-                llm_data.get("risk_level") in ["HIGH", "CRITICAL"]
-                or llm_score > 0.7
-            ):
+            if llm_data.get("risk_level") in ["HIGH", "CRITICAL"] or llm_score > 0.7:
                 findings.append(
                     {
                         "heuristic": "llm_analysis",
@@ -298,10 +319,7 @@ class EmailAnalyzer:
         email_extensions = {".eml", ".txt", ".msg", ".gz"}
 
         for email_file in folder_path.iterdir():
-            if (
-                email_file.is_file()
-                and email_file.suffix.lower() in email_extensions
-            ):
+            if email_file.is_file() and email_file.suffix.lower() in email_extensions:
                 result = self.analyze_email(str(email_file))
                 results.append(result)
 
