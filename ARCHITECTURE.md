@@ -43,7 +43,7 @@ The brain of the operation. It initializes all sub-components and runs them in s
 4.  AuthValidator checks transport security.
 5.  MLAnalyzer predicts phishing probability.
 6.  ExternalScanners check URLs.
-7.  LLMAnalyzer performs semantic analysis.
+7.  LLMAnalyzer performs semantic analysis (Gemini or Local).
 8.  Aggregates all scores into a final Risk Level.
 
 **email_parser.py (EmailParser)**
@@ -103,7 +103,8 @@ Parallel Analysis:
     ├── Heuristics (Static Rules)
     ├── MLAnalyzer (Random Forest)
     ├── ExternalScanners (SafeBrowsing/PhishTank)
-    └── LLMAnalyzer (Gemini)
+    ├── ExternalScanners (SafeBrowsing/PhishTank)
+    └── LLMAnalyzer (Gemini or Local LLM)
     ↓
 EmailAnalyzer (Aggregator)
     ↓
