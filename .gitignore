@@ -79,3 +79,6 @@ report.html
 
 # ML Models (Large binaries)
 models/*.pkl
+
+# Local Cache Databases
+data/*.db
