@@ -105,7 +105,7 @@ class HeuristicAnalyzer:
             # if re.search(rf"\b{escaped_kw}\b", full_text):
             if keyword in full_text:  # Simple check for now
                 self._add_finding(
-                    "urgency_keywords",
+                    "urgent_language",
                     "LOW",
                     f"Suspicious keyword found: '{keyword}'",
                 )
@@ -362,7 +362,7 @@ class HeuristicAnalyzer:
 
             if sender_email.lower() != reply_to_email.lower():
                 self._add_finding(
-                    "header_anomaly",
+                    "header_anomalies",
                     "MEDIUM",
                     "Reply-To address differs from Sender address",
                     {"sender": sender, "reply_to": reply_to},
