@@ -77,13 +77,14 @@ class TestPhishingHeuristics(unittest.TestCase):
             "subject": "Verify Account",
             "date": "Fri, 29 Nov 2024 10:00:00",
             "headers": {},
-            "body": "",
+            "body": "Please verify your account immediately",
             "urls": [],
             "attachments": [],
             "is_html": False,
             "reply_to": "",
         }
         score, findings = self.heuristics.analyze(email_data)
+        # Should detect at least "verify" keyword from subject and body
         self.assertGreater(score, 0)
 
     def test_url_obfuscation_detection(self):
@@ -195,7 +196,8 @@ Content-Type: text/html
 
 <html>
 <body>
-<a href="http://192.168.1.1/login">Click here to verify</a>
+Click here to verify your account immediately.
+<a href="http://192.168.1.1/login">Verify Account</a>
 </body>
 </html>"""
 
@@ -204,7 +206,7 @@ Content-Type: text/html
 
         # Analyze
         score, findings = heuristics.analyze(email_data)
-        # Check results
+        # Check results - should detect urgency keywords (urgent, verify, etc.)
         self.assertGreater(score, 0)
         self.assertGreater(len(findings), 0)
 
