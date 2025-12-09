@@ -83,7 +83,7 @@ class TestPhishingHeuristics(unittest.TestCase):
             "is_html": False,
             "reply_to": "",
         }
-        score, findings = self.heuristics.evaluate(email_data)
+        score, findings = self.heuristics.analyze(email_data)
         self.assertGreater(score, 0)
 
     def test_url_obfuscation_detection(self):
@@ -107,7 +107,7 @@ class TestPhishingHeuristics(unittest.TestCase):
             "is_html": False,
             "reply_to": "",
         }
-        score, findings = self.heuristics.evaluate(email_data)
+        score, findings = self.heuristics.analyze(email_data)
         # Should detect shortened URL
         self.assertGreater(score, 0)
 
@@ -131,7 +131,7 @@ class TestPhishingHeuristics(unittest.TestCase):
             "is_html": False,
             "reply_to": "",
         }
-        score, findings = self.heuristics.evaluate(email_data)
+        score, findings = self.heuristics.analyze(email_data)
         self.assertGreater(score, 0)
 
 
@@ -172,7 +172,7 @@ class TestEmailAnalyzer(unittest.TestCase):
         }
 
         heuristics = HeuristicAnalyzer()
-        score, findings = heuristics.evaluate(email_data)
+        score, findings = heuristics.analyze(email_data)
         risk_level = self.analyzer._determine_risk_level(score)
 
         # Safe email should have low risk
@@ -202,10 +202,8 @@ Content-Type: text/html
         # Parse
         email_data = parser.parse_email_from_string(email_string)
 
-        # Analyze
-        score, findings = heuristics.evaluate(email_data)
-
-        # Check results
+            # Analyze
+            score, findings = heuristics.analyze(email_data)        # Check results
         self.assertGreater(score, 0)
         self.assertGreater(len(findings), 0)
 
