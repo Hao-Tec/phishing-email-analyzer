@@ -138,12 +138,18 @@ class MLAnalyzer:
         try:
             # Vectorize
             # Increased max_features for larger datasets
-            self.vectorizer = TfidfVectorizer(stop_words="english", max_features=3000)
+            self.vectorizer = TfidfVectorizer(
+                stop_words="english",
+                max_features=3000
+            )
             X = self.vectorizer.fit_transform(texts)
 
             # Train Model
             # Increased estimators for better accuracy
-            self.model = RandomForestClassifier(n_estimators=100, random_state=42)
+            self.model = RandomForestClassifier(
+                n_estimators=100,
+                random_state=42
+            )
             self.model.fit(X, labels)
 
             # Save Artifacts

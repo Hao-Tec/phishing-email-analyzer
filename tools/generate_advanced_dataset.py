@@ -108,7 +108,10 @@ class DatasetGenerator:
             genai.configure(api_key=self.api_key)
             self.model = genai.GenerativeModel("gemini-1.5-flash")
         else:
-            print("Warning: GEMINI_API_KEY not found. " "Using template engine only.")
+            print(
+                "Warning: GEMINI_API_KEY not found. "
+                "Using template engine only."
+            )
             self.model = None
 
     def _generate_via_gemini(self, count=10):
@@ -128,7 +131,11 @@ class DatasetGenerator:
         for prompt_text, label in prompts:
             try:
                 response = self.model.generate_content(prompt_text)
-                text = response.text.replace("```json", "").replace("```", "").strip()
+                text = (
+                    response.text.replace("```json", "")
+                    .replace("```", "")
+                    .strip()
+                )
                 data = json.loads(text)
 
                 for item in data:
@@ -160,12 +167,16 @@ class DatasetGenerator:
                 location=random.choice(VARS["location"]),
                 amount=random.choice(VARS["amount"]),
             )
-            samples.append({"text": text, "label": 1, "source": "template-engine"})
+            samples.append(
+                {"text": text, "label": 1, "source": "template-engine"}
+            )
 
         # Generate Safe
         for _ in range(count_per_type):
             tmpl = random.choice(TEMPLATES["safe"])
-            samples.append({"text": tmpl, "label": 0, "source": "template-engine"})
+            samples.append(
+                {"text": tmpl, "label": 0, "source": "template-engine"}
+            )
 
         return samples
 
@@ -191,7 +202,9 @@ class DatasetGenerator:
         with open(output_path, "w") as f:
             json.dump(self.dataset, f, indent=2)
 
-        print(f"Success! Generated {len(self.dataset)} samples to {output_path}")
+        print(
+            f"Success! Generated {len(self.dataset)} samples to {output_path}"
+        )
 
 
 if __name__ == "__main__":

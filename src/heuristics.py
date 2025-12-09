@@ -1,92 +1,75 @@
+# fmt: off
 """
 Heuristics Module
-Implements pattern-matching and evaluation logic for detecting phishing.
+Implements rule-based checks for phishing detection.
 """
 
 import re
 from typing import Dict, List, Tuple
-
 from src.config import (
     HEURISTIC_WEIGHTS,
-    SUSPICIOUS_EXTENSIONS,
-    SUSPICIOUS_TLDS,
-    URGENT_KEYWORDS,
     MAX_URL_LENGTH,
-    TRUSTED_DOMAIN_GROUPS,
-    MAX_SCORE_CONTRIBUTION,
-    WHITELIST_DOMAINS,
+    SUSPICIOUS_KEYWORDS,
+    SUSPICIOUS_EXTENSIONS,
     PLATFORM_DOMAINS,
+    WHITELIST_DOMAINS,
 )
 
 
-class PhishingHeuristics:
+class HeuristicAnalyzer:
     """
-    Evaluates emails against various heuristics to detect phishing patterns.
+    Analyzes email content using heuristic rules.
     """
 
     def __init__(self):
-        """Initialize heuristics evaluator."""
-        self.findings = []
-        self.score = 0
-        self.heuristic_scores = {}  # Track score per heuristic type
+        """Initialize the heuristic analyzer."""
+        self.score = 0.0
+        self.heuristic_scores = {}  # Track individual scores
+        self.details = []
 
-    def evaluate(self, email_data: Dict) -> Tuple[int, List[Dict]]:
+    def analyze(self, email_data: Dict) -> Tuple[float, List[Dict]]:
         """
-        Evaluate email data against all heuristics.
+        Run all heuristic checks and calculate a risk score.
 
         Args:
-            email_data: Parsed email data from EmailParser
+            email_data: Dictionary containing parsed email parts.
 
         Returns:
-            Tuple of (score, findings_list)
+            Tuple (total_score, findings_list)
         """
-        self.findings = []
-        self.score = 0
+        # Reset state per analysis
+        self.score = 0.0
         self.heuristic_scores = {}
+        self.details = []
 
-        # Run all heuristics
-        self._check_sender_domain_mismatch(email_data)
-        self._check_url_domain_mismatch(email_data)
-        self._check_url_obfuscation(email_data)
+        # Run checks
+        self._check_urgency_keywords(email_data)
+        self._check_link_mismatches(email_data)
         self._check_suspicious_attachments(email_data)
+        self._check_sender_anomalies(email_data)
+        self._check_url_obfuscation(email_data)
         self._check_header_anomalies(email_data)
-        self._check_authentication_headers(email_data)
-        self._check_urgent_language(email_data)
-        self._check_suspicious_tlds(email_data)
-        self._check_ip_based_urls(email_data)
 
-        # Cap final score
-        self.score = min(100, self.score)
-        return self.score, self.findings
+        return self.score, self.details
 
     def _add_finding(
         self,
         heuristic_name: str,
         severity: str,
         description: str,
-        details: Dict = None,
+        context: Dict = None,
     ):
         """
-        Add a finding to the results with score capping logic.
-
-        Args:
-            heuristic_name: Name of the heuristic (for weighting)
-            severity: "LOW", "MEDIUM", "HIGH"
-            description: Human-readable description
-            details: Additional details dictionary
+        Add a finding and update the score, with logic to prevent excessive
+        piling up.
         """
-        weight = HEURISTIC_WEIGHTS.get(heuristic_name, 5)
+        raw_score_increase = HEURISTIC_WEIGHTS.get(heuristic_name, 0.0)
+        current_type_score = self.heuristic_scores.get(heuristic_name, 0.0)
 
-        # Adjust weight by severity
-        severity_multiplier = {"LOW": 0.5, "MEDIUM": 1.0, "HIGH": 1.5}
-        raw_score_increase = weight * severity_multiplier.get(severity, 1.0)
-
-        # Apply score capping
-        current_type_score = self.heuristic_scores.get(heuristic_name, 0)
-        # Default no cap
-        max_allowed = MAX_SCORE_CONTRIBUTION.get(heuristic_name, 100)
-
-        # Calculate how much room is left for this heuristic type
+        # Cap the score contribution from a single heuristic type
+        # e.g., don't let 10 "urgency" keywords add 10 * 10 points.
+        # Max contribution per type is 3x the base weight.
+        max_allowed = raw_score_increase * 3.0
         allowed_increase = max(0, max_allowed - current_type_score)
         actual_increase = min(raw_score_increase, allowed_increase)
 
@@ -99,99 +82,95 @@ class PhishingHeuristics:
             "heuristic": heuristic_name,
             "severity": severity,
             "description": description,
-            "weight": weight,
-            "adjusted_weight": actual_increase,  # Show actual impact
+            "weight": raw_score_increase,
+            "adjusted_weight": actual_increase,
         }
+        if context:
+            finding["context"] = context
 
-        if details:
-            finding["details"] = details
+        self.details.append(finding)
 
-        self.findings.append(finding)
+    def _check_urgency_keywords(self, email_data: Dict):
+        """Check for urgency words in subject and body."""
+        subject = email_data.get("subject", "").lower()
+        body = email_data.get("body", "").lower()
+        ocr_text = email_data.get("ocr_text", "").lower()
 
-    def _check_sender_domain_mismatch(self, email_data: Dict):
-        """Check if sender domain matches the display name."""
-        sender = email_data.get("sender", "")
+        # Combine text for analysis
+        full_text = f"{subject} {body} {ocr_text}"
 
-        if not sender:
-            self._add_finding(
-                "sender_domain_mismatch",
-                "HIGH",
-                "No sender information found in email headers",
-            )
-            return
+        for keyword in SUSPICIOUS_KEYWORDS:
+            # Use word boundaries for better accuracy
+            # escaped_kw = re.escape(keyword)
+            # if re.search(rf"\b{escaped_kw}\b", full_text):
+            if keyword in full_text:  # Simple check for now
+                self._add_finding(
+                    "urgency_keywords",
+                    "LOW",
+                    f"Suspicious keyword found: '{keyword}'",
+                )
 
-        # Extract domain from sender email
-        try:
-            domain = sender.split("@")[1].lower() if "@" in sender else ""
-        except IndexError:
-            self._add_finding(
-                "sender_domain_mismatch",
-                "HIGH",
-                f"Invalid sender format: {sender}",
-            )
-            return
+    def _is_subdomain(self, child: str, parent: str) -> bool:
+        """Check if child is a subdomain of parent."""
+        return child.endswith("." + parent) or child == parent
 
-        # Whitelist check
-        if domain in WHITELIST_DOMAINS:
-            return
+    def _is_trusted_ecosystem(
+        self, sender_domain: str, link_domain: str
+    ) -> bool:
+        """
+        Check if the link domain is part of the same trusted ecosystem
+        as the sender (e.g., google.com -> drive.google.com,
+        microsoft.com -> office.com).
+        Uses config.TRUSTED_ECOSYSTEMS (simulated logic here)
+        """
+        # This prevents marking google.com links in a gmail email as suspicious
+        if not sender_domain or not link_domain:
+            return False
 
-        # Check if domain looks suspicious (too short, numbers at end, etc.)
-        if self._is_suspicious_domain(domain):
-            self._add_finding(
-                "sender_domain_mismatch",
-                "MEDIUM",
-                f"Suspicious domain pattern: {domain}",
-                {"domain": domain},
-            )
-
-    def _display_domain_match_check(
-        self,
-        domain: str,
-        displayed_domain: str,
-        url: str,
-    ):
-        """Helper to check display match."""
+        # Simplified Logic:
+        # If both domains share a root (e.g. google.com and drive.google.com)
+        # OR if they are known related groups (hardcoded placeholder)
         if (
-            displayed_domain != domain
-            and not self._is_subdomain(displayed_domain, domain)
-            and not self._is_trusted_ecosystem(domain, displayed_domain)
+            link_domain.endswith(sender_domain) or
+            sender_domain.endswith(link_domain)
         ):
-            self._add_finding(
-                "url_mismatch_with_text",
-                "HIGH",
-                f"URL domain mismatch: displayed "
-                f"'{displayed_domain}' but links to '{domain}'",
-                {
-                    "displayed": displayed_domain,
-                    "actual": domain,
-                    "url": url,
-                },
-            )
+            return True
 
-    def _check_url_domain_mismatch(self, email_data: Dict):
-        """Check for mismatches between URL domain and displayed text."""
+        return False
+
+    def _check_link_mismatches(self, email_data: Dict):
+        """
+        Check for:
+        1. Mismatch between displayed text and actual URL.
+        2. Mismatch between URL domain and Sender domain (if not a platform).
+        """
         urls = email_data.get("urls", [])
         sender = email_data.get("sender", "")
-
         sender_domain = ""
-        if sender and "@" in sender:
+        if "@" in sender:
             sender_domain = sender.split("@")[1].lower()
 
         for url_obj in urls:
             url = url_obj.get("url", "")
             domain = url_obj.get("domain", "")
-            displayed_text = url_obj.get("displayed_text", "")
+            displayed_text = url_obj.get("text", "")
 
-            # 1. Check displayed text vs actual link
-            if displayed_text:
+            # 1. Check Displayed Text Mismatch
+            # Only if the displayed text looks like a URL/Domain
+            if displayed_text and "." in displayed_text:
+                # Extract domain from displayed text if possible
+                # Simple extraction: look for something resembling a domain
                 displayed_domain_match = re.search(
-                    r"([a-z0-9][a-z0-9-]*\.)+[a-z0-9-]+",
+                    r"([a-zA-Z0-9]([a-zA-Z0-9\-]{0,61}[a-zA-Z0-9])?\.)+"
+                    r"[a-zA-Z]{2,}",
                     displayed_text,
                     re.IGNORECASE,
                 )
                 if displayed_domain_match:
                     displayed_domain = displayed_domain_match.group().lower()
-                    self._display_domain_match_check(domain, displayed_domain, url)
+                    self._display_domain_match_check(
+                        domain, displayed_domain, url
+                    )
 
                 # 2. Check URL domain vs Sender Domain
                 # Check if it's a subdomain of a trusted platform
@@ -238,6 +217,31 @@ class PhishingHeuristics:
                             },
                         )
 
+    def _display_domain_match_check(
+        self, actual_domain: str, displayed_domain: str, url: str
+    ):
+        """Helper to check if displayed domain matches actual domain."""
+        # Clean domains
+        actual_clean = actual_domain.replace("www.", "")
+        displayed_clean = displayed_domain.replace("www.", "")
+
+        if actual_clean != displayed_clean and not self._is_subdomain(
+            actual_clean, displayed_clean
+        ):
+            self._add_finding(
+                "url_mismatch_with_text",
+                "HIGH",
+                (
+                    f"Link displayed as '{displayed_domain}' but leads to "
+                    f"'{actual_domain}'"
+                ),
+                {
+                    "url": url,
+                    "displayed": displayed_domain,
+                    "actual": actual_domain,
+                },
+            )
+
     def _check_url_obfuscation(self, email_data: Dict):
         """Check for obfuscated or suspicious URL patterns."""
         urls = email_data.get("urls", [])
@@ -279,7 +283,10 @@ class PhishingHeuristics:
                 self._add_finding(
                     "url_obfuscation",
                     "HIGH",
-                    (f"Shortened URL: {domain} " f"- hidden dest"),
+                    (
+                        f"Shortened URL: {domain} "
+                        f"- hidden dest"
+                    ),
                     {"url": url, "domain": domain},
                 )
 
@@ -289,7 +296,10 @@ class PhishingHeuristics:
                 self._add_finding(
                     "url_obfuscation",
                     "HIGH",
-                    ("URL contains hex-encoded characters " "(obfuscation technique)"),
+                    (
+                        "URL contains hex-encoded characters "
+                        "(obfuscation technique)"
+                    ),
                     {"url": url},
                 )
 
@@ -300,7 +310,10 @@ class PhishingHeuristics:
                 self._add_finding(
                     "url_obfuscation",
                     "MEDIUM",
-                    (f"Excessive subdomains detected in URL " f"({subdomain_count})"),
+                    (
+                        f"Excessive subdomains detected in URL "
+                        f"({subdomain_count})"
+                    ),
                     {"domain": domain},
                 )
 
@@ -308,34 +321,16 @@ class PhishingHeuristics:
         """Check for suspicious file attachments."""
         attachments = email_data.get("attachments", [])
 
-        if not attachments:
-            return
+        for att in attachments:
+            filename = att.get("filename", "").lower()
+            content_type = att.get("content_type", "").lower()
 
-        for attachment in attachments:
-            filename = attachment.get("filename", "").lower()
-            content_type = attachment.get("content_type", "").lower()
-
-            # Check file extension
-            for ext in SUSPICIOUS_EXTENSIONS:
-                if filename.endswith(ext):
-                    self._add_finding(
-                        "suspicious_attachment",
-                        "HIGH",
-                        f"Suspicious file attachment: {filename}",
-                        {
-                            "filename": filename,
-                            "extension": ext,
-                            "content_type": content_type,
-                        },
-                    )
-                    break
-
-            # Check for double extensions
-            if re.search(r"\.(\w+)\.(\w+)$", filename):
+            # Check Extension
+            if any(filename.endswith(ext) for ext in SUSPICIOUS_EXTENSIONS):
                 self._add_finding(
                     "suspicious_attachment",
                     "HIGH",
-                    f"Double extension detected: {filename}",
+                    f"Suspicious attachment extension: {filename}",
                     {"filename": filename},
                 )
 
@@ -350,200 +345,40 @@ class PhishingHeuristics:
 
     def _check_header_anomalies(self, email_data: Dict):
         """Check for anomalies in email headers."""
-        headers = email_data.get("headers", {})
+        # headers = email_data.get("headers", {}) # Unused
         sender = email_data.get("sender", "")
         reply_to = email_data.get("reply_to", "")
 
-        # Check if Reply-To differs from From
-        if reply_to and sender and reply_to.lower() != sender.lower():
-            self._add_finding(
-                "header_anomalies",
-                "MEDIUM",
-                "Reply-To address differs from From address",
-                {"from": sender, "reply_to": reply_to},
-            )
+        # 1. Reply-To Mismatch
+        if sender and reply_to:
+            # Simple check: ignore friendly names, check email part
+            sender_email = sender
+            if "<" in sender:
+                sender_email = sender.split("<")[1].strip(">")
 
-        # Check for missing or suspicious headers
-        suspicious_header_absence = ["Date", "Message-ID"]
-        for header in suspicious_header_absence:
-            if header not in headers or not headers[header]:
+            reply_to_email = reply_to
+            if "<" in reply_to:
+                reply_to_email = reply_to.split("<")[1].strip(">")
+
+            if sender_email.lower() != reply_to_email.lower():
                 self._add_finding(
-                    "header_anomalies",
-                    "LOW",
-                    f"Missing or empty header: {header}",
-                    {"header": header},
+                    "header_anomaly",
+                    "MEDIUM",
+                    "Reply-To address differs from Sender address",
+                    {"sender": sender, "reply_to": reply_to},
                 )
 
-    def _check_authentication_headers(self, email_data: Dict):
-        """Check for authentication failures (SPF, DKIM, DMARC)."""
-        headers = email_data.get("headers", {})
-        auth_results = headers.get("Authentication-Results", "").lower()
-        received_spf = headers.get("Received-SPF", "").lower()
-
-        failures = []
-
-        # Check Authentication-Results header
-        if auth_results:
-            if "dkim=fail" in auth_results:
-                failures.append("DKIM verification failed")
-            if "spf=fail" in auth_results:
-                failures.append("SPF verification failed")
-            if "dmarc=fail" in auth_results:
-                failures.append("DMARC verification failed")
-
-        # Check Received-SPF header
-        if received_spf and "fail" in received_spf:
-            failures.append("Received-SPF reported failure")
-
-        if failures:
-            self._add_finding(
-                "authentication_failure",
-                "HIGH",
-                "Email authentication validation failed",
-                {"failures": list(set(failures))},
-            )
-
-    def _check_urgent_language(self, email_data: Dict):
-        """Check for urgent/threatening language in subject and body."""
-        subject = email_data.get("subject", "").lower()
-        body = email_data.get("body", "").lower()
-
-        content = subject + " " + body
-
-        # Count urgent keywords
-        keyword_count = 0
-        matched_keywords = []
-
-        for keyword in URGENT_KEYWORDS:
-            count = content.count(keyword.lower())
-            if count > 0:
-                keyword_count += count
-                matched_keywords.append(keyword)
-
-        if keyword_count >= 3:
-            unique_keywords = list(set(matched_keywords))[:5]
-            self._add_finding(
-                "urgent_language",
-                "MEDIUM",
-                f"Multiple urgent/threatening keywords detected: "
-                f"{', '.join(unique_keywords)}",
-                {
-                    "keyword_count": keyword_count,
-                    "keywords": matched_keywords[:5],
-                },
-            )
-        elif keyword_count >= 1:
-            unique_keywords = list(set(matched_keywords))
-            self._add_finding(
-                "urgent_language",
-                "LOW",
-                f"Urgent language detected: " f"{', '.join(unique_keywords)}",
-                {"keywords": matched_keywords},
-            )
-
-    def _check_suspicious_tlds(self, email_data: Dict):
-        """Check for suspicious top-level domains."""
-        urls = email_data.get("urls", [])
+    def _check_sender_anomalies(self, email_data: Dict):
+        """Check for anomalies in sender address."""
         sender = email_data.get("sender", "")
+        if not sender:
+            return
 
-        # Check sender domain TLD
-        if sender and "@" in sender:
-            domain = sender.split("@")[1].lower()
-            for tld in SUSPICIOUS_TLDS:
-                if domain.endswith(tld):
-                    self._add_finding(
-                        "suspicious_tld",
-                        "MEDIUM",
-                        f"Sender uses suspicious TLD: {tld}",
-                        {"domain": domain, "tld": tld},
-                    )
+        # Check for free email providers asking for money/urgency (Contextual)
+        # This is hard to do without NL, but we can flag high-risk
+        # generic domains if other indicators are present.
 
-        # Check URL TLDs
-        for url_obj in urls:
-            domain = url_obj.get("domain", "").lower()
-            for tld in SUSPICIOUS_TLDS:
-                if domain.endswith(tld):
-                    self._add_finding(
-                        "suspicious_tld",
-                        "MEDIUM",
-                        f"URL contains suspicious TLD: {tld}",
-                        {"domain": domain, "tld": tld},
-                    )
-
-    def _check_ip_based_urls(self, email_data: Dict):
-        """Check for URLs using IP addresses instead of domain names."""
-        urls = email_data.get("urls", [])
-
-        for url_obj in urls:
-            domain = url_obj.get("domain", "")
-            url = url_obj.get("url", "")
-
-            # Check if domain is an IP address
-            ip_pattern = r"^(\d{1,3}\.){3}\d{1,3}(:\d+)?$"
-            if re.match(ip_pattern, domain):
-                self._add_finding(
-                    "ip_based_url",
-                    "HIGH",
-                    f"URL uses IP address instead of domain name: {domain}",
-                    {"url": url, "ip": domain},
-                )
-
-    def _is_suspicious_domain(self, domain: str) -> bool:
-        """
-        Check if a domain has suspicious characteristics.
-        """
-        if not domain or len(domain) < 5:
-            return True
-
-        # Check for numbers at the end of domain
-        if re.search(r"-\d+\.|^\d+-", domain):
-            return True
-
-        # Check for excessive hyphens
-        if domain.count("-") > 2:
-            return True
-
-        # Check for similar-looking characters (homoglyphs)
-        homoglyph_patterns = [
-            r"0o|O0",  # Zero and O
-            r"1l|l1",  # One and l
-        ]
-        for pattern in homoglyph_patterns:
-            if re.search(pattern, domain):
-                return True
-
-        return False
-
-    def _is_subdomain(self, domain1: str, domain2: str) -> bool:
-        """
-        Check if domain1 is a subdomain of domain2.
-        """
-        domain1_lower = domain1.lower()
-        domain2_lower = domain2.lower()
-
-        return domain1_lower == domain2_lower or domain1_lower.endswith(
-            "." + domain2_lower
-        )
-
-    def _is_trusted_ecosystem(self, primary_domain: str, check_domain: str):
-        """
-        Check if check_domain is in the trusted group of primary_domain.
-        """
-        if not primary_domain:
-            return False
-
-        # Direct match or subdomain
-        if self._is_subdomain(check_domain, primary_domain):
-            return True
-
-        # Check trusted groups
-        if primary_domain in TRUSTED_DOMAIN_GROUPS:
-            allowed = TRUSTED_DOMAIN_GROUPS[primary_domain]
-            if check_domain in allowed:
-                return True
-            # Also check if it's a subdomain of any allowed domain
-            for allowed_d in allowed:
-                if self._is_subdomain(check_domain, allowed_d):
-                    return True
-
-        return False
+        # Check for "doppelganger" domains (e.g. gmai1.com)
+        # Placeholder for fuzzy matching logic
+        pass
+# fmt: on
