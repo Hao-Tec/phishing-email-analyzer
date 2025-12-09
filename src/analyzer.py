@@ -7,7 +7,7 @@ from pathlib import Path
 from typing import Dict, List
 
 from src.email_parser import EmailParser
-from src.heuristics import PhishingHeuristics
+from src.heuristics import HeuristicAnalyzer
 from src.config import (
     SCORE_THRESHOLD,
     HEURISTIC_WEIGHTS,
@@ -29,7 +29,7 @@ class EmailAnalyzer:
     def __init__(self):
         """Initialize the analyzer."""
         self.parser = EmailParser()
-        self.heuristics = PhishingHeuristics()
+        self.heuristics = HeuristicAnalyzer()
         self.llm_analyzer = LLMAnalyzer()
         self.vt_scanner = VirusTotalScanner()
         # New components
