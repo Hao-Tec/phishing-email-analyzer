@@ -20,7 +20,10 @@ class TestLocalLLM(unittest.TestCase):
                                 "is_phishing": True,
                                 "confidence_score": 0.95,
                                 "risk_level": "CRITICAL",
-                                "reasoning": ["Urgent request", "Suspicious link"],
+                                "reasoning": [
+                                    "Urgent request",
+                                    "Suspicious link",
+                                ],
                                 "summary": "This is a phishing email.",
                             }
                         )
@@ -30,14 +33,17 @@ class TestLocalLLM(unittest.TestCase):
         }
         mock_post.return_value = mock_response
 
-        # Initialize analyzer (it accepts provider from mocked config import?)
-        # Note: We need to patch LLM_PROVIDER in the module namespace where it is used
+        # Initialize analyzer (it accepts provider from mocked
+        # config import?)
+        # Note: We need to patch LLM_PROVIDER in the module namespace
+        # where it is used
 
         analyzer = LLMAnalyzer()
-        # Manually force provider since __init__ might have run before patch if we are not careful,
-        # but here we patch it before init.
-        # Actually LLM_PROVIDER is imported at top level, so patching it in test class might be tricky
-        # if not using reload. Let's force it on instance for safety.
+        # Manually force provider since __init__ might have run before
+        # patch if we are not careful, but here we patch it before init.
+        # Actually LLM_PROVIDER is imported at top level, so patching it
+        # in test class might be tricky if not using reload. Let's force
+        # it on instance for safety.
         analyzer.provider = "local"
 
         score, data = analyzer.analyze("Test email content")

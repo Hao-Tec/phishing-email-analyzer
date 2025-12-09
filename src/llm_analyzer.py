@@ -31,7 +31,7 @@ class LLMAnalyzer:
                 genai.configure(api_key=self.api_key)
                 self.model = genai.GenerativeModel("gemini-flash-latest")
         elif self.provider == "local":
-            # No specific init needed for local, just check url implicitly later
+            # No specific init needed for local, check url later
             pass
 
     def analyze(self, email_text: str) -> Tuple[float, Dict]:
@@ -108,7 +108,9 @@ class LLMAnalyzer:
             result = response.json()
             # Extract content from OpenAI format
             content = (
-                result.get("choices", [{}])[0].get("message", {}).get("content", "")
+                result.get("choices", [{}])[0]
+                .get("message", {})
+                .get("content", "")
             )
             return content
         except requests.exceptions.RequestException as e:
