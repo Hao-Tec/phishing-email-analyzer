@@ -263,3 +263,7 @@ LLM_PROVIDER = "gemini"
 LLM_LOCAL_URL = "http://localhost:11434/v1/chat/completions"
 # Model name to request from local provider
 LLM_MODEL_NAME = "llama3"
+
+# LLM Cache Configuration
+# Path to SQLite database for caching analysis results
+LLM_CACHE_PATH = "data/llm_cache.db"

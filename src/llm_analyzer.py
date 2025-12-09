@@ -8,10 +8,74 @@ import google.generativeai as genai
 from typing import Dict, Tuple
 import json
 import logging
-import requests
-from src.config import LLM_PROVIDER, LLM_LOCAL_URL, LLM_MODEL_NAME
+import sqlite3
+import hashlib
+from pathlib import Path
+from src.config import LLM_PROVIDER, LLM_LOCAL_URL, LLM_MODEL_NAME, LLM_CACHE_PATH
 
 logger = logging.getLogger(__name__)
+
+
+class LLMCache:
+    """
+    Simple SQLite-based cache for LLM responses to save API quota/latency.
+    """
+
+    def __init__(self, db_path: str = LLM_CACHE_PATH):
+        self.db_path = db_path
+        self._init_db()
+
+    def _init_db(self):
+        """Initialize the database and table."""
+        try:
+            # Ensure directory exists
+            Path(self.db_path).parent.mkdir(parents=True, exist_ok=True)
+
+            with sqlite3.connect(self.db_path) as conn:
+                conn.execute(
+                    """
+                    CREATE TABLE IF NOT EXISTS llm_cache (
+                        hash TEXT PRIMARY KEY,
+                        response TEXT
+                    )
+                    """
+                )
+        except Exception as e:
+            logger.error(f"Failed to init LLM cache: {e}")
+
+    def get(self, text: str) -> Dict:
+        """Retrieve cached response for text if exists."""
+        text_hash = self._hash_text(text)
+        try:
+            with sqlite3.connect(self.db_path) as conn:
+                cursor = conn.execute(
+                    "SELECT response FROM llm_cache WHERE hash = ?", (text_hash,)
+                )
+                row = cursor.fetchone()
+                if row:
+                    try:
+                        return json.loads(row[0])
+                    except json.JSONDecodeError:
+                        return None
+        except Exception as e:
+            logger.warning(f"Cache lookup failed: {e}")
+        return None
+
+    def put(self, text: str, response_data: Dict):
+        """Store response in cache."""
+        text_hash = self._hash_text(text)
+        try:
+            with sqlite3.connect(self.db_path) as conn:
+                conn.execute(
+                    "INSERT OR REPLACE INTO llm_cache (hash, response) VALUES (?, ?)",
+                    (text_hash, json.dumps(response_data)),
+                )
+        except Exception as e:
+            logger.warning(f"Cache storage failed: {e}")
+
+    def _hash_text(self, text: str) -> str:
+        """Create SHA256 hash of the input text."""
+        return hashlib.sha256(text.encode("utf-8")).hexdigest()
 
 
 class LLMAnalyzer:
@@ -24,6 +88,7 @@ class LLMAnalyzer:
         self.provider = LLM_PROVIDER
         self.model = None
         self.api_key = None
+        self.cache = LLMCache()
 
         if self.provider == "gemini":
             self.api_key = os.getenv("GEMINI_API_KEY")
@@ -49,6 +114,15 @@ class LLMAnalyzer:
         """
         if self.provider == "gemini" and not self.model:
             return 0.0, {"error": "No API key configured for Gemini"}
+
+        # Check cache first
+        cached_result = self.cache.get(email_text)
+        if cached_result:
+            logger.info("LLM Cache Hit")
+            score = cached_result.get("confidence_score", 0.0)
+            # Add cache indicator for UI/Transparency
+            cached_result["cached"] = True
+            return score, cached_result
 
         prompt = f"""
         You are a cybersecurity expert specializing in phishing detection.
@@ -81,6 +155,12 @@ class LLMAnalyzer:
                 return 0.0, {"error": f"Unknown provider: {self.provider}"}
 
             data = self._parse_response(response_text)
+
+            # Cache the successful result
+            if "error" not in data:
+                # Store original text as key, not prompt, to match input
+                self.cache.put(email_text, data)
+
             score = data.get("confidence_score", 0.0)
             return score, data
 
@@ -118,9 +198,7 @@ class LLMAnalyzer:
             result = response.json()
             # Extract content from OpenAI format
             content = (
-                result.get("choices", [{}])[0]
-                .get("message", {})
-                .get("content", "")
+                result.get("choices", [{}])[0].get("message", {}).get("content", "")
             )
             return content
         except requests.exceptions.RequestException as e:
