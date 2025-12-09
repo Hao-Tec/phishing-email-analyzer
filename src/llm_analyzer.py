@@ -7,6 +7,11 @@ import os
 import google.generativeai as genai
 from typing import Dict, Tuple
 import json
+import logging
+import requests
+from src.config import LLM_PROVIDER, LLM_LOCAL_URL, LLM_MODEL_NAME
+
+logger = logging.getLogger(__name__)
 
 
 class LLMAnalyzer:
@@ -15,13 +20,19 @@ class LLMAnalyzer:
     """
 
     def __init__(self):
-        """Initialize the LLM analyzer with API key."""
-        self.api_key = os.getenv("GEMINI_API_KEY")
-        if self.api_key:
-            genai.configure(api_key=self.api_key)
-            self.model = genai.GenerativeModel("gemini-flash-latest")
-        else:
-            self.model = None
+        """Initialize the LLM analyzer with API key or local config."""
+        self.provider = LLM_PROVIDER
+        self.model = None
+        self.api_key = None
+
+        if self.provider == "gemini":
+            self.api_key = os.getenv("GEMINI_API_KEY")
+            if self.api_key:
+                genai.configure(api_key=self.api_key)
+                self.model = genai.GenerativeModel("gemini-flash-latest")
+        elif self.provider == "local":
+            # No specific init needed for local, just check url implicitly later
+            pass
 
     def analyze(self, email_text: str) -> Tuple[float, Dict]:
         """
@@ -36,8 +47,8 @@ class LLMAnalyzer:
               of phishing)
             - Analysis details dictionary
         """
-        if not self.model:
-            return 0.0, {"error": "No API key configured"}
+        if self.provider == "gemini" and not self.model:
+            return 0.0, {"error": "No API key configured for Gemini"}
 
         prompt = f"""
         You are a cybersecurity expert specializing in phishing detection.
@@ -61,18 +72,47 @@ class LLMAnalyzer:
         """
 
         try:
-            response = self.model.generate_content(prompt)
-            data = self._parse_response(response.text)
+            if self.provider == "gemini":
+                response = self.model.generate_content(prompt)
+                response_text = response.text
+            elif self.provider == "local":
+                response_text = self._analyze_local(prompt)
+            else:
+                return 0.0, {"error": f"Unknown provider: {self.provider}"}
 
+            data = self._parse_response(response_text)
             score = data.get("confidence_score", 0.0)
-            # Normalize score to 0-100 scale for consistency with existing
-            # system if needed,
-            # but here we return 0-1 float as requested, handled by caller.
-
             return score, data
 
         except Exception as e:
+            logger.error(f"LLM Analysis failed: {e}")
             return 0.0, {"error": str(e)}
+
+    def _analyze_local(self, prompt: str) -> str:
+        """Analyze using local LLM provider (OpenAI compatible API)."""
+        payload = {
+            "model": LLM_MODEL_NAME,
+            "messages": [
+                {
+                    "role": "system",
+                    "content": "You are a cybersecurity expert.",
+                },
+                {"role": "user", "content": prompt},
+            ],
+            "stream": False,
+        }
+
+        try:
+            response = requests.post(LLM_LOCAL_URL, json=payload, timeout=30)
+            response.raise_for_status()
+            result = response.json()
+            # Extract content from OpenAI format
+            content = (
+                result.get("choices", [{}])[0].get("message", {}).get("content", "")
+            )
+            return content
+        except requests.exceptions.RequestException as e:
+            raise Exception(f"Local LLM connection failed: {e}")
 
     def _parse_response(self, response_text: str) -> Dict:
         """Parse JSON response from LLM."""

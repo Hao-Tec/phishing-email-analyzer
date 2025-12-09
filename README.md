@@ -63,6 +63,15 @@ A world-class, enterprise-grade phishing detection system designed to identify s
    PHISHTANK_API_KEY=your_phishtank_key (Optional)
    ```
 
+4. **Configure Local LLM (Optional)**
+   To use a local LLM (like Ollama) instead of Gemini:
+   - Ensure your local server is running (e.g., `ollama serve`).
+   - Open `src/config.py` and set:
+     ```python
+     LLM_PROVIDER = "local"
+     LLM_LOCAL_URL = "http://localhost:11434/v1/chat/completions" # Adjust if needed
+     ```
+
 ## 💻 Usage
 
 ### Command Line Interface

@@ -254,3 +254,12 @@ GENERATION_CONFIG = {
     Do not include markdown formatting.
     """,
 }
+
+# LLM Provider Configuration
+# Options: "gemini", "local"
+LLM_PROVIDER = "gemini"
+
+# Local LLM Configuration (e.g., for Ollama)
+LLM_LOCAL_URL = "http://localhost:11434/v1/chat/completions"
+# Model name to request from local provider
+LLM_MODEL_NAME = "llama3"
