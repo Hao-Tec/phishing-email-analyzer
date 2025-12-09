@@ -92,26 +92,18 @@ class EmailAnalyzer:
                 # We can reuse heuristics or just checking
                 # simple urgent keywords
                 # For now, just add it to body for ML and LLM
-                email_data["body"] += (
-                    "\n\n[OCR EXTRACTED CONTENT]\n" + ocr_text
-                )
+                email_data["body"] += "\n\n[OCR EXTRACTED CONTENT]\n" + ocr_text
 
                 # Simple check
-                if (
-                    "password" in ocr_text.lower()
-                    or "verify" in ocr_text.lower()
-                ):
+                if "password" in ocr_text.lower() or "verify" in ocr_text.lower():
                     findings.append(
                         {
                             "heuristic": "ocr_suspicious_content",
                             "severity": "MEDIUM",
                             "description": (
-                                "Suspicious text detected in image "
-                                "attachments"
+                                "Suspicious text detected in image " "attachments"
                             ),
-                            "weight": HEURISTIC_WEIGHTS[
-                                "ocr_suspicious_content"
-                            ],
+                            "weight": HEURISTIC_WEIGHTS["ocr_suspicious_content"],
                             "adjusted_weight": HEURISTIC_WEIGHTS[
                                 "ocr_suspicious_content"
                             ],
@@ -140,9 +132,7 @@ class EmailAnalyzer:
                         "severity": "HIGH",
                         "description": "DKIM verification failed",
                         "weight": HEURISTIC_WEIGHTS["auth_dkim_fail"],
-                        "adjusted_weight": HEURISTIC_WEIGHTS[
-                            "auth_dkim_fail"
-                        ],
+                        "adjusted_weight": HEURISTIC_WEIGHTS["auth_dkim_fail"],
                     }
                 )
                 score += HEURISTIC_WEIGHTS["auth_dkim_fail"]
@@ -154,26 +144,21 @@ class EmailAnalyzer:
                         "severity": "MEDIUM",
                         "description": "Sender domain missing SPF record",
                         "weight": HEURISTIC_WEIGHTS["auth_spf_fail"],
-                        "adjusted_weight": HEURISTIC_WEIGHTS[
-                            "auth_spf_fail"
-                        ],
+                        "adjusted_weight": HEURISTIC_WEIGHTS["auth_spf_fail"],
                     }
                 )
                 score += HEURISTIC_WEIGHTS["auth_spf_fail"]
 
         # 4. ML Analysis
         if self.ml_analyzer.enabled:
-            ml_prob, ml_details = self.ml_analyzer.analyze(
-                email_data.get("body", "")
-            )
+            ml_prob, ml_details = self.ml_analyzer.analyze(email_data.get("body", ""))
             if ml_prob > 0.7:
                 findings.append(
                     {
                         "heuristic": "ml_confidence_high",
                         "severity": "HIGH",
                         "description": (
-                            f"ML Model detected phishing pattern "
-                            f"({ml_prob:.2f})"
+                            f"ML Model detected phishing pattern " f"({ml_prob:.2f})"
                         ),
                         "weight": HEURISTIC_WEIGHTS["ml_confidence_high"],
                         "adjusted_weight": (
@@ -211,10 +196,7 @@ class EmailAnalyzer:
             vt_scan = self.vt_scanner.scan_url(url)
 
             # Check for missing API key warning on Platform Domains
-            if (
-                is_platform_domain
-                and vt_scan.get("error") == "No API key configured"
-            ):
+            if is_platform_domain and vt_scan.get("error") == "No API key configured":
                 findings.append(
                     {
                         "heuristic": "url_obfuscation",  # Fallback category
@@ -291,11 +273,15 @@ class EmailAnalyzer:
 
             # Transparency: Report AI findings even if SAFE
             elif llm_data:
+                description = "AI Analysis: Content appears safe"
+                if "error" in llm_data:
+                    description = f"AI Analysis Failed: {llm_data['error']}"
+
                 findings.append(
                     {
                         "heuristic": "llm_analysis",
                         "severity": "LOW",
-                        "description": "AI Analysis: Content appears safe",
+                        "description": description,
                         "weight": 0,
                         "adjusted_weight": 0,
                         "details": llm_data,
@@ -350,10 +336,7 @@ class EmailAnalyzer:
         email_extensions = {".eml", ".txt", ".msg", ".gz"}
 
         for email_file in folder_path.iterdir():
-            if (
-                email_file.is_file()
-                and email_file.suffix.lower() in email_extensions
-            ):
+            if email_file.is_file() and email_file.suffix.lower() in email_extensions:
                 result = self.analyze_email(str(email_file))
                 results.append(result)
 
