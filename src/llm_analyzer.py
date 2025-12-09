@@ -89,8 +89,9 @@ class LLMAnalyzer:
             if "403" in error_str and "permission" in error_str.lower():
                 logger.error(
                     "LLM Analysis failed: Permission Denied (403). "
-                    "Check if GEMINI_API_KEY is correct and 'Generative Language API' "
-                    "is enabled in your Google Cloud Console."
+                    "Check if GEMINI_API_KEY is correct and "
+                    "'Generative Language API' is enabled in your "
+                    "Google Cloud Console."
                 )
             else:
                 logger.error(f"LLM Analysis failed: {e}")
@@ -117,7 +118,9 @@ class LLMAnalyzer:
             result = response.json()
             # Extract content from OpenAI format
             content = (
-                result.get("choices", [{}])[0].get("message", {}).get("content", "")
+                result.get("choices", [{}])[0]
+                .get("message", {})
+                .get("content", "")
             )
             return content
         except requests.exceptions.RequestException as e:
