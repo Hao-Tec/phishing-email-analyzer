@@ -91,7 +91,8 @@ class PhishingHeuristics:
         actual_increase = min(raw_score_increase, allowed_increase)
 
         # Update scores
-        self.heuristic_scores[heuristic_name] = current_type_score + actual_increase
+        self.heuristic_scores[heuristic_name] = current_type_score
+        self.heuristic_scores[heuristic_name] += actual_increase
         self.score += actual_increase
 
         finding = {
@@ -278,7 +279,7 @@ class PhishingHeuristics:
                 self._add_finding(
                     "url_obfuscation",
                     "HIGH",
-                    (f"Shortened URL detected: {domain} " f"- destination is hidden"),
+                    (f"Shortened URL: {domain} " f"- hidden dest"),
                     {"url": url, "domain": domain},
                 )
 
@@ -339,10 +340,13 @@ class PhishingHeuristics:
                 )
 
             # Check for suspicious content-type mismatch
-            if content_type.startswith("application/") and not any(
-                content_type.endswith(ext.strip(".")) for ext in SUSPICIOUS_EXTENSIONS
-            ):
-                pass  # This is normal for most files
+            if content_type.startswith("application/"):
+                suspicious_ext = any(
+                    content_type.endswith(ext.strip("."))
+                    for ext in SUSPICIOUS_EXTENSIONS
+                )
+                if not suspicious_ext:
+                    pass  # This is normal for most files
 
     def _check_header_anomalies(self, email_data: Dict):
         """Check for anomalies in email headers."""
