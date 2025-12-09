@@ -1,7 +1,8 @@
 """
 Machine Learning Analyzer Module
 Uses local ML models (scikit-learn) to detect phishing patterns.
-Supports loading vast external datasets (JSON) or falling back to embedded data.
+Supports loading vast external datasets (JSON) or falling back to
+embedded data.
 """
 
 import os
@@ -47,7 +48,9 @@ class MLAnalyzer:
     def _load_model(self):
         """Load the model and vectorizer from disk."""
         try:
-            if os.path.exists(ML_MODEL_PATH) and os.path.exists(ML_VECTORIZER_PATH):
+            has_model = os.path.exists(ML_MODEL_PATH)
+            has_vec = os.path.exists(ML_VECTORIZER_PATH)
+            if has_model and has_vec:
                 with open(ML_MODEL_PATH, "rb") as f:
                     self.model = pickle.load(f)
                 with open(ML_VECTORIZER_PATH, "rb") as f:
@@ -55,9 +58,7 @@ class MLAnalyzer:
                 self.enabled = True
                 logging.info(f"Loaded ML model from {ML_MODEL_PATH}")
             else:
-                logging.info(
-                    f"ML model not found at {ML_MODEL_PATH}. " f"Will attempt training."
-                )
+                logging.info(f"ML model absent at {ML_MODEL_PATH}. Training.")
         except Exception as e:
             logging.error(f"Failed to load ML model: {e}")
             self.enabled = False
@@ -115,7 +116,7 @@ class MLAnalyzer:
         # 1. Try Loading Advanced Dataset
         if os.path.exists(DATASET_PATH):
             try:
-                logging.info(f"Loading advanced dataset from {DATASET_PATH}...")
+                logging.info(f"Loading data: {DATASET_PATH}")
                 with open(DATASET_PATH, "r") as f:
                     data = json.load(f)
                     for item in data:
@@ -127,7 +128,7 @@ class MLAnalyzer:
 
         # 2. Fallback to Embedded Data
         if not texts:
-            logging.warning("External dataset not found/empty. Using embedded data.")
+            logging.warning("Ext dataset missing. Using embedded.")
             texts = [item[0] for item in PHISHING_TRAINING_DATA]
             labels = [item[1] for item in PHISHING_TRAINING_DATA]
             source = f"embedded_config ({len(texts)} samples)"
@@ -153,9 +154,7 @@ class MLAnalyzer:
                 pickle.dump(self.vectorizer, f)
 
             self.enabled = True
-            logging.info(
-                f"ML Model trained & saved successfully on {len(texts)} samples."
-            )
+            logging.info(f"Model trained on {len(texts)} samples.")
 
         except Exception as e:
             logging.error(f"Failed to train model: {e}")

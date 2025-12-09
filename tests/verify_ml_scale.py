@@ -8,15 +8,15 @@ logging.basicConfig(level=logging.INFO)
 # Add root to path
 sys.path.append(os.getcwd())
 
+from src.ml_analyzer import MLAnalyzer  # noqa: E402
+from src.config import DATASET_PATH  # noqa: E402
+
 try:
     import sklearn
 
     print(f"PASS: sklearn installed (version {sklearn.__version__})")
 except ImportError:
     print("FAIL: sklearn NOT installed.")
-
-from src.ml_analyzer import MLAnalyzer
-from src.config import DATASET_PATH
 
 
 def verify_training():
@@ -35,7 +35,7 @@ def verify_training():
         try:
             os.remove(model_path)
             print("Removed existing model to force validation.")
-        except:
+        except OSError:
             pass
 
     # 3. Initialize Analyzer (Triggers Training)
@@ -52,7 +52,8 @@ def verify_training():
 
     if vocab_size < 150:
         print(
-            "FAIL: Vocabulary too small. Likely used embedded data instead of vast dataset."
+            "FAIL: Vocabulary too small. Likely used embedded data instead "
+            "of vast dataset."
         )
         sys.exit(1)
 
