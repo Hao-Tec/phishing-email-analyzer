@@ -8,7 +8,7 @@ from pathlib import Path
 
 from src.analyzer import EmailAnalyzer
 from src.email_parser import EmailParser
-from src.heuristics import PhishingHeuristics
+from src.heuristics import HeuristicAnalyzer
 
 # Add parent directory to path
 sys.path.insert(0, str(Path(__file__).parent.parent))
@@ -67,7 +67,7 @@ class TestPhishingHeuristics(unittest.TestCase):
 
     def setUp(self):
         """Set up test fixtures."""
-        self.heuristics = PhishingHeuristics()
+        self.heuristics = HeuristicAnalyzer()
 
     def test_suspicious_domain_detection(self):
         """Test detection of suspicious domains."""
@@ -171,7 +171,7 @@ class TestEmailAnalyzer(unittest.TestCase):
             "reply_to": "",
         }
 
-        heuristics = PhishingHeuristics()
+        heuristics = HeuristicAnalyzer()
         score, findings = heuristics.evaluate(email_data)
         risk_level = self.analyzer._determine_risk_level(score)
 
@@ -185,7 +185,7 @@ class TestIntegration(unittest.TestCase):
     def test_full_pipeline(self):
         """Test the full analysis pipeline."""
         parser = EmailParser()
-        heuristics = PhishingHeuristics()
+        heuristics = HeuristicAnalyzer()
 
         email_string = """From: attacker@phishing.tk
 To: victim@example.com
