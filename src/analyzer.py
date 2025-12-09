@@ -120,7 +120,7 @@ class EmailAnalyzer:
                     score += HEURISTIC_WEIGHTS["ocr_suspicious_content"]
 
         # 2. Evaluate with heuristics (Standard)
-        h_score, h_findings = self.heuristics.evaluate(email_data)
+        h_score, h_findings = self.heuristics.analyze(email_data)
         score += h_score
         findings.extend(h_findings)
 
