@@ -202,8 +202,9 @@ Content-Type: text/html
         # Parse
         email_data = parser.parse_email_from_string(email_string)
 
-            # Analyze
-            score, findings = heuristics.analyze(email_data)        # Check results
+        # Analyze
+        score, findings = heuristics.analyze(email_data)
+        # Check results
         self.assertGreater(score, 0)
         self.assertGreater(len(findings), 0)
 
