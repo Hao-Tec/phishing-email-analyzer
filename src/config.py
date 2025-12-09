@@ -199,6 +199,9 @@ URGENT_KEYWORDS = {
     "congratulations",
 }
 
+# Suspicious keywords that indicate phishing attempts
+SUSPICIOUS_KEYWORDS = URGENT_KEYWORDS  # Alias for compatibility
+
 # Maximum URL length before suspicious (typically longer for obfuscation)
 MAX_URL_LENGTH = 200
 
