@@ -25,6 +25,16 @@ A world-class, enterprise-grade phishing detection system designed to identify s
 - **Advanced Format Support**: Native processing of `.eml`, `.msg` (Outlook), `.txt`, and `.eml.gz` archives.
 - **Deep Content Extraction**: recursively parses multipart messages, extracts hidden headers, analyzes HTML/Text payloads, and isolates attachments.
 
+## 📸 Screenshots
+
+|                Critical Alert                 |                       Safety Veto                        |
+| :-------------------------------------------: | :------------------------------------------------------: |
+| ![Critical Phishing](media_kit/MoneyShot.png) |         ![Safe Email](media_kit/Innovation.png)          |
+|  _System detects complex phishing attempts_   | _AI overrides mechanical failures for legitimate emails_ |
+
+![Code Architecture](media_kit/Code.png)
+_Professional, clean code architecture_
+
 ## 📦 Installation
 
 ### Prerequisites
