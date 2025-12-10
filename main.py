@@ -17,12 +17,14 @@ sys.path.insert(0, str(Path(__file__).parent.parent))
 
 from src.analyzer import EmailAnalyzer
 from src.reporter import EmailReporter
+from src.banner import print_banner
 
 console = Console()
 
 
 def main():
     """Main CLI entry point."""
+    print_banner()
     parser = argparse.ArgumentParser(
         description="Email Phishing Detection Tool - Analyze emails for phishing attacks",
         formatter_class=argparse.RawDescriptionHelpFormatter,
