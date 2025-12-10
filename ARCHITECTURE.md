@@ -8,6 +8,8 @@ Lockin/
 ├── requirements.txt        # Python dependencies
 ├── README.md               # User documentation
 ├── ARCHITECTURE.md         # This file
+├── IMPLEMENTATION_SUMMARY.md # Status & Features Summary
+├── quickstart.py           # Rapid setup script
 │
 ├── src/                    # Main package
 │   ├── __init__.py
