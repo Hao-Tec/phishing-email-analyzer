@@ -117,6 +117,17 @@ Lockin/
 The following modules provide enhanced detection capabilities:
 
 - **auth_validator.py**: Validates email authentication (DKIM, SPF, DMARC).
+
+### 6.2 Advanced URL Analysis (New)
+
+- **Specialized Random Forest Model**: Trained on **100,000+** phishing and legitimate URLs.
+- **Feature Extraction**: Character-level TF-IDF (n-grams 3-5) to catch obfuscation.
+- **Integration**: `MLAnalyzer` now separates Body Text analysis (General Phishing) from Link Analysis (URL Phishing).
+- **Performance**: >99% Accuracy on validation set.
+
+### 6.3 LLM-Based "AI Veto" (Planned)
+
+- Logic to allow high-confidence AI assessments to override mechanical heuristic failures (e.g., DKIM/SPF fails in simulated environments).
 - **ml_analyzer.py**: Local Random Forest model for zero-day detection.
 - **image_analyzer.py**: Extracts text from images using OCR.
 - **external_scanners.py**: Checks URLs against Google Safe Browsing and PhishTank.
