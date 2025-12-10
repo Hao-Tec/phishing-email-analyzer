@@ -5,13 +5,19 @@ Uses Google Gemini to analyze emails for sophisticated phishing attempts.
 
 import os
 import google.generativeai as genai
+import requests
 from typing import Dict, Tuple
 import json
 import logging
 import sqlite3
 import hashlib
 from pathlib import Path
-from src.config import LLM_PROVIDER, LLM_LOCAL_URL, LLM_MODEL_NAME, LLM_CACHE_PATH
+from src.config import (
+    LLM_PROVIDER,
+    LLM_LOCAL_URL,
+    LLM_MODEL_NAME,
+    LLM_CACHE_PATH
+)
 
 logger = logging.getLogger(__name__)
 
@@ -49,7 +55,8 @@ class LLMCache:
         try:
             with sqlite3.connect(self.db_path) as conn:
                 cursor = conn.execute(
-                    "SELECT response FROM llm_cache WHERE hash = ?", (text_hash,)
+                    "SELECT response FROM llm_cache WHERE hash = ?",
+                    (text_hash,)
                 )
                 row = cursor.fetchone()
                 if row:
@@ -67,7 +74,8 @@ class LLMCache:
         try:
             with sqlite3.connect(self.db_path) as conn:
                 conn.execute(
-                    "INSERT OR REPLACE INTO llm_cache (hash, response) VALUES (?, ?)",
+                    "INSERT OR REPLACE INTO llm_cache (hash, response) "
+                    "VALUES (?, ?)",
                     (text_hash, json.dumps(response_data)),
                 )
         except Exception as e:
@@ -198,7 +206,9 @@ class LLMAnalyzer:
             result = response.json()
             # Extract content from OpenAI format
             content = (
-                result.get("choices", [{}])[0].get("message", {}).get("content", "")
+                result.get("choices", [{}])[0]
+                .get("message", {})
+                .get("content", "")
             )
             return content
         except requests.exceptions.RequestException as e:
