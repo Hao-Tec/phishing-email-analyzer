@@ -24,13 +24,19 @@ Lockin/
 ├── README.md                    # Complete user documentation
 ├── ARCHITECTURE.md              # Technical architecture & extension guide
 │
-├── src/                         # Core package (6 modules)
+├── src/                         # Core package (12 modules)
 │   ├── __init__.py
-│   ├── config.py               # Centralized configuration (weights, thresholds)
+│   ├── config.py               # Centralized configuration
 │   ├── email_parser.py         # Email parsing (EML/raw format)
 │   ├── heuristics.py           # 8 detection heuristics
 │   ├── analyzer.py             # Orchestrator module
-│   └── reporter.py             # Report generation (text/JSON)
+│   ├── reporter.py             # Report generation (text/JSON)
+│   ├── auth_validator.py       # Authentication (DKIM/SPF/DMARC)
+│   ├── ml_analyzer.py          # Local Machine Learning
+│   ├── image_analyzer.py       # OCR Text Extraction
+│   ├── external_scanners.py    # Threat Intelligence APIs
+│   ├── vt_scanner.py           # VirusTotal Integration
+│   └── llm_analyzer.py         # LLM Analysis (Gemini/Local)
 │
 ├── tests/                       # Unit test suite
 │   ├── __init__.py
@@ -105,6 +111,17 @@ Lockin/
   - Risk-based recommendations
   - Extracted data (URLs, attachments) included
   - File save capability
+
+### 6. **New Advanced Modules**
+
+The following modules provide enhanced detection capabilities:
+
+- **auth_validator.py**: Validates email authentication (DKIM, SPF, DMARC).
+- **ml_analyzer.py**: Local Random Forest model for zero-day detection.
+- **image_analyzer.py**: Extracts text from images using OCR.
+- **external_scanners.py**: Checks URLs against Google Safe Browsing and PhishTank.
+- **vt_scanner.py**: Checks URLs against VirusTotal.
+- **llm_analyzer.py**: Uses LLMs (Gemini/Local) for deep semantic analysis.
 
 ---
 
