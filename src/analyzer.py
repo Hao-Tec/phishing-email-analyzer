@@ -201,6 +201,25 @@ class EmailAnalyzer:
             domain = url_obj.get("domain", "")
             is_platform_domain = domain in PLATFORM_DOMAINS
 
+            # ML URL Analysis
+            if self.ml_analyzer.enabled:
+                url_prob = self.ml_analyzer.analyze_url(url)
+                if url_prob > 0.8:
+                    findings.append(
+                        {
+                            "heuristic": "url_ml_suspicious",
+                            "severity": "HIGH",
+                            "description": (
+                                f"ML Model (URL) detected malicious pattern "
+                                f"({url_prob:.2f}): {url}"
+                            ),
+                            "weight": 80,
+                            "adjusted_weight": 80 * url_prob,
+                            "details": {"url": url, "probability": url_prob},
+                        }
+                    )
+                    score += 80 * url_prob
+
             # VirusTotal (Existing)
             vt_scan = self.vt_scanner.scan_url(url)
 

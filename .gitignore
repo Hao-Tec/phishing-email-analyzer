@@ -1,3 +1,4 @@
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
@@ -86,3 +87,7 @@ data/*.db
 # Debug files
 debug_*.py
 debug_*.json
+
+# Large Datasets
+Phishing Detection Dataset/
+Phishing URL dataset/
