@@ -19,7 +19,9 @@ Lockin/
 │   ├── auth_validator.py   # [NEW] DKIM/SPF/DMARC verification
 │   ├── ml_analyzer.py      # [NEW] Local Machine Learning
 │   ├── image_analyzer.py   # [NEW] OCR Analysis
-│   └── external_scanners.py# [NEW] Threat Intel API integrations
+│   ├── vt_scanner.py       # VirusTotal Integration
+│   ├── llm_analyzer.py     # LLM Analysis (Gemini/Local)
+│   └── external_scanners.py# Threat Intel API integrations
 │
 │
 ├── tools/                  # Dataset Generation & Maintenance Tools
