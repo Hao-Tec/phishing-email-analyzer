@@ -128,12 +128,14 @@ The system employs a multi-layered approach to calculate risk:
 
 ## 🛠️ Architecture
 
-The tool is built on a modular architecture to allow easy extension:
+The tool is built on a modular architecture to allow easy extension. See [ARCHITECTURE.md](ARCHITECTURE.md) for a detailed deep-dive.
 
 - `src/auth_validator.py`: Handles active DNS and crypto verification.
 - `src/ml_analyzer.py`: Manages local scikit-learn models.
 - `src/image_analyzer.py`: Interface for Tesseract OCR.
 - `src/external_scanners.py`: API wrappers for Safe Browsing/PhishTank.
+- `src/vt_scanner.py`: Integration with VirusTotal API.
+- `src/llm_analyzer.py`: Advanced semantic analysis using Large Language Models.
 - `src/analyzer.py`: The central orchestrator fusing all signals.
 
 ## 🤝 Contributing
