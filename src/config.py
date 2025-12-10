@@ -220,6 +220,9 @@ ML_MODEL_PATH = "models/phishing_model.pkl"
 ML_VECTORIZER_PATH = "models/vectorizer.pkl"
 DATASET_PATH = "data/phishing_dataset_v2.json"
 
+ML_URL_MODEL_PATH = "models/url_model.pkl"
+ML_URL_VECTORIZER_PATH = "models/url_vectorizer.pkl"
+
 # OCR Configuration
 # If Tesseract is not in PATH, specify absolute path here
 # e.g., r"C:\Program Files\Tesseract-OCR\tesseract.exe"

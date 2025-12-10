@@ -38,9 +38,14 @@ class MLAnalyzer:
         self.model = None
         self.vectorizer = None
         self.enabled = False
+        
+        # URL Model
+        self.url_model = None
+        self.url_vectorizer = None
 
         if TfidfVectorizer and RandomForestClassifier:
             self._load_model()
+            self._load_url_model()
             # If load failed (no model yet), train the embedded one
             if not self.enabled:
                 self.train_model()
@@ -162,6 +167,38 @@ class MLAnalyzer:
             self.enabled = True
             logging.info(f"Model trained on {len(texts)} samples.")
 
-        except Exception as e:
-            logging.error(f"Failed to train model: {e}")
             self.enabled = False
+
+    # --- URL Analysis Extensions ---
+
+    def _load_url_model(self):
+        """Load the URL-specific model and vectorizer."""
+        try:
+            from src.config import ML_URL_MODEL_PATH, ML_URL_VECTORIZER_PATH
+            if os.path.exists(ML_URL_MODEL_PATH) and os.path.exists(ML_URL_VECTORIZER_PATH):
+                with open(ML_URL_MODEL_PATH, "rb") as f:
+                    self.url_model = pickle.load(f)
+                with open(ML_URL_VECTORIZER_PATH, "rb") as f:
+                    self.url_vectorizer = pickle.load(f)
+                logging.info(f"Loaded URL ML model from {ML_URL_MODEL_PATH}")
+            else:
+                logging.warning("URL ML model not found. Run tools/train_url_model.py to enable.")
+        except Exception as e:
+            logging.error(f"Failed to load URL ML model: {e}")
+
+    def analyze_url(self, url: str) -> float:
+        """
+        Predict phishing probability for a URL.
+        Returns 0.0 to 1.0 (1.0 = Phishing).
+        """
+        if not self.url_model or not self.url_vectorizer or not url:
+            return 0.0
+        
+        try:
+            features = self.url_vectorizer.transform([url])
+            prob = self.url_model.predict_proba(features)[0][1]
+            return float(prob)
+        except Exception as e:
+            logging.error(f"URL ML prediction error: {e}")
+            return 0.0
+
