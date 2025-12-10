@@ -21,7 +21,8 @@ Lockin/
 │   ├── image_analyzer.py   # [NEW] OCR Analysis
 │   └── external_scanners.py# [NEW] Threat Intel API integrations
 │
-├── tools/                  # [NEW] Dataset Generation Tools
+│
+├── tools/                  # Dataset Generation & Maintenance Tools
 │   └── generate_advanced_dataset.py
 ├── data/                   # [NEW] Local datasets
 │   └── phishing_dataset_v2.json
@@ -104,7 +105,7 @@ Parallel Analysis:
     ├── MLAnalyzer (Random Forest)
     ├── ExternalScanners (SafeBrowsing/PhishTank)
     ├── ExternalScanners (SafeBrowsing/PhishTank)
-    └── LLMAnalyzer (Gemini or Local LLM)
+    └── LLMAnalyzer (Gemini or Local LLM + SQLite Cache)
     ↓
 EmailAnalyzer (Aggregator)
     ↓
