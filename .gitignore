@@ -82,3 +82,7 @@ models/*.pkl
 
 # Local Cache Databases
 data/*.db
+
+# Debug files
+debug_*.py
+debug_*.json
