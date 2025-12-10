@@ -18,7 +18,7 @@ We request that you **do not** start a public issue for security vulnerabilities
 Please report sensitive security issues via one of the following methods:
 
 1.  **GitHub Security Advisories**: If enabled, use the "Report a vulnerability" button in the **Security** tab of this repository.
-2.  **Email**: Contact the maintainer at `habeeb@example.com` (Please replace with your actual security contact email).
+2.  **Email**: Contact the maintainer at `haotec.reports@gmail.com`.
 
 ### What to Include
 
