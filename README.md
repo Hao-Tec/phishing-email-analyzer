@@ -40,7 +40,7 @@ A world-class, enterprise-grade phishing detection system designed to identify s
 1. **Clone the repository**
 
    ```bash
-   git clone https://github.com/yourusername/phishing-email-analyzer.git
+   git clone https://github.com/Hao-Tec/phishing-email-analyzer.git
    cd phishing-email-analyzer
    ```
 

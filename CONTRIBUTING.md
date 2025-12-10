@@ -9,7 +9,7 @@ The following is a set of guidelines for contributing to the Phishing Email Anal
 1.  **Fork the repository** on GitHub.
 2.  **Clone your fork** locally:
     ```bash
-    git clone https://github.com/your-username/phishing-email-analyzer.git
+    git clone https://github.com/Hao-Tec/phishing-email-analyzer.git
     ```
 3.  **Install dependencies**:
     ```bash
