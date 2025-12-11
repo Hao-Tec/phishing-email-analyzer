@@ -1,54 +1,82 @@
 # flake8: noqa
+import sys
+import time
+import random
 from rich.console import Console
+from rich.style import Style
 
 
 def print_banner():
-    """Print the startup banner."""
+    """Print the startup banner with hacker-style boot sequence."""
     console = Console()
 
-    # ASCII Art with integrated Version number
-    # We use raw strings but have to be careful with backslashes
-    # We'll print it line by line to allow specific coloring/version placement
+    # "Massive" Banner - ANSI Shadow / Block Style
+    # PHISHING
+    l1 = r"██████╗ ██╗  ██╗██╗███████╗██╗  ██╗██╗███╗   ██╗ ██████╗ "
+    l2 = r"██╔══██╗██║  ██║██║██╔════╝██║  ██║██║████╗  ██║██╔════╝ "
+    l3 = r"██████╔╝███████║██║███████╗███████║██║██╔██╗ ██║██║  ███╗"
+    l4 = r"██╔═══╝ ██╔══██║██║╚════██║██╔══██║██║██║╚██╗██║██║   ██║"
+    l5 = r"██║     ██║  ██║██║███████║██║  ██║██║██║ ╚████║╚██████╔╝"
+    l6 = r"╚═╝     ╚═╝  ╚═╝╚═╝╚══════╝╚═╝  ╚═╝╚═╝╚═╝  ╚═══╝ ╚═════╝ "
 
-    l1 = r"    ____  _     _     _     _              "
-    l2 = r"   |  _ \| |__ (_)___| |__ (_)_ __   __ _ "
-    l3 = r"   | |_) | '_ \| / __| '_ \| | '_ \ / _` |"
-    l4 = r"   |  __/| | | | \__ \ | | | | | | | (_| |"
-    l5 = r"   |_|   |_| |_|_|___/_| |_|_|_| |_|\__, |"
-    l6 = r"                                    |___/ "
-    l7 = r"       _                _                    "
-    l8 = r"      / \   _ __   __ _| |_   _ _______ _ __   [bold red]v1.0.0[/bold red]"
-    l9 = r"     / _ \ | '_ \ / _` | | | | |_  / _ \ '__|  [dim]Enterprise Edition[/dim]"
-    l10 = r"    / ___ \| | | | (_| | | |_| |/ /  __/ |   "
-    l11 = r"   /_/   \_\_| |_|\__,_|_|\__, /___\___|_|   "
-    l12 = r"                          |___/              "
+    # ANALYZER
+    l7 = r" █████╗ ███╗   ██╗ █████╗ ██╗  ██╗   ██╗███████╗███████╗██████╗ "
+    l8 = r"██╔══██╗████╗  ██║██╔══██╗██║  ╚██╗ ██╔╝╚══███╔╝██╔════╝██╔══██╗"
+    l9 = r"███████║██╔██╗ ██║███████║██║   ╚████╔╝   ███╔╝ █████╗  ██████╔╝"
+    l10 = r"██╔══██║██║╚██╗██║██╔══██║██║    ╚██╔╝   ███╔╝  ██╔══╝  ██╔══██╗"
+    l11 = r"██║  ██║██║ ╚████║██║  ██║███████╗██║   ███████╗███████╗██║  ██║"
+    l12 = r"╚═╝  ╚═╝╚═╝  ╚═══╝╚═╝  ╚═╝╚══════╝╚═╝   ╚══════╝╚══════╝╚═╝  ╚═╝"
 
-    console.print(f"[bold cyan]{l1}[/bold cyan]")
-    console.print(f"[bold cyan]{l2}[/bold cyan]")
-    console.print(f"[bold cyan]{l3}[/bold cyan]")
-    console.print(f"[bold cyan]{l4}[/bold cyan]")
-    console.print(f"[bold cyan]{l5}[/bold cyan]")
-    console.print(f"[bold cyan]{l6}[/bold cyan]")
+    # Print "PHISHING" in Gradient Red->DarkRed
+    console.print(f"[bold bright_red]{l1}[/bold bright_red]")
+    console.print(f"[bold bright_red]{l2}[/bold bright_red]")
+    console.print(f"[bold red]{l3}[/bold red]")
+    console.print(f"[bold red]{l4}[/bold red]")
+    console.print(f"[bold dark_red]{l5}[/bold dark_red]")
+    console.print(f"[bold dark_red]{l6}[/bold dark_red]")
 
-    # Gradient shift for the second word
-    console.print(f"[bold blue]{l7}[/bold blue]")
-    console.print(f"[bold blue]{l8}[/bold blue]")
-    console.print(f"[bold blue]{l9}[/bold blue]")
-    console.print(f"[bold blue]{l10}[/bold blue]")
-    console.print(f"[bold blue]{l11}[/bold blue]")
-    console.print(f"[bold blue]{l12}[/bold blue]")
+    # Print "ANALYZER" in White/Grey
+    console.print(f"[bold white]{l7}[/bold white]")
+    console.print(f"[bold white]{l8}[/bold white]")
+    console.print(f"[bold white]{l9}[/bold white]")
+    console.print(f"[bold white]{l10}[/bold white]")
+    console.print(f"[bold #888888]{l11}[/bold #888888]")
+    console.print(f"[bold #888888]{l12}[/bold #888888]")
 
-    # Custom colored info lines matching the requested style
+    console.print()
+
+    # Hacker-style Boot Sequence
+    checks = [
+        "Initializing Neural Engine",
+        "Loading Pattern Definitions",
+        "Bypassing Security Filters",
+        "Connecting to Threat Intel",
+        "Optimizing Heuristics",
+    ]
+
+    for check in checks:
+        time.sleep(0.05)  # Fast boot feel
+        console.print(f"[bold green][+][/bold green] {check}...", end="\r")
+        time.sleep(0.1)
+        console.print(
+            f"[bold green][+][/bold green] {check}... [bold cyan]OK[/bold cyan]"
+        )
+
+    console.print()
+
+    # Metadata Box
     console.print(
-        "[bold cyan]Phishing Email Analyzer[/bold cyan] | "
-        "[bold white]The advanced phishing detection tool[/bold white]"
+        " [bold yellow]VERSION[/bold yellow]: [red]v1.0.0[/red]   "
+        " [bold yellow]BUILD[/bold yellow]: [blue]STABLE[/blue]   "
+        " [bold yellow]CODED BY[/bold yellow]: [bold white]The TECHMASTER[/bold white]"
     )
     console.print(
-        "[bold cyan]Git link[/bold cyan] - "
-        "[underline green]https://github.com/Hao-Tec/phishing-email-analyzer.git[/underline green]"
+        " [bold yellow]GITHUB[/bold yellow]:  [underline green]https://github.com/Hao-Tec/phishing-email-analyzer[/underline green]"
     )
     console.print(
-        "[bold cyan]Author[/bold cyan]   - "
-        "( [bold yellow]The TECHMASTER[/bold yellow] )"
+        " [bold yellow]SYSTEM[/bold yellow]:  [bold green]ONLINE & READY[/bold green]"
     )
+    console.print()
+    # Separator line
+    console.print("[bold red]" + "=" * 65 + "[/bold red]")
     console.print()
