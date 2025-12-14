@@ -114,6 +114,17 @@ WHITELIST_DOMAINS = {
     "google.com",
     "amazon.com",
     "linkedin.com",
+    "paypal.com",
+    "facebook.com",
+    "instagram.com",
+    "twitter.com",
+    "x.com",
+    "netflix.com",
+    "dropbox.com",
+    "adobe.com",
+    "chase.com",
+    "wellsfargo.com",
+    "bankofamerica.com",
 }
 
 # Trusted Domain Groups (Eco-systems)
