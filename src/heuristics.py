@@ -46,6 +46,7 @@ class HeuristicAnalyzer:
 
         # Run checks
         self._check_urgency_keywords(email_data)
+        self._check_ocr_content(email_data)
         self._check_link_mismatches(email_data)
         self._check_suspicious_attachments(email_data)
         self._check_sender_anomalies(email_data)
@@ -96,10 +97,9 @@ class HeuristicAnalyzer:
         """Check for urgency words in subject and body."""
         subject = email_data.get("subject", "").lower()
         body = email_data.get("body", "").lower()
-        ocr_text = email_data.get("ocr_text", "").lower()
 
         # Combine text for analysis
-        full_text = f"{subject} {body} {ocr_text}"
+        full_text = f"{subject} {body}"
 
         for keyword in SUSPICIOUS_KEYWORDS:
             # Use word boundaries for better accuracy
@@ -109,6 +109,21 @@ class HeuristicAnalyzer:
                     "urgent_language",
                     "LOW",
                     f"Suspicious keyword found: '{keyword}'",
+                )
+
+    def _check_ocr_content(self, email_data: Dict):
+        """Check for suspicious content in OCR extracted text."""
+        ocr_text = email_data.get("ocr_text", "").lower()
+        if not ocr_text:
+            return
+
+        for keyword in SUSPICIOUS_KEYWORDS:
+            if keyword in ocr_text:
+                self._add_finding(
+                    "ocr_suspicious_content",
+                    "MEDIUM",
+                    f"Suspicious keyword detected in image text: '{keyword}'",
+                    {"keyword": keyword},
                 )
 
     def _is_subdomain(self, child: str, parent: str) -> bool:

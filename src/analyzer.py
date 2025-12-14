@@ -88,33 +88,7 @@ class EmailAnalyzer:
                 email_data.get("attachments", [])
             )
             if ocr_text:
-                # check for suspicious keywords in OCR text
-                # We can reuse heuristics or just checking
-                # simple urgent keywords
-                # For now, just add it to body for ML and LLM
-                email_data["body"] += ("\n\n[OCR EXTRACTED CONTENT]\n" +
-                                       ocr_text)
-
-                # Simple check
-                if ("password" in ocr_text.lower() or
-                        "verify" in ocr_text.lower()):
-                    findings.append(
-                        {
-                            "heuristic": "ocr_suspicious_content",
-                            "severity": "MEDIUM",
-                            "description": (
-                                "Suspicious text detected in image "
-                                "attachments"
-                            ),
-                            "weight": HEURISTIC_WEIGHTS[
-                                "ocr_suspicious_content"
-                            ],
-                            "adjusted_weight": HEURISTIC_WEIGHTS[
-                                "ocr_suspicious_content"
-                            ],
-                        }
-                    )
-                    score += HEURISTIC_WEIGHTS["ocr_suspicious_content"]
+                email_data["ocr_text"] = ocr_text
 
         # 2. Evaluate with heuristics (Standard)
         h_score, h_findings = self.heuristics.analyze(email_data)
@@ -156,8 +130,13 @@ class EmailAnalyzer:
 
         # 4. ML Analysis
         if self.ml_analyzer.enabled:
+            # Combine body and OCR text for ML analysis
+            ml_input_text = email_data.get("body", "")
+            if email_data.get("ocr_text"):
+                ml_input_text += "\n\n[OCR EXTRACTED CONTENT]\n" + email_data["ocr_text"]
+
             ml_prob, ml_details = self.ml_analyzer.analyze(
-                email_data.get("body", "")
+                ml_input_text
             )
             if ml_prob > 0.7:
                 findings.append(
@@ -277,10 +256,15 @@ class EmailAnalyzer:
 
         # 6. LLM Analysis (Existing - kept as is, but using augmented body)
         llm_data = {}
-        if email_data.get("body"):
+        if email_data.get("body") or email_data.get("ocr_text"):
+            # Combine body and OCR text for LLM analysis
+            llm_input_text = email_data.get("body", "")
+            if email_data.get("ocr_text"):
+                llm_input_text += "\n\n[OCR EXTRACTED CONTENT]\n" + email_data["ocr_text"]
+
             # We skip if score is already critical to save tokens,
             # unless we want full report
-            llm_score, llm_data = self.llm_analyzer.analyze(email_data["body"])
+            llm_score, llm_data = self.llm_analyzer.analyze(llm_input_text)
 
             # Update score if high risk
             is_high_risk = llm_data.get("risk_level") in ["HIGH", "CRITICAL"]
