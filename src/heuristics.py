@@ -13,6 +13,7 @@ from src.config import (
     SUSPICIOUS_EXTENSIONS,
     PLATFORM_DOMAINS,
     WHITELIST_DOMAINS,
+    TRUSTED_DOMAIN_GROUPS,
 )
 
 
@@ -129,12 +130,29 @@ class HeuristicAnalyzer:
 
         # Simplified Logic:
         # If both domains share a root (e.g. google.com and drive.google.com)
-        # OR if they are known related groups (hardcoded placeholder)
         if (
             link_domain.endswith(sender_domain) or
             sender_domain.endswith(link_domain)
         ):
             return True
+
+        # Check against configured trusted ecosystems
+        for ecosystem_root, related_domains in TRUSTED_DOMAIN_GROUPS.items():
+            # Build the full set of domains in this ecosystem
+            ecosystem_domains = related_domains.copy()
+            ecosystem_domains.add(ecosystem_root)
+
+            sender_is_member = False
+            for domain in ecosystem_domains:
+                if self._is_subdomain(sender_domain, domain):
+                    sender_is_member = True
+                    break
+
+            if sender_is_member:
+                # Check if link is also in this ecosystem
+                for domain in ecosystem_domains:
+                    if self._is_subdomain(link_domain, domain):
+                        return True
 
         return False
 
