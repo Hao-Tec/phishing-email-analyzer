@@ -273,20 +273,35 @@ class EmailAnalyzer:
                     scraped_content = scrape_result
                     email_data["url_content"] = scraped_content  # Pass to LLM
 
-                    # Add finding for transparency
-                    findings.append(
-                        {
-                            "heuristic": "url_scan_content",
-                            "severity": "INFO",
-                            "description": (
-                                f"Scanned URL content: "
-                                f"{scraped_content.get('title')}"
-                            ),
-                            "weight": 0,
-                            "adjusted_weight": 0,
-                            "details": {"title": scraped_content.get("title")},
-                        }
-                    )
+                    if scrape_result.get("error"):
+                        findings.append(
+                            {
+                                "heuristic": "url_scan_failed",
+                                "severity": "INFO",
+                                "description": (
+                                    f"URL Content Scan Failed: "
+                                    f"{scrape_result.get('error')}"
+                                ),
+                                "weight": 0,
+                                "adjusted_weight": 0,
+                                "details": {"error": scrape_result.get("error")},
+                            }
+                        )
+                    else:
+                        # Add finding for transparency
+                        findings.append(
+                            {
+                                "heuristic": "url_scan_content",
+                                "severity": "INFO",
+                                "description": (
+                                    f"Scanned URL content: "
+                                    f"{scraped_content.get('title')}"
+                                ),
+                                "weight": 0,
+                                "adjusted_weight": 0,
+                                "details": {"title": scraped_content.get("title")},
+                            }
+                        )
 
         # 6. LLM Analysis (Existing - kept as is, but using augmented body)
         llm_data = {}
