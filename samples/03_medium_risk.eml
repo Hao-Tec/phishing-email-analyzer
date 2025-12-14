@@ -1,0 +1,16 @@
+Subject: Please Review
+From: mismatched-sender@weird-domain.xyz
+To: employee@company.com
+Date: Wed, 10 Dec 2025 10:15:00 +0000
+Content-Type: text/html
+
+<html>
+<body>
+<p>Please review the attached document.</p>
+<p>
+<a href="http://example.com">Click here to view on Google Drive</a>
+</p>
+<br>
+<p>HR Team</p>
+</body>
+</html>

@@ -57,15 +57,21 @@ class AuthValidator:
             "details": [],
         }
 
+        # Custom logic for local files (missing IP context)
+        # If we can't fully validate SPF because we don't know the connecting IP,
+        # we shouldn't fail it hard.
+
         # DKIM Verification
         if DKIM_AVAILABLE:
             try:
                 # dkim.verify returns True if valid, False otherwise
-                # It needs the full raw message
                 dkim_result = dkim.verify(email_content)
                 results["dkim_pass"] = dkim_result
                 if not dkim_result:
-                    results["details"].append("DKIM verification failed")
+                    # Provide a softer message for local analysis context
+                    results["details"].append(
+                        "DKIM verification failed (or unsure context)"
+                    )
             except Exception as e:
                 results["details"].append(f"DKIM verification error: {str(e)}")
                 results["dkim_pass"] = False
@@ -80,8 +86,6 @@ class AuthValidator:
         # SPF Check (Active DNS lookup)
         if DNS_AVAILABLE and self.resolver:
             try:
-                # This is a simplified check. A full SPF check requires
-                # the sending IP.
                 spf_record = self._get_dns_record(domain, "TXT")
                 has_spf = any("v=spf1" in str(r) for r in spf_record)
 
@@ -90,6 +94,12 @@ class AuthValidator:
                     results["details"].append(
                         f"No SPF record found for domain {domain}"
                     )
+                else:
+                    # If record exists but we are analyzing a local file,
+                    # we can't verify if the sender IP is authorized.
+                    # Mark as None (Inconclusive) rather than False.
+                    results["spf_pass"] = None
+
             except Exception as e:
                 results["details"].append(f"SPF lookup error: {str(e)}")
 
