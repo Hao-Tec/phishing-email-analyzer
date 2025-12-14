@@ -50,16 +50,20 @@ class ExternalScanners:
     def _check_phishtank(self, url: str) -> bool:
         """Check URL against PhishTank."""
         try:
-            # Note: This is an example endpoint. Real implementation needs
-            # specific API logic.
-            # Using a simplified POST request logic often used with PhishTank.
             payload = {
                 "url": url,
                 "format": "json",
                 "app_key": self.phishtank_key,
             }
+            # PhishTank recommends a descriptive User-Agent
+            headers = {
+                "User-Agent": "phishing-email-analyzer/1.0"
+            }
             response = requests.post(
-                "https://checkurl.phishtank.com/checkurl/", data=payload
+                "https://checkurl.phishtank.com/checkurl/",
+                data=payload,
+                headers=headers,
+                timeout=10,
             )
             if response.status_code == 200:
                 data = response.json()
