@@ -23,7 +23,8 @@ Lockin/
 │   ├── image_analyzer.py   # [NEW] OCR Analysis
 │   ├── vt_scanner.py       # VirusTotal Integration
 │   ├── llm_analyzer.py     # LLM Analysis (Gemini/Local)
-│   └── external_scanners.py# Threat Intel API integrations
+│   ├── external_scanners.py# Threat Intel API integrations
+│   └── url_scraper.py      # [NEW] Real-time URL content fetching
 │
 │
 ├── tools/                  # Dataset Generation & Maintenance Tools
@@ -91,6 +92,15 @@ The brain of the operation. It initializes all sub-components and runs them in s
   - **Google Safe Browsing**: Checks against malware/social engineering lists.
   - **PhishTank**: Checks against community-verified phishing URLs.
 
+**url_scraper.py (URLScraper)**
+
+- **Purpose**: Real-time content analysis of suspect links.
+- **Key Methods**: `scrape(url)`
+- **Logic**:
+  - Fetches the target URL with a standard user-agent.
+  - Extracts page title and visible text using `BeautifulSoup`.
+  - Feeds the _actual_ page content to the LLM for deep analysis (detecting fake login forms, credentials harvesting).
+
 ## Data Flow
 
 ```
@@ -108,7 +118,7 @@ Parallel Analysis:
     ├── Heuristics (Static Rules)
     ├── MLAnalyzer (Random Forest)
     ├── ExternalScanners (SafeBrowsing/PhishTank)
-    ├── ExternalScanners (SafeBrowsing/PhishTank)
+    ├── URLScraper (Fetches page content)
     └── LLMAnalyzer (Gemini or Local LLM + SQLite Cache)
     ↓
 EmailAnalyzer (Aggregator)

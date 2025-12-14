@@ -43,6 +43,7 @@ Please ensure your changes do not break existing functionality.
 
 - Test with the samples provided in `samples/`.
 - If adding a new heuristic, add a corresponding test case if possible.
+- **Mocking**: When writing tests, avoid making real network requests (e.g., to VirusTotal or for URL scraping). Use `unittest.mock` to simulate external responses.
 
 ## Submitting a Pull Request
 

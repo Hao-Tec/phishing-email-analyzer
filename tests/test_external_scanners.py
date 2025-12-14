@@ -2,6 +2,7 @@ import unittest
 from unittest.mock import patch, MagicMock
 from src.external_scanners import ExternalScanners
 
+
 class TestExternalScanners(unittest.TestCase):
     def setUp(self):
         self.scanners = ExternalScanners()
@@ -13,10 +14,7 @@ class TestExternalScanners(unittest.TestCase):
         mock_response = MagicMock()
         mock_response.status_code = 200
         mock_response.json.return_value = {
-            "results": {
-                "in_database": True,
-                "valid": True
-            }
+            "results": {"in_database": True, "valid": True}
         }
         mock_post.return_value = mock_response
 
@@ -27,7 +25,7 @@ class TestExternalScanners(unittest.TestCase):
         mock_post.assert_called_once()
         args, kwargs = mock_post.call_args
         self.assertEqual(args[0], "https://checkurl.phishtank.com/checkurl/")
-        self.assertEqual(kwargs['data']['url'], url)
+        self.assertEqual(kwargs["data"]["url"], url)
         # We will verify User-Agent after we implement it
 
     @patch("src.external_scanners.requests.post")
@@ -37,10 +35,7 @@ class TestExternalScanners(unittest.TestCase):
         mock_response = MagicMock()
         mock_response.status_code = 200
         mock_response.json.return_value = {
-            "results": {
-                "in_database": False,
-                "valid": False
-            }
+            "results": {"in_database": False, "valid": False}
         }
         mock_post.return_value = mock_response
 
@@ -58,6 +53,7 @@ class TestExternalScanners(unittest.TestCase):
         result = self.scanners._check_phishtank(url)
 
         self.assertFalse(result)
+
 
 if __name__ == "__main__":
     unittest.main()

@@ -58,8 +58,8 @@ class AuthValidator:
         }
 
         # Custom logic for local files (missing IP context)
-        # If we can't fully validate SPF because we don't know the connecting IP,
-        # we shouldn't fail it hard.
+        # If we can't fully validate SPF because we don't know the
+        # connecting IP, we shouldn't fail it hard.
 
         # DKIM Verification
         if DKIM_AVAILABLE:

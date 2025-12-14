@@ -48,12 +48,16 @@ class URLScraper:
             Dict with 'title' and 'text', or None if failed.
         """
         try:
-            response = requests.get(url, headers=self.headers, timeout=self.timeout)
+            response = requests.get(
+                url, headers=self.headers, timeout=self.timeout
+            )
             response.raise_for_status()
 
             # Limit response size to prevent DoS/memory issues for huge pages
             if len(response.content) > 2 * 1024 * 1024:  # 2MB limit
-                logging.warning(f"Page content too large for {url}, scraping partial.")
+                logging.warning(
+                    f"Page content too large for {url}, scraping partial."
+                )
 
             soup = BeautifulSoup(response.content, "html.parser")
 
@@ -75,7 +79,9 @@ class URLScraper:
             # Break into lines and remove leading and trailing space on each
             lines = (line.strip() for line in text.splitlines())
             # Break multi-headlines into a line each
-            chunks = (phrase.strip() for line in lines for phrase in line.split("  "))
+            chunks = (
+                phrase.strip() for line in lines for phrase in line.split("  ")
+            )
             # Drop blank lines
             text = "\n".join(chunk for chunk in chunks if chunk)
 

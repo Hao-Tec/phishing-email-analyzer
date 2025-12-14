@@ -18,8 +18,9 @@ A world-class, enterprise-grade phishing detection system designed to identify s
 ### 🛡️ Smart Defense & False Positive Reduction
 
 - **Trusted Ecosystems**: Intelligently recognizes relationships between domains (e.g., `microsoft.com` ↔ `aka.ms`) to prevent false alarms on legitimate redirects.
-- **Dynamic Threat Intel**: Automatically checks generic links against **VirusTotal** and **Google Safe Browsing**, while whitelisting known business tools (Zoom, Jira) unless they fail specific integrity checks.
+- **Dynamic Threat Intel**: Automatically checks generic links against **VirusTotal**, **PhishTank**, and **Google Safe Browsing**, while whitelisting known business tools (Zoom, Jira).
 - **Active Auth Verification**: Validates DKIM/SPF/DMARC to verify sender identity beyond just header inspection.
+- **Real-Time URL Analysis**: Fetches and analyzes the _actual content_ of suspicious links in real-time, allowing the AI to "see" fake login pages just like a user would.
 
 ### 🔍 Comprehensive Parsing
 
@@ -146,6 +147,7 @@ The tool is built on a modular architecture to allow easy extension. See [ARCHIT
 - `src/image_analyzer.py`: Interface for Tesseract OCR.
 - `src/external_scanners.py`: API wrappers for Safe Browsing/PhishTank.
 - `src/vt_scanner.py`: Integration with VirusTotal API.
+- `src/url_scraper.py`: Safe, real-time fetching of URL content for analysis.
 - `src/llm_analyzer.py`: Advanced semantic analysis using Large Language Models.
 - `src/analyzer.py`: The central orchestrator fusing all signals.
 
