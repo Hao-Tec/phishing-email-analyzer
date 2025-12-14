@@ -153,21 +153,19 @@ class HeuristicAnalyzer:
 
         # Check against configured trusted ecosystems
         for ecosystem_root, related_domains in TRUSTED_DOMAIN_GROUPS.items():
-            # Build the full set of domains in this ecosystem
-            ecosystem_domains = related_domains.copy()
-            ecosystem_domains.add(ecosystem_root)
-
-            sender_is_member = False
-            for domain in ecosystem_domains:
-                if self._is_subdomain(sender_domain, domain):
-                    sender_is_member = True
-                    break
+            # Check if sender is in this ecosystem
+            sender_is_member = (
+                self._is_subdomain(sender_domain, ecosystem_root)
+                or any(self._is_subdomain(sender_domain, d) for d in related_domains)
+            )
 
             if sender_is_member:
                 # Check if link is also in this ecosystem
-                for domain in ecosystem_domains:
-                    if self._is_subdomain(link_domain, domain):
-                        return True
+                if (
+                    self._is_subdomain(link_domain, ecosystem_root)
+                    or any(self._is_subdomain(link_domain, d) for d in related_domains)
+                ):
+                    return True
 
         return False
 
