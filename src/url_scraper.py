@@ -94,3 +94,4 @@ class URLScraper:
         except Exception as e:
             logging.warning(f"Failed to scrape {url}: {e}")
             return None
+            
