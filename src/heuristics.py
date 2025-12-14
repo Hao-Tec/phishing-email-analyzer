@@ -5,6 +5,7 @@ Implements rule-based checks for phishing detection.
 """
 
 import re
+import difflib
 from typing import Dict, List, Tuple
 from src.config import (
     HEURISTIC_WEIGHTS,
@@ -379,6 +380,29 @@ class HeuristicAnalyzer:
         # generic domains if other indicators are present.
 
         # Check for "doppelganger" domains (e.g. gmai1.com)
-        # Placeholder for fuzzy matching logic
-        pass
+        if "@" in sender:
+            sender_domain = sender.split("@")[1].lower()
+
+            # Skip if sender domain is trusted
+            if sender_domain in WHITELIST_DOMAINS or sender_domain in PLATFORM_DOMAINS:
+                return
+
+            # Skip if sender domain is a subdomain of trusted domains
+            for trusted in WHITELIST_DOMAINS.union(PLATFORM_DOMAINS):
+                if self._is_subdomain(sender_domain, trusted):
+                    return
+
+            # Check against trusted domains for similarity
+            targets = WHITELIST_DOMAINS.union(PLATFORM_DOMAINS)
+            for target in targets:
+                ratio = difflib.SequenceMatcher(None, sender_domain, target).ratio()
+                # Threshold for "doppelganger" detection (e.g., gmai1.com vs gmail.com)
+                if ratio > 0.85:
+                    self._add_finding(
+                        "doppelganger_domain",
+                        "HIGH",
+                        f"Sender domain '{sender_domain}' mimics legitimate domain '{target}'",
+                        {"sender_domain": sender_domain, "target_domain": target, "similarity": ratio},
+                    )
+                    break  # Stop after first match to avoid duplicates
 # fmt: on
