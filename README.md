@@ -6,6 +6,8 @@ A world-class, enterprise-grade phishing detection system designed to identify s
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![GitHub Stars](https://img.shields.io/github/stars/Hao-Tec/phishing-email-analyzer?style=social)](https://github.com/Hao-Tec/phishing-email-analyzer)
 
+![Demo Terminal](media_kit/demo_terminal.svg)
+
 ## 🚀 Key Features
 
 ### 🧠 Hybrid AI & Zero-Day Detection
