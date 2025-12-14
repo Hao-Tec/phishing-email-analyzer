@@ -16,7 +16,7 @@ from src.config import (
     LLM_PROVIDER,
     LLM_LOCAL_URL,
     LLM_MODEL_NAME,
-    LLM_CACHE_PATH
+    LLM_CACHE_PATH,
 )
 
 logger = logging.getLogger(__name__)
@@ -55,8 +55,7 @@ class LLMCache:
         try:
             with sqlite3.connect(self.db_path) as conn:
                 cursor = conn.execute(
-                    "SELECT response FROM llm_cache WHERE hash = ?",
-                    (text_hash,)
+                    "SELECT response FROM llm_cache WHERE hash = ?", (text_hash,)
                 )
                 row = cursor.fetchone()
                 if row:
@@ -107,12 +106,13 @@ class LLMAnalyzer:
             # No specific init needed for local, check url later
             pass
 
-    def analyze(self, email_text: str) -> Tuple[float, Dict]:
+    def analyze(self, email_text: str, url_content: Dict = None) -> Tuple[float, Dict]:
         """
         Analyze email text using LLM.
 
         Args:
             email_text: The full text content of the email.
+            url_content: Optional scraped content from URLs in the email.
 
         Returns:
             Tuple containing:
@@ -132,6 +132,19 @@ class LLMAnalyzer:
             cached_result["cached"] = True
             return score, cached_result
 
+        # Prepare URL context if available
+        url_context = ""
+        if url_content:
+            url_context = f"""
+            Scraped URL Content (The link in the email leads here):
+            URL: {url_content.get('url')}
+            Page Title: {url_content.get('title')}
+            Page Text Snippet:
+            '''
+            {url_content.get('text', '')[:1000]}
+            '''
+            """
+
         prompt = f"""
         You are a cybersecurity expert specializing in phishing detection.
         Analyze the following email for signs of phishing, social engineering,
@@ -141,6 +154,8 @@ class LLMAnalyzer:
         '''
         {email_text[:4000]}  # Truncate to avoid token limits if necessary
         '''
+
+        {url_context}
 
         Provide your analysis in JSON format with the following keys:
         - is_phishing: boolean
@@ -174,17 +189,15 @@ class LLMAnalyzer:
 
         except Exception as e:
             error_str = str(e)
-            if "403" in error_str and "permission" in error_str.lower():
-                logger.error(
-                    "LLM Analysis failed: Permission Denied (403). "
-                    "Check if GEMINI_API_KEY is correct and "
-                    "'Generative Language API' is enabled in your "
-                    "Google Cloud Console."
-                )
+            if "429" in error_str or "quota" in error_str.lower():
+                logger.warning("LLM Analysis unavailable: Quota exceeded.")
+                return 0.0, {"error": "Quota exceeded (429)"}
+            elif "403" in error_str and "permission" in error_str.lower():
+                logger.error("LLM Permission Error: Check API Key/Billing.")
+                return 0.0, {"error": "Permission denied (403)"}
             else:
                 logger.error(f"LLM Analysis failed: {e}")
-
-            return 0.0, {"error": str(e)}
+                return 0.0, {"error": str(e)}
 
     def _analyze_local(self, prompt: str) -> str:
         """Analyze using local LLM provider (OpenAI compatible API)."""
@@ -206,9 +219,7 @@ class LLMAnalyzer:
             result = response.json()
             # Extract content from OpenAI format
             content = (
-                result.get("choices", [{}])[0]
-                .get("message", {})
-                .get("content", "")
+                result.get("choices", [{}])[0].get("message", {}).get("content", "")
             )
             return content
         except requests.exceptions.RequestException as e:
