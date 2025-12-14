@@ -251,3 +251,4 @@ class LLMAnalyzer:
                 "reasoning": ["Failed to parse LLM response"],
                 "summary": "LLM analysis failed.",
             }
+            
