@@ -37,7 +37,7 @@ class URLScraper:
             "Accept-Language": "en-US,en;q=0.5",
         }
 
-    def scrape(self, url: str) -> Optional[Dict[str, str]]:
+    def scrape(self, url: str) -> Dict[str, str]:
         """
         Fetch URL and extract title and body text.
 
@@ -102,5 +102,5 @@ class URLScraper:
                 # Keep it short, avoid full traceback text
                 short_msg = str(e).split('(')[0].strip()
 
-            logging.warning(f"Scrape failed: {short_msg} [{url}]")
-            return None
+            # Return error as result instead of logging it to console
+            return {"url": url, "error": short_msg, "title": "Scan Failed"}
