@@ -315,6 +315,26 @@ class EmailReporter:
                     overflow-wrap: break-word;
                     display: block;
                 }}
+                .glossary-grid {{
+                    display: grid;
+                    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+                    gap: 15px;
+                }}
+                .glossary-item {{
+                    background: #f1f3f5;
+                    padding: 15px;
+                    border-radius: 8px;
+                }}
+                .glossary-term {{
+                    font-weight: bold;
+                    color: #495057;
+                    display: block;
+                    margin-bottom: 5px;
+                }}
+                .glossary-def {{
+                    font-size: 0.9em;
+                    color: #6c757d;
+                }}
             </style>
         </head>
         <body>
@@ -371,6 +391,34 @@ class EmailReporter:
             html += "</div>"
 
         html += """
+                </div>
+
+                <div class="section">
+                    <h2>Glossary</h2>
+                    <div class="glossary-grid">
+        """
+
+        glossary = {
+            "SPF": "Sender Policy Framework. A security mechanism that allows domains to specify which mail servers are authorized to send email on their behalf.",
+            "DKIM": "DomainKeys Identified Mail. Adds a digital signature to emails, allowing the receiver to verify that the email was indeed authorized by the owner of that domain.",
+            "DMARC": "Domain-based Message Authentication, Reporting, and Conformance. Unifies SPF and DKIM mechanisms and tells receivers what to do if checks fail.",
+            "Doppelganger Domain": "A domain that looks very similar to a legitimate domain (e.g., paypa1.com vs paypal.com) to trick users.",
+            "Typosquatting": "Registering domains that are very similar to popular domains, relying on users making typos.",
+            "Homograph Attack": "Using characters that look alike (e.g., Cyrillic 'a' vs Latin 'a') to spoof domains.",
+            "Zero-Day": "A newly discovered vulnerability or threat that has no known fix or signature yet.",
+            "ML Confidence": "The probability score (0-1) from the Machine Learning model indicating how likely the email is phishing.",
+        }
+
+        for term, definition in glossary.items():
+            html += f"""
+                        <div class="glossary-item">
+                            <span class="glossary-term">{term}</span>
+                            <span class="glossary-def">{definition}</span>
+                        </div>
+            """
+
+        html += """
+                    </div>
                 </div>
             </div>
         </body>
