@@ -5,6 +5,9 @@ Fetches and extracts text content from URLs for analysis.
 
 import requests
 import logging
+import socket
+import ipaddress
+from urllib.parse import urlparse, urljoin
 from bs4 import BeautifulSoup
 from typing import Dict, Optional
 
@@ -37,9 +40,48 @@ class URLScraper:
             "Accept-Language": "en-US,en;q=0.5",
         }
 
+    def _is_safe_url(self, url: str) -> bool:
+        """
+        Check if the URL resolves to a safe (non-local) IP address.
+        Prevents SSRF attacks.
+        """
+        try:
+            parsed = urlparse(url)
+            hostname = parsed.hostname
+            if not hostname:
+                return False
+
+            # Resolve hostname to IP
+            try:
+                # Get the IP address
+                # We use getaddrinfo to support both IPv4 and IPv6
+                addr_info = socket.getaddrinfo(hostname, None)
+                for res in addr_info:
+                    ip_str = res[4][0]
+                    ip = ipaddress.ip_address(ip_str)
+
+                    if ip.is_private or ip.is_loopback or ip.is_reserved or ip.is_link_local:
+                        logging.warning(f"Blocked SSRF attempt to {url} (IP: {ip_str})")
+                        return False
+
+            except (socket.gaierror, ValueError):
+                # If we can't resolve it, we let it pass to requests which will fail,
+                # unless it's an internal DNS name that only resolves internally.
+                # Ideally, for security, fail closed if resolution fails.
+                # But to avoid breaking scraping on temporary DNS glitches, we can be lenient here
+                # because requests.get will also likely fail.
+                pass
+
+            return True
+
+        except Exception as e:
+            logging.error(f"Error checking URL safety: {e}")
+            return False
+
     def scrape(self, url: str) -> Dict[str, str]:
         """
         Fetch URL and extract title and body text.
+        Safely handles redirects to prevent SSRF bypass.
 
         Args:
             url: URL to scrape
@@ -47,10 +89,48 @@ class URLScraper:
         Returns:
             Dict with 'title' and 'text', or None if failed.
         """
+        current_url = url
+        response = None
+        max_redirects = 5
+
         try:
-            response = requests.get(
-                url, headers=self.headers, timeout=self.timeout
-            )
+            with requests.Session() as session:
+                for _ in range(max_redirects + 1):
+                    # Check safety of the URL BEFORE fetching
+                    if not self._is_safe_url(current_url):
+                        return {
+                            "url": current_url,
+                            "error": "Access denied (Security restricted IP)",
+                            "title": "Scan Blocked"
+                        }
+
+                    # Fetch with allow_redirects=False to inspect each hop
+                    response = session.get(
+                        current_url,
+                        headers=self.headers,
+                        timeout=self.timeout,
+                        allow_redirects=False
+                    )
+
+                    if response.is_redirect:
+                        # Get next URL
+                        location = response.headers.get("Location")
+                        if not location:
+                            break
+
+                        # Handle relative redirects
+                        current_url = urljoin(current_url, location)
+                        continue
+                    else:
+                        # Final response reached
+                        break
+                else:
+                    return {
+                        "url": url,
+                        "error": "Too many redirects",
+                        "title": "Scan Failed"
+                    }
+
             response.raise_for_status()
 
             # Limit response size to prevent DoS/memory issues for huge pages
