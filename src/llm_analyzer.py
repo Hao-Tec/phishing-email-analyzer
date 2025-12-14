@@ -55,7 +55,8 @@ class LLMCache:
         try:
             with sqlite3.connect(self.db_path) as conn:
                 cursor = conn.execute(
-                    "SELECT response FROM llm_cache WHERE hash = ?", (text_hash,)
+                    "SELECT response FROM llm_cache WHERE hash = ?",
+                    (text_hash,),
                 )
                 row = cursor.fetchone()
                 if row:
@@ -106,7 +107,9 @@ class LLMAnalyzer:
             # No specific init needed for local, check url later
             pass
 
-    def analyze(self, email_text: str, url_content: Dict = None) -> Tuple[float, Dict]:
+    def analyze(
+        self, email_text: str, url_content: Dict = None
+    ) -> Tuple[float, Dict]:
         """
         Analyze email text using LLM.
 
@@ -219,7 +222,9 @@ class LLMAnalyzer:
             result = response.json()
             # Extract content from OpenAI format
             content = (
-                result.get("choices", [{}])[0].get("message", {}).get("content", "")
+                result.get("choices", [{}])[0]
+                .get("message", {})
+                .get("content", "")
             )
             return content
         except requests.exceptions.RequestException as e:
@@ -230,11 +235,11 @@ class LLMAnalyzer:
         try:
             # Clean up markdown code blocks if present
             text = response_text.strip()
-            if text.startswith("```json"):
+            if text.startswith("`json"):
                 text = text[7:]
-            if text.startswith("```"):
+            if text.startswith("`"):
                 text = text[3:]
-            if text.endswith("```"):
+            if text.endswith("`"):
                 text = text[:-3]
 
             return json.loads(text.strip())

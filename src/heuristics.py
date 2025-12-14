@@ -156,14 +156,20 @@ class HeuristicAnalyzer:
             # Check if sender is in this ecosystem
             sender_is_member = (
                 self._is_subdomain(sender_domain, ecosystem_root)
-                or any(self._is_subdomain(sender_domain, d) for d in related_domains)
+                or any(
+                    self._is_subdomain(sender_domain, d)
+                    for d in related_domains
+                )
             )
 
             if sender_is_member:
                 # Check if link is also in this ecosystem
                 if (
                     self._is_subdomain(link_domain, ecosystem_root)
-                    or any(self._is_subdomain(link_domain, d) for d in related_domains)
+                    or any(
+                        self._is_subdomain(link_domain, d)
+                        for d in related_domains
+                    )
                 ):
                     return True
 
@@ -414,7 +420,10 @@ class HeuristicAnalyzer:
             sender_domain = sender.split("@")[1].lower()
 
             # Skip if sender domain is trusted
-            if sender_domain in WHITELIST_DOMAINS or sender_domain in PLATFORM_DOMAINS:
+            if (
+                sender_domain in WHITELIST_DOMAINS
+                or sender_domain in PLATFORM_DOMAINS
+            ):
                 return
 
             # Skip if sender domain is a subdomain of trusted domains
@@ -425,14 +434,23 @@ class HeuristicAnalyzer:
             # Check against trusted domains for similarity
             targets = WHITELIST_DOMAINS.union(PLATFORM_DOMAINS)
             for target in targets:
-                ratio = difflib.SequenceMatcher(None, sender_domain, target).ratio()
-                # Threshold for "doppelganger" detection (e.g., gmai1.com vs gmail.com)
+                ratio = difflib.SequenceMatcher(
+                    None, sender_domain, target
+                ).ratio()
+                # Threshold for "doppelganger" detection (e.g. gmai1 vs gmail)
                 if ratio > 0.85:
                     self._add_finding(
                         "doppelganger_domain",
                         "HIGH",
-                        f"Sender domain '{sender_domain}' mimics legitimate domain '{target}'",
-                        {"sender_domain": sender_domain, "target_domain": target, "similarity": ratio},
+                        (
+                            f"Sender domain '{sender_domain}' mimics "
+                            f"legitimate domain '{target}'"
+                        ),
+                        {
+                            "sender_domain": sender_domain,
+                            "target_domain": target,
+                            "similarity": ratio,
+                        },
                     )
                     break  # Stop after first match to avoid duplicates
 # fmt: on

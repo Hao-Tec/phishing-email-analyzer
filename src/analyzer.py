@@ -147,7 +147,8 @@ class EmailAnalyzer:
                         "heuristic": "ml_confidence_high",
                         "severity": "HIGH",
                         "description": (
-                            f"ML Model detected phishing pattern " f"({ml_prob:.2f})"
+                            f"ML Model detected phishing pattern "
+                            f"({ml_prob:.2f})"
                         ),
                         "weight": HEURISTIC_WEIGHTS["ml_confidence_high"],
                         "adjusted_weight": (
@@ -204,7 +205,9 @@ class EmailAnalyzer:
             vt_scan = self.vt_scanner.scan_url(url)
 
             # Check for missing API key warning on Platform
-            if is_platform_domain and vt_scan.get("error") == "No API key configured":
+            if is_platform_domain and vt_scan.get("error") == (
+                "No API key configured"
+            ):
                 findings.append(
                     {
                         "heuristic": "url_obfuscation",  # Fallback category
@@ -261,7 +264,8 @@ class EmailAnalyzer:
         if urls and self.url_scraper:
             # Pick the most relevant URL (first in sorted list)
             target_url = (
-                sorted_urls[0].get("url") if sorted_urls else urls[0].get("url")
+                sorted_urls[0].get("url")
+                if sorted_urls else urls[0].get("url")
             )
             if target_url:
                 scrape_result = self.url_scraper.scrape(target_url)
@@ -304,7 +308,8 @@ class EmailAnalyzer:
             # Update score if high risk
             is_high_risk = llm_data.get("risk_level") in ["HIGH", "CRITICAL"]
             # Only flag if LLM explicitly says it's risky.
-            # We ignore raw score because LLM might return high confidence for SAFE verdict.
+            # We ignore raw score because LLM might return high
+            # confidence for SAFE verdict.
             if is_high_risk:
                 findings.append(
                     {
@@ -327,7 +332,7 @@ class EmailAnalyzer:
                     # Sanitize error for display (avoid huge quota logs)
                     err_msg = str(llm_data["error"])
                     if "429" in err_msg or "quota" in err_msg.lower():
-                        description = "AI Analysis Unavailable (Quota Exceeded)"
+                        description = "AI Analysis Unavailable"
                     else:
                         description = f"AI Analysis Failed: {err_msg[:50]}..."
 
@@ -338,14 +343,16 @@ class EmailAnalyzer:
                         "description": description,
                         "weight": 0,
                         "adjusted_weight": 0,
-                        "details": llm_data,  # Keep full details in debug object
+                        "details": llm_data,  # Keep full details debug obj
                     }
                 )
 
         # 7. AI Veto / Score Damping
         # If AI is confident it's safe AND no critical external flags exists
         # dampen high scores caused by mechanical failures.
-        has_critical_findings = any(f.get("severity") == "CRITICAL" for f in findings)
+        has_critical_findings = any(
+            f.get("severity") == "CRITICAL" for f in findings
+        )
 
         if not has_critical_findings and llm_data:
             risk = llm_data.get("risk_level", "UNKNOWN")
@@ -355,7 +362,9 @@ class EmailAnalyzer:
                     {
                         "heuristic": "ai_risk_adjustment",
                         "severity": "INFO",
-                        "description": "Score capped (Safe Zone) by AI assessment.",
+                        "description": (
+                            "Score capped (Safe Zone) by AI assessment."
+                        ),
                         "weight": 0,
                         "adjusted_weight": 0,
                     }
@@ -367,7 +376,9 @@ class EmailAnalyzer:
                     {
                         "heuristic": "ai_risk_adjustment",
                         "severity": "INFO",
-                        "description": "Score capped (Low Risk) by AI assessment.",
+                        "description": (
+                            "Score capped (Low Risk) by AI assessment."
+                        ),
                         "weight": 0,
                         "adjusted_weight": 0,
                     }
@@ -411,7 +422,9 @@ class EmailAnalyzer:
                 "critical_hits": [
                     f for f in findings if f.get("severity") == "CRITICAL"
                 ],
-                "scraped_url": email_data.get("url_content", {}).get("title", "N/A"),
+                "scraped_url": email_data.get("url_content", {}).get(
+                    "title", "N/A"
+                ),
             },
         }
 
@@ -435,7 +448,10 @@ class EmailAnalyzer:
         email_extensions = {".eml", ".txt", ".msg", ".gz"}
 
         for email_file in folder_path.iterdir():
-            if email_file.is_file() and email_file.suffix.lower() in email_extensions:
+            if (
+                email_file.is_file()
+                and email_file.suffix.lower() in email_extensions
+            ):
                 result = self.analyze_email(str(email_file))
                 results.append(result)
 

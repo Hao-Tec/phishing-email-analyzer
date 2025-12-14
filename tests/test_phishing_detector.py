@@ -139,15 +139,15 @@ class TestPhishingHeuristics(unittest.TestCase):
         """Test detection of doppelganger domains."""
         # Test cases: (sender_domain, should_flag)
         test_cases = [
-            ("gmai1.com", True),       # google.com / gmail.com
-            ("microsft.com", True),    # microsoft.com
-            ("linkedln.com", True),    # linkedin.com
-            ("amazn.com", True),       # amazon.com
-            ("gmail.com", False),      # Exact match (whitelist)
-            ("google.com", False),     # Exact match (whitelist)
-            ("mail.google.com", False),# Subdomain (whitelist)
+            ("gmai1.com", True),  # google.com / gmail.com
+            ("microsft.com", True),  # microsoft.com
+            ("linkedln.com", True),  # linkedin.com
+            ("amazn.com", True),  # amazon.com
+            ("gmail.com", False),  # Exact match (whitelist)
+            ("google.com", False),  # Exact match (whitelist)
+            ("mail.google.com", False),  # Subdomain (whitelist)
             ("microsoft.com", False),  # Exact match
-            ("example.com", False),    # Unrelated
+            ("example.com", False),  # Unrelated
         ]
 
         for domain, should_flag in test_cases:
@@ -165,12 +165,19 @@ class TestPhishingHeuristics(unittest.TestCase):
             }
             score, findings = self.heuristics.analyze(email_data)
 
-            found_doppelganger = any(f["heuristic"] == "doppelganger_domain" for f in findings)
+            found_doppelganger = any(
+                f["heuristic"] == "doppelganger_domain" for f in findings
+            )
 
             if should_flag:
-                self.assertTrue(found_doppelganger, f"Failed to detect doppelganger: {domain}")
+                self.assertTrue(
+                    found_doppelganger,
+                    f"Failed to detect doppelganger: {domain}",
+                )
             else:
-                self.assertFalse(found_doppelganger, f"False positive for: {domain}")
+                self.assertFalse(
+                    found_doppelganger, f"False positive for: {domain}"
+                )
 
 
 class TestEmailAnalyzer(unittest.TestCase):
