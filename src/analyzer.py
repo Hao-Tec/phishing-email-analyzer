@@ -477,3 +477,4 @@ class EmailAnalyzer:
             return "HIGH_RISK"
         else:
             return "CRITICAL"
+            
