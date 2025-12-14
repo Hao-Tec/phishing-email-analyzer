@@ -92,5 +92,15 @@ class URLScraper:
             return {"url": url, "title": title, "text": text}
 
         except Exception as e:
-            logging.warning(f"Failed to scrape {url}: {e}")
+            # Sanitize error message for cleaner terminal output
+            error_msg = str(e)
+            if "NameResolutionError" in error_msg or "getaddrinfo failed" in error_msg:
+                short_msg = "DNS resolution failed (Domain not found)"
+            elif "ConnectTimeout" in error_msg:
+                short_msg = "Connection timed out"
+            else:
+                # Keep it short, avoid full traceback text
+                short_msg = str(e).split('(')[0].strip()
+
+            logging.warning(f"Scrape failed: {short_msg} [{url}]")
             return None
