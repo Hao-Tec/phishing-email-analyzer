@@ -29,6 +29,7 @@ HEURISTIC_WEIGHTS = {
     "header_anomalies": 10,
     "urgent_language": 5,
     "suspicious_tld": 10,
+    "doppelganger_domain": 85,  # High risk
     "ip_based_url": 15,
     "llm_analysis": 50,  # Boosted for "Advanced" analysis
     "authentication_failure": 30,
