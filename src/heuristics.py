@@ -101,9 +101,8 @@ class HeuristicAnalyzer:
 
         for keyword in SUSPICIOUS_KEYWORDS:
             # Use word boundaries for better accuracy
-            # escaped_kw = re.escape(keyword)
-            # if re.search(rf"\b{escaped_kw}\b", full_text):
-            if keyword in full_text:  # Simple check for now
+            escaped_kw = re.escape(keyword)
+            if re.search(rf"\b{escaped_kw}\b", full_text):
                 self._add_finding(
                     "urgent_language",
                     "LOW",
