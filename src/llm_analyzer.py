@@ -8,6 +8,7 @@ import google.generativeai as genai
 import requests
 from typing import Dict, Tuple
 import json
+import socket
 import logging
 import sqlite3
 import hashlib
@@ -173,6 +174,12 @@ class LLMAnalyzer:
 
         try:
             if self.provider == "gemini":
+                # FAST FAIL: Check connectivity before invoking the heavy client
+                # (Prevents indefinite retries/hanging on DNS failure)
+                if not self._check_connectivity():
+                    logger.warning("Network unreachable: Skipping AI analysis.")
+                    return 0.0, {"error": "Network unavailable (Offline)"}
+
                 response = self.model.generate_content(prompt)
                 response_text = response.text
             elif self.provider == "local":
@@ -251,3 +258,15 @@ class LLMAnalyzer:
                 "reasoning": ["Failed to parse LLM response"],
                 "summary": "LLM analysis failed.",
             }
+
+    def _check_connectivity(self) -> bool:
+        """
+        Fast check if Gemini API is reachable.
+        Avoids the 60s+ retry loop if we are offline.
+        """
+        try:
+            # Resolve the specific API host (or common reliable host)
+            socket.gethostbyname("generativelanguage.googleapis.com")
+            return True
+        except socket.error:
+            return False
