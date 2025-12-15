@@ -6,7 +6,7 @@ Fetches and extracts text content from URLs for analysis.
 import requests
 import logging
 from bs4 import BeautifulSoup
-from typing import Dict, Optional
+from typing import Dict
 
 
 class URLScraper:
@@ -94,7 +94,10 @@ class URLScraper:
         except Exception as e:
             # Sanitize error message for cleaner terminal output
             error_msg = str(e)
-            if "NameResolutionError" in error_msg or "getaddrinfo failed" in error_msg:
+            if (
+                "NameResolutionError" in error_msg
+                or "getaddrinfo failed" in error_msg
+            ):
                 short_msg = "DNS resolution failed (Domain not found)"
             elif "ConnectTimeout" in error_msg:
                 short_msg = "Connection timed out"

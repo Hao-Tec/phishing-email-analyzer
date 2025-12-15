@@ -106,43 +106,47 @@ SUSPICIOUS_EXTENSIONS = {
 # Common legitimate domains (whitelist)
 WHITELIST_DOMAINS = {
     # --- Top Tech & Social Media ---
-    "gmail.com", "google.com", "youtube.com", "docs.google.com", "drive.google.com",
-    "microsoft.com", "outlook.com", "office.com", "teams.microsoft.com", "azure.com", "sharepoint.com", "onedrive.com",
+    # --- Top Tech & Social Media ---
+    "gmail.com", "google.com", "youtube.com", "docs.google.com",
+    "drive.google.com", "microsoft.com", "outlook.com", "office.com",
+    "teams.microsoft.com", "azure.com", "sharepoint.com", "onedrive.com",
     "apple.com", "icloud.com", "itunes.com",
     "amazon.com", "aws.amazon.com",
     "facebook.com", "instagram.com", "whatsapp.com", "messenger.com",
     "twitter.com", "x.com", "linkedin.com", "slack.com", "discord.com",
     "tiktok.com", "snapchat.com", "pinterest.com", "reddit.com",
     "netflix.com", "spotify.com", "twitch.tv", "hulu.com", "disneyplus.com",
-    
+
     # --- Financial & Payment Services ---
     "paypal.com", "stripe.com", "venmo.com", "cash.app", "wise.com",
-    "visa.com", "mastercard.com", "amex.com", "americanexpress.com", "discover.com",
-    "chase.com", "bankofamerica.com", "wellsfargo.com", "citi.com", "citibank.com",
-    "capitalone.com", "usbank.com", "pnc.com", "td.com", "truist.com",
-    "hsbc.com", "barclays.com", "santander.com", "db.com", "ubs.com",
-    "coinbase.com", "binance.com", "blockchain.com", "crypto.com", "kraken.com",
-    "schwab.com", "fidelity.com", "vanguard.com", "etrade.com", "robinhood.com",
-    "intuit.com", "irs.gov",
-    
+    "visa.com", "mastercard.com", "amex.com", "americanexpress.com",
+    "discover.com", "chase.com", "bankofamerica.com", "wellsfargo.com",
+    "citi.com", "citibank.com", "capitalone.com", "usbank.com", "pnc.com",
+    "td.com", "truist.com", "hsbc.com", "barclays.com", "santander.com",
+    "db.com", "ubs.com", "coinbase.com", "binance.com", "blockchain.com",
+    "crypto.com", "kraken.com", "schwab.com", "fidelity.com",
+    "vanguard.com", "etrade.com", "robinhood.com", "intuit.com", "irs.gov",
+
     # --- Logistics & E-commerce ---
     "fedex.com", "ups.com", "dhl.com", "usps.com", "royalmail.com",
     "walmart.com", "target.com", "bestbuy.com", "ebay.com", "etsy.com",
-    "alibaba.com", "aliexpress.com", "shopify.com", "costco.com", "homedepot.com",
-    
+    "alibaba.com", "aliexpress.com", "shopify.com", "costco.com",
+    "homedepot.com",
+
     # --- Enterprise & Cloud Services ---
-    "dropbox.com", "box.com", "salesforce.com", "atlassian.com", "trello.com",
-    "jira.com", "confluence.com", "bitbucket.org", "github.com", "gitlab.com",
-    "zoom.us", "webex.com", "gotomeeting.com", "docusign.com", "adobe.com",
-    "okta.com", "servicenow.com", "oracle.com", "sap.com", "ibm.com",
-    "cisco.com", "dell.com", "hp.com", "lenovo.com", "intel.com",
-    
+    "dropbox.com", "box.com", "salesforce.com", "atlassian.com",
+    "trello.com", "jira.com", "confluence.com", "bitbucket.org",
+    "github.com", "gitlab.com", "zoom.us", "webex.com",
+    "gotomeeting.com", "docusign.com", "adobe.com", "okta.com",
+    "servicenow.com", "oracle.com", "sap.com", "ibm.com", "cisco.com",
+    "dell.com", "hp.com", "lenovo.com", "intel.com",
+
     # --- Other Common Phishing Targets ---
     "yahoo.com", "aol.com", "protonmail.com", "zoho.com", "yandex.com",
     "airbnb.com", "booking.com", "expedia.com", "uber.com", "lyft.com",
     "roblox.com", "steamcommunity.com", "blizzard.com", "ea.com",
-    "att.com", "verizon.com", "t-mobile.com", "vodafone.com", "orange.com",
-    "who.int", "cdc.gov", "un.org",
+    "att.com", "verizon.com", "t-mobile.com", "vodafone.com",
+    "orange.com", "who.int", "cdc.gov", "un.org",
 }
 
 # Trusted Domain Groups (Eco-systems)

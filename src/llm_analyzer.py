@@ -174,10 +174,12 @@ class LLMAnalyzer:
 
         try:
             if self.provider == "gemini":
-                # FAST FAIL: Check connectivity before invoking the heavy client
+                # FAST FAIL: Check connectivity before invoking heavy client
                 # (Prevents indefinite retries/hanging on DNS failure)
                 if not self._check_connectivity():
-                    logger.warning("Network unreachable: Skipping AI analysis.")
+                    logger.warning(
+                        "Network unreachable: Skipping AI analysis."
+                    )
                     return 0.0, {"error": "Network unavailable (Offline)"}
 
                 response = self.model.generate_content(prompt)
