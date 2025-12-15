@@ -375,20 +375,54 @@ class EmailReporter:
                      if not findings else ''}
         """
 
+        # Group findings by severity
+        by_severity = {"CRITICAL": [], "HIGH": [], "MEDIUM": [], "LOW": [], "INFO": []}
+        other_severities = {}
         for finding in findings:
             severity = finding.get("severity", "LOW")
-            html += f"""
+            if severity in by_severity:
+                by_severity[severity].append(finding)
+            else:
+                if severity not in other_severities:
+                    other_severities[severity] = []
+                other_severities[severity].append(finding)
+
+        # Icons for severity
+        icons = {
+            "CRITICAL": "🚫",
+            "HIGH": "🔴",
+            "MEDIUM": "🟠",
+            "LOW": "🟡",
+            "INFO": "🔵",
+            "SAFE": "🟢"
+        }
+
+        # Helper function to generate finding HTML
+        def generate_finding_html(severity, finding):
+            sev_icon = icons.get(severity, "⚪")
+            finding_html = f"""
                     <div class="finding {severity}">
-                        <strong>[{severity}]
+                        <strong>{sev_icon} [{severity}]
                         {finding.get('heuristic', 'Unknown')}</strong>
                         <p>{finding.get('description', '')}</p>
             """
             if finding.get("details"):
-                html += "<ul>"
+                finding_html += "<ul>"
                 for k, v in finding.get("details", {}).items():
-                    html += f"<li>{k}: {v}</li>"
-                html += "</ul>"
-            html += "</div>"
+                    finding_html += f"<li>{k}: {v}</li>"
+                finding_html += "</ul>"
+            finding_html += "</div>"
+            return finding_html
+
+        # Display findings sorted by severity
+        for severity in ["CRITICAL", "HIGH", "MEDIUM", "LOW", "INFO"]:
+            for finding in by_severity.get(severity, []):
+                html += generate_finding_html(severity, finding)
+
+        # Display any other severities
+        for severity, severity_findings in other_severities.items():
+            for finding in severity_findings:
+                html += generate_finding_html(severity, finding)
 
         html += """
                 </div>
