@@ -284,7 +284,9 @@ class EmailAnalyzer:
                                 ),
                                 "weight": 0,
                                 "adjusted_weight": 0,
-                                "details": {"error": scrape_result.get("error")},
+                                "details": {
+                                    "error": scrape_result.get("error")
+                                },
                             }
                         )
                     else:
@@ -299,7 +301,9 @@ class EmailAnalyzer:
                                 ),
                                 "weight": 0,
                                 "adjusted_weight": 0,
-                                "details": {"title": scraped_content.get("title")},
+                                "details": {
+                                    "title": scraped_content.get("title")
+                                },
                             }
                         )
 
