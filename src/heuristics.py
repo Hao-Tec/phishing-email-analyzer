@@ -434,9 +434,22 @@ class HeuristicAnalyzer:
             # Check against trusted domains for similarity
             targets = WHITELIST_DOMAINS.union(PLATFORM_DOMAINS)
             for target in targets:
-                ratio = difflib.SequenceMatcher(
-                    None, sender_domain, target
-                ).ratio()
+                # OPTIMIZATION: Quick check based on length and character set
+                # ratio() is expensive (O(N*M)), so we filter first.
+                # Max possible ratio is determined by lengths:
+                # 2 * min_len / (len1 + len2) >= 0.85
+                len_s, len_t = len(sender_domain), len(target)
+                if len_s + len_t == 0:
+                    continue
+                if 2 * min(len_s, len_t) / (len_s + len_t) <= 0.85:
+                    continue
+
+                matcher = difflib.SequenceMatcher(None, sender_domain, target)
+                # quick_ratio() is an upper bound on ratio()
+                if matcher.quick_ratio() <= 0.85:
+                    continue
+
+                ratio = matcher.ratio()
                 # Threshold for "doppelganger" detection (e.g. gmai1 vs gmail)
                 if ratio > 0.85:
                     self._add_finding(
