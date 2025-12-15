@@ -48,15 +48,48 @@ class VirusTotalScanner:
             if response.status_code == 200:
                 return self._parse_analysis(response.json())
             elif response.status_code == 404:
-                # Need to submit it (skipping submission for now to avoid
-                # quota burn on unknowns, but could implement submission logic
-                # if desired. For now just return unknown)
-                return {"status": "unknown", "harmless": 0, "malicious": 0}
+                # Submit the URL for scanning
+                return self._submit_url(url)
             else:
                 return {"error": f"API Error: {response.status_code}"}
 
         except Exception as e:
             return {"error": str(e)}
+
+    def _submit_url(self, url: str) -> Dict:
+        """
+        Submit a URL to VirusTotal for scanning.
+
+        Args:
+            url: The URL to submit.
+
+        Returns:
+            Dictionary with submission status.
+        """
+        try:
+            data = {"url": url}
+            response = requests.post(
+                f"{self.BASE_URL}/urls", headers=self.headers, data=data
+            )
+
+            if response.status_code == 200:
+                data = response.json()
+                analysis_id = data.get("data", {}).get("id")
+                return {
+                    "status": "queued",
+                    "analysis_id": analysis_id,
+                    "message": "URL submitted for scanning",
+                    "harmless": 0,
+                    "malicious": 0,
+                    "suspicious": 0,
+                    "undetected": 0,
+                    "reputation": 0,
+                }
+            else:
+                # If submission fails, fall back to unknown
+                return {"status": "unknown", "harmless": 0, "malicious": 0}
+        except Exception:
+            return {"status": "unknown", "harmless": 0, "malicious": 0}
 
     def scan_file_hash(self, file_content: bytes) -> Dict:
         """
