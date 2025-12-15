@@ -17,6 +17,22 @@ from src.config import (
     TRUSTED_DOMAIN_GROUPS,
 )
 
+# Pre-compile regexes for performance optimization
+# Complex regex for extracting domain from displayed text
+DISPLAYED_DOMAIN_PATTERN = r"([a-zA-Z0-9]([a-zA-Z0-9\-]{0,61}[a-zA-Z0-9])?\.)+[a-zA-Z]{2,}"
+DISPLAYED_DOMAIN_REGEX = re.compile(DISPLAYED_DOMAIN_PATTERN, re.IGNORECASE)
+
+# Regex for detecting hex encoding in URLs
+HEX_ENCODING_REGEX = re.compile(r"%[0-9a-f]{2}", re.IGNORECASE)
+
+# Combined regex for urgency keywords
+# Sort keywords by length descending to ensure longest match is found first in case of overlaps
+# (though current list has no overlaps).
+_sorted_keywords = sorted(SUSPICIOUS_KEYWORDS, key=len, reverse=True)
+URGENCY_PATTERN = r"\b(" + "|".join(re.escape(k) for k in _sorted_keywords) + r")\b"
+# Text is lowercased before check, so we don't strictly need IGNORECASE, but it's safe.
+URGENCY_REGEX = re.compile(URGENCY_PATTERN)
+
 
 class HeuristicAnalyzer:
     """
@@ -101,15 +117,14 @@ class HeuristicAnalyzer:
         # Combine text for analysis
         full_text = f"{subject} {body}"
 
-        for keyword in SUSPICIOUS_KEYWORDS:
-            # Use word boundaries for better accuracy
-            escaped_kw = re.escape(keyword)
-            if re.search(rf"\b{escaped_kw}\b", full_text):
-                self._add_finding(
-                    "urgent_language",
-                    "LOW",
-                    f"Suspicious keyword found: '{keyword}'",
-                )
+        # OPTIMIZATION: Use single regex pass for all keywords
+        matches = set(URGENCY_REGEX.findall(full_text))
+        for keyword in matches:
+            self._add_finding(
+                "urgent_language",
+                "LOW",
+                f"Suspicious keyword found: '{keyword}'",
+            )
 
     def _check_ocr_content(self, email_data: Dict):
         """Check for suspicious content in OCR extracted text."""
@@ -196,13 +211,9 @@ class HeuristicAnalyzer:
             # Only if the displayed text looks like a URL/Domain
             if displayed_text and "." in displayed_text:
                 # Extract domain from displayed text if possible
-                # Simple extraction: look for something resembling a domain
-                displayed_domain_match = re.search(
-                    r"([a-zA-Z0-9]([a-zA-Z0-9\-]{0,61}[a-zA-Z0-9])?\.)+"
-                    r"[a-zA-Z]{2,}",
-                    displayed_text,
-                    re.IGNORECASE,
-                )
+                # OPTIMIZATION: Use pre-compiled regex
+                displayed_domain_match = DISPLAYED_DOMAIN_REGEX.search(displayed_text)
+
                 if displayed_domain_match:
                     displayed_domain = displayed_domain_match.group().lower()
                     self._display_domain_match_check(
@@ -329,7 +340,8 @@ class HeuristicAnalyzer:
 
             # Check for hex-encoded or base64-like patterns
             # in domain
-            if re.search(r"%[0-9a-f]{2}", url, re.IGNORECASE):
+            # OPTIMIZATION: Use pre-compiled regex
+            if HEX_ENCODING_REGEX.search(url):
                 self._add_finding(
                     "url_obfuscation",
                     "HIGH",
