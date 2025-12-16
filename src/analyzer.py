@@ -117,15 +117,19 @@ class EmailAnalyzer:
 
             # Map auth results to findings
             if auth_results.get("dkim_pass") is False:
-                # Reduce weight for trusted senders (DKIM fails on exported emails)
-                weight = 5 if is_trusted_sender else HEURISTIC_WEIGHTS["auth_dkim_fail"]
+                # Reduce weight for trusted senders
+                # (DKIM fails on exported emails)
+                dkim_weight = HEURISTIC_WEIGHTS["auth_dkim_fail"]
+                weight = 5 if is_trusted_sender else dkim_weight
                 severity = "LOW" if is_trusted_sender else "HIGH"
                 findings.append(
                     {
                         "heuristic": "auth_dkim_fail",
                         "severity": severity,
-                        "description": "DKIM verification failed" + (
-                            " (expected for exported emails)" if is_trusted_sender else ""
+                        "description": (
+                            "DKIM verification failed" +
+                            (" (expected for exported emails)"
+                             if is_trusted_sender else "")
                         ),
                         "weight": weight,
                         "adjusted_weight": weight,
@@ -135,7 +139,8 @@ class EmailAnalyzer:
 
             if auth_results.get("spf_record_exists") is False:
                 # Reduce weight for trusted senders
-                weight = 5 if is_trusted_sender else HEURISTIC_WEIGHTS["auth_spf_fail"]
+                spf_weight = HEURISTIC_WEIGHTS["auth_spf_fail"]
+                weight = 5 if is_trusted_sender else spf_weight
                 severity = "LOW" if is_trusted_sender else "MEDIUM"
                 findings.append(
                     {
@@ -446,7 +451,9 @@ class EmailAnalyzer:
 
         # Check for truly critical findings (external threat intel)
         external_critical = any(
-            f.get("heuristic") in ["virustotal_positive", "external_db_positive"]
+            f.get("heuristic") in [
+                "virustotal_positive", "external_db_positive"
+            ]
             for f in findings
         )
 

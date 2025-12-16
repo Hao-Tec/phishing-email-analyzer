@@ -20,18 +20,22 @@ from src.config import (
 
 # Pre-compile regexes for performance optimization
 # Complex regex for extracting domain from displayed text
-DISPLAYED_DOMAIN_PATTERN = r"([a-zA-Z0-9]([a-zA-Z0-9\-]{0,61}[a-zA-Z0-9])?\.)+[a-zA-Z]{2,}"
+DISPLAYED_DOMAIN_PATTERN = (
+    r"([a-zA-Z0-9]([a-zA-Z0-9\-]{0,61}[a-zA-Z0-9])?\.)+[a-zA-Z]{2,}"
+)
 DISPLAYED_DOMAIN_REGEX = re.compile(DISPLAYED_DOMAIN_PATTERN, re.IGNORECASE)
 
 # Regex for detecting hex encoding in URLs
 HEX_ENCODING_REGEX = re.compile(r"%[0-9a-f]{2}", re.IGNORECASE)
 
 # Combined regex for urgency keywords
-# Sort keywords by length descending to ensure longest match is found first in case of overlaps
-# (though current list has no overlaps).
+# Sort keywords by length descending to ensure longest match is found first
+# in case of overlaps (though current list has no overlaps).
 _sorted_keywords = sorted(SUSPICIOUS_KEYWORDS, key=len, reverse=True)
-URGENCY_PATTERN = r"\b(" + "|".join(re.escape(k) for k in _sorted_keywords) + r")\b"
-# Text is lowercased before check, so we don't strictly need IGNORECASE, but it's safe.
+URGENCY_PATTERN = (
+    r"\b(" + "|".join(re.escape(k) for k in _sorted_keywords) + r")\b"
+)
+# Text is lowercased before check, so we don't strictly need IGNORECASE.
 URGENCY_REGEX = re.compile(URGENCY_PATTERN)
 
 
@@ -213,7 +217,9 @@ class HeuristicAnalyzer:
             if displayed_text and "." in displayed_text:
                 # Extract domain from displayed text if possible
                 # OPTIMIZATION: Use pre-compiled regex
-                displayed_domain_match = DISPLAYED_DOMAIN_REGEX.search(displayed_text)
+                displayed_domain_match = DISPLAYED_DOMAIN_REGEX.search(
+                    displayed_text
+                )
 
                 if displayed_domain_match:
                     displayed_domain = displayed_domain_match.group().lower()
