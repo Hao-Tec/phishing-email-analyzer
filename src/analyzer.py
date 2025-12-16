@@ -98,6 +98,16 @@ class EmailAnalyzer:
         findings.extend(h_findings)
 
         # 3. Authentication Verification (DKIM/SPF/DMARC)
+        # Note: For whitelisted senders, we reduce weight since DKIM often
+        # fails for exported/forwarded emails, not due to actual spoofing.
+        sender = email_data.get("sender", "")
+        sender_domain = ""
+        if sender and "@" in sender:
+            sender_domain = sender.split("@")[1].lower()
+
+        from src.config import WHITELIST_DOMAINS
+        is_trusted_sender = sender_domain in WHITELIST_DOMAINS
+
         if email_data.get("raw_content") and email_data.get("sender"):
             auth_results = self.auth_validator.validate(
                 email_data["raw_content"],
@@ -107,28 +117,36 @@ class EmailAnalyzer:
 
             # Map auth results to findings
             if auth_results.get("dkim_pass") is False:
+                # Reduce weight for trusted senders (DKIM fails on exported emails)
+                weight = 5 if is_trusted_sender else HEURISTIC_WEIGHTS["auth_dkim_fail"]
+                severity = "LOW" if is_trusted_sender else "HIGH"
                 findings.append(
                     {
                         "heuristic": "auth_dkim_fail",
-                        "severity": "HIGH",
-                        "description": "DKIM verification failed",
-                        "weight": HEURISTIC_WEIGHTS["auth_dkim_fail"],
-                        "adjusted_weight": HEURISTIC_WEIGHTS["auth_dkim_fail"],
+                        "severity": severity,
+                        "description": "DKIM verification failed" + (
+                            " (expected for exported emails)" if is_trusted_sender else ""
+                        ),
+                        "weight": weight,
+                        "adjusted_weight": weight,
                     }
                 )
-                score += HEURISTIC_WEIGHTS["auth_dkim_fail"]
+                score += weight
 
             if auth_results.get("spf_record_exists") is False:
+                # Reduce weight for trusted senders
+                weight = 5 if is_trusted_sender else HEURISTIC_WEIGHTS["auth_spf_fail"]
+                severity = "LOW" if is_trusted_sender else "MEDIUM"
                 findings.append(
                     {
                         "heuristic": "auth_spf_fail",
-                        "severity": "MEDIUM",
+                        "severity": severity,
                         "description": "Sender domain missing SPF record",
-                        "weight": HEURISTIC_WEIGHTS["auth_spf_fail"],
-                        "adjusted_weight": HEURISTIC_WEIGHTS["auth_spf_fail"],
+                        "weight": weight,
+                        "adjusted_weight": weight,
                     }
                 )
-                score += HEURISTIC_WEIGHTS["auth_spf_fail"]
+                score += weight
 
         # 4. ML Analysis
         if self.ml_analyzer.enabled:
@@ -445,7 +463,7 @@ class EmailAnalyzer:
                     "adjusted_weight": 0,
                 }
             )
-            score = 55  # Cap at LOW_RISK maximum
+            score = 40  # Cap at LOW_RISK for verified senders
 
         # Cap score
         score = min(100, score)
