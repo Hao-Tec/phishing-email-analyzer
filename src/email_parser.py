@@ -294,6 +294,7 @@ class EmailParser:
         urls = []
 
         # If HTML, use BeautifulSoup
+        soup = None
         if is_html:
             try:
                 soup = BeautifulSoup(body, "html.parser")
@@ -309,8 +310,37 @@ class EmailParser:
                 pass  # Fallback to regex if BS4 fails
 
         # Regex extraction for plain text or as backup
+        # OPTIMIZATION: For HTML, scan extracted text/attributes instead of raw HTML
+        # Scanning raw HTML with urlextract is very slow (redundant parsing).
+        # We extract visible text, scripts, and all attributes to ensure coverage
+        # while significantly reducing the input size for the regex engine.
+        text_to_scan = body
+        if is_html and soup:
+            try:
+                chunks = []
+                # 1. Visible Text
+                chunks.append(soup.get_text(" ", strip=True))
+
+                # 2. Scripts and Styles (Hidden content)
+                for tag in soup(["script", "style"]):
+                    if tag.string:
+                        chunks.append(tag.string)
+
+                # 3. Attributes (src, action, data-*, etc.)
+                # Iterating tags is faster than regex-scanning the full raw string
+                for tag in soup.find_all(True):
+                    for val in tag.attrs.values():
+                        if isinstance(val, str):
+                            chunks.append(val)
+                        elif isinstance(val, list):
+                            chunks.append(" ".join(val))
+
+                text_to_scan = " ".join(chunks)
+            except Exception:
+                pass  # Fallback to full body if processing fails
+
         if self.url_extractor:
-            extracted_urls = self.url_extractor.find_urls(body)
+            extracted_urls = self.url_extractor.find_urls(text_to_scan)
             for url in extracted_urls:
                 urls.append(self._url_info(url))
         else:
