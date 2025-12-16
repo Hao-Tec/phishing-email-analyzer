@@ -15,6 +15,7 @@ from src.config import (
     PLATFORM_DOMAINS,
     WHITELIST_DOMAINS,
     TRUSTED_DOMAIN_GROUPS,
+    EMAIL_INFRASTRUCTURE_DOMAINS,
 )
 
 # Pre-compile regexes for performance optimization
@@ -304,6 +305,15 @@ class HeuristicAnalyzer:
 
             # Skip checks for trusted domains/ecosystems
             if self._is_trusted_ecosystem(sender_domain, domain):
+                continue
+
+            # Skip checks for known email infrastructure (tracking links)
+            # These legitimately use very long URLs for click tracking
+            is_email_infra = any(
+                infra_domain in domain.lower()
+                for infra_domain in EMAIL_INFRASTRUCTURE_DOMAINS
+            )
+            if is_email_infra:
                 continue
 
             # Check URL length
