@@ -37,7 +37,6 @@ class EmailAnalyzer:
         self.auth_validator = AuthValidator()
         self.image_analyzer = ImageAnalyzer()
         self.ml_analyzer = MLAnalyzer()
-        self.ml_analyzer = MLAnalyzer()
         self.external_scanners = ExternalScanners()
         self.url_scraper = URLScraper()
 
@@ -182,24 +181,13 @@ class EmailAnalyzer:
             domain = url_obj.get("domain", "")
             is_platform_domain = domain in PLATFORM_DOMAINS
 
-            # ML URL Analysis
-            if self.ml_analyzer.enabled:
-                url_prob = self.ml_analyzer.analyze_url(url)
-                if url_prob > 0.8:
-                    findings.append(
-                        {
-                            "heuristic": "url_ml_suspicious",
-                            "severity": "HIGH",
-                            "description": (
-                                f"ML Model (URL) detected malicious pattern "
-                                f"({url_prob:.2f}): {url}"
-                            ),
-                            "weight": 80,
-                            "adjusted_weight": 80 * url_prob,
-                            "details": {"url": url, "probability": url_prob},
-                        }
-                    )
-                    score += 80 * url_prob
+            # ML URL Analysis - DISABLED (Model requires retraining)
+            # The current model has overfitting issues causing false positives.
+            # TODO: Retrain with balanced dataset before re-enabling.
+            # url_prob = self.ml_analyzer.analyze_url(url)
+            # if url_prob > 0.8:
+            #     findings.append({...})
+            #     score += 80 * url_prob
 
             # VirusTotal (Existing)
             vt_scan = self.vt_scanner.scan_url(url)
@@ -404,6 +392,26 @@ class EmailAnalyzer:
                 )
                 # Allow minor infractions but cap at 55 (Top of Low Risk)
                 score = min(score, 55)
+
+        # 7.1 Offline Fallback: If AI is unavailable, apply conservative cap
+        # This prevents false CRITICAL scores when we can't verify with AI.
+        ai_available = llm_data and llm_data.get("risk_level") is not None
+        if not ai_available and not has_critical_findings:
+            # No AI verdict and no confirmed threats - be conservative
+            if score > 60:
+                findings.append(
+                    {
+                        "heuristic": "offline_score_cap",
+                        "severity": "INFO",
+                        "description": (
+                            "Score capped (AI unavailable, no confirmed "
+                            "threats). Manual review recommended."
+                        ),
+                        "weight": 0,
+                        "adjusted_weight": 0,
+                    }
+                )
+                score = 60  # Cap at top of MEDIUM_RISK
 
         # Cap score
         score = min(100, score)

@@ -1,3 +1,4 @@
+# flake8: noqa
 """
 Command-line interface for Email Phishing Detection Tool
 """
@@ -5,12 +6,17 @@ Command-line interface for Email Phishing Detection Tool
 import argparse
 import sys
 import os
+import logging
 from pathlib import Path
 from dotenv import load_dotenv
 from rich.console import Console
 from rich.table import Table
 from rich.progress import track
 from rich.panel import Panel
+
+# Suppress non-critical warnings for clean enterprise output
+# Only show ERROR level messages in terminal
+logging.basicConfig(level=logging.ERROR, format="%(message)s")
 
 # Add parent directory to path for imports
 sys.path.insert(0, str(Path(__file__).parent.parent))
