@@ -413,6 +413,40 @@ class EmailAnalyzer:
                 )
                 score = 60  # Cap at top of MEDIUM_RISK
 
+        # 7.2 Trusted Sender Dampening
+        # If sender is from a known legitimate domain (banks, fintechs)
+        # and no external threat intel confirmed malicious, reduce score.
+        # This prevents false positives on transactional emails.
+        sender = email_data.get("sender", "")
+        sender_domain = ""
+        if sender and "@" in sender:
+            sender_domain = sender.split("@")[1].lower()
+
+        # Check if sender is from a whitelisted domain
+        from src.config import WHITELIST_DOMAINS
+        is_whitelisted_sender = sender_domain in WHITELIST_DOMAINS
+
+        # Check for truly critical findings (external threat intel)
+        external_critical = any(
+            f.get("heuristic") in ["virustotal_positive", "external_db_positive"]
+            for f in findings
+        )
+
+        if is_whitelisted_sender and not external_critical and score > 55:
+            findings.append(
+                {
+                    "heuristic": "trusted_sender_adjustment",
+                    "severity": "INFO",
+                    "description": (
+                        f"Score reduced: Sender '{sender_domain}' is a "
+                        "verified institution. No external threats detected."
+                    ),
+                    "weight": 0,
+                    "adjusted_weight": 0,
+                }
+            )
+            score = 55  # Cap at LOW_RISK maximum
+
         # Cap score
         score = min(100, score)
 

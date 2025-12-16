@@ -147,6 +147,18 @@ WHITELIST_DOMAINS = {
     "roblox.com", "steamcommunity.com", "blizzard.com", "ea.com",
     "att.com", "verizon.com", "t-mobile.com", "vodafone.com",
     "orange.com", "who.int", "cdc.gov", "un.org",
+
+    # --- African Fintech & Regional Banks ---
+    "moniepoint.com", "flutterwave.com", "paystack.com", "opay.ng",
+    "kuda.com", "piggyvest.com", "chipper.com", "interswitch.com",
+    "gtbank.com", "firstbanknigeria.com", "accessbankplc.com",
+    "zenithbank.com", "ubagroup.com", "sterlingbank.com",
+    "mtn.com", "gloworld.com", "airtelafrica.com",
+
+    # --- Email Infrastructure (Marketing/Transactional) ---
+    "sendgrid.net", "sendgrid.com", "mailchimp.com", "mailgun.com",
+    "amazonses.com", "postmarkapp.com", "sparkpost.com",
+    "ct.sendgrid.net",  # SendGrid click tracking domain
 }
 
 # Trusted Domain Groups (Eco-systems)
@@ -175,6 +187,20 @@ TRUSTED_DOMAIN_GROUPS = {
         "aws.amazon.com",
         "ssl-images-amazon.com",
         "media-amazon.com",
+    },
+    # Email Marketing Platforms - their tracking links are legitimate
+    "sendgrid.net": {
+        "ct.sendgrid.net",
+        "u8065049.ct.sendgrid.net",  # User-specific tracking subdomain
+        "sendgrid.com",
+    },
+    "mailchimp.com": {
+        "list-manage.com",
+        "mailchi.mp",
+    },
+    # African Fintech - their CDN and tracking domains
+    "moniepoint.com": {
+        "em3749.moniepoint.com",  # Email subdomain
     },
 }
 
@@ -238,6 +264,18 @@ SUSPICIOUS_KEYWORDS = URGENT_KEYWORDS  # Alias for compatibility
 
 # Maximum URL length before suspicious (typically longer for obfuscation)
 MAX_URL_LENGTH = 200
+
+# Email infrastructure domains - these use long tracking URLs by design
+# Skip URL obfuscation checks for these domains
+EMAIL_INFRASTRUCTURE_DOMAINS = {
+    "sendgrid.net", "ct.sendgrid.net", "sendgrid.com",
+    "mailchimp.com", "list-manage.com", "mailchi.mp",
+    "mailgun.com", "postmarkapp.com", "sparkpost.com",
+    "amazonses.com", "ses.amazonaws.com",
+    "constantcontact.com", "campaign-archive.com",
+    "hubspot.com", "hs-sites.com",
+    "messagelabs.com", "mimecast.com",
+}
 
 # Minimum URL length that's considered valid
 MIN_URL_LENGTH = 10
