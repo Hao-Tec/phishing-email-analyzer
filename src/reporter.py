@@ -317,7 +317,8 @@ class EmailReporter:
                 }}
                 .glossary-grid {{
                     display: grid;
-                    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+                    grid-template-columns: repeat(auto-fit,
+                        minmax(250px, 1fr));
                     gap: 15px;
                 }}
                 .glossary-item {{
@@ -375,20 +376,54 @@ class EmailReporter:
                      if not findings else ''}
         """
 
+        # Group findings by severity
+        by_severity = {"CRITICAL": [], "HIGH": [], "MEDIUM": [], "LOW": [], "INFO": []}
+        other_severities = {}
         for finding in findings:
             severity = finding.get("severity", "LOW")
-            html += f"""
+            if severity in by_severity:
+                by_severity[severity].append(finding)
+            else:
+                if severity not in other_severities:
+                    other_severities[severity] = []
+                other_severities[severity].append(finding)
+
+        # Icons for severity
+        icons = {
+            "CRITICAL": "🚫",
+            "HIGH": "🔴",
+            "MEDIUM": "🟠",
+            "LOW": "🟡",
+            "INFO": "🔵",
+            "SAFE": "🟢"
+        }
+
+        # Helper function to generate finding HTML
+        def generate_finding_html(severity, finding):
+            sev_icon = icons.get(severity, "⚪")
+            finding_html = f"""
                     <div class="finding {severity}">
-                        <strong>[{severity}]
+                        <strong>{sev_icon} [{severity}]
                         {finding.get('heuristic', 'Unknown')}</strong>
                         <p>{finding.get('description', '')}</p>
             """
             if finding.get("details"):
-                html += "<ul>"
+                finding_html += "<ul>"
                 for k, v in finding.get("details", {}).items():
-                    html += f"<li>{k}: {v}</li>"
-                html += "</ul>"
-            html += "</div>"
+                    finding_html += f"<li>{k}: {v}</li>"
+                finding_html += "</ul>"
+            finding_html += "</div>"
+            return finding_html
+
+        # Display findings sorted by severity
+        for severity in ["CRITICAL", "HIGH", "MEDIUM", "LOW", "INFO"]:
+            for finding in by_severity.get(severity, []):
+                html += generate_finding_html(severity, finding)
+
+        # Display any other severities
+        for severity, severity_findings in other_severities.items():
+            for finding in severity_findings:
+                html += generate_finding_html(severity, finding)
 
         html += """
                 </div>
@@ -399,14 +434,41 @@ class EmailReporter:
         """
 
         glossary = {
-            "SPF": "Sender Policy Framework. A security mechanism that allows domains to specify which mail servers are authorized to send email on their behalf.",
-            "DKIM": "DomainKeys Identified Mail. Adds a digital signature to emails, allowing the receiver to verify that the email was indeed authorized by the owner of that domain.",
-            "DMARC": "Domain-based Message Authentication, Reporting, and Conformance. Unifies SPF and DKIM mechanisms and tells receivers what to do if checks fail.",
-            "Doppelganger Domain": "A domain that looks very similar to a legitimate domain (e.g., paypa1.com vs paypal.com) to trick users.",
-            "Typosquatting": "Registering domains that are very similar to popular domains, relying on users making typos.",
-            "Homograph Attack": "Using characters that look alike (e.g., Cyrillic 'a' vs Latin 'a') to spoof domains.",
-            "Zero-Day": "A newly discovered vulnerability or threat that has no known fix or signature yet.",
-            "ML Confidence": "The probability score (0-1) from the Machine Learning model indicating how likely the email is phishing.",
+            "SPF": (
+                "Sender Policy Framework. A security mechanism that allows "
+                "domains to specify which mail servers are authorized to "
+                "send email on their behalf."
+            ),
+            "DKIM": (
+                "DomainKeys Identified Mail. Adds a digital signature to "
+                "emails, allowing the receiver to verify that the email was "
+                "indeed authorized by the owner of that domain."
+            ),
+            "DMARC": (
+                "Domain-based Message Authentication, Reporting, and "
+                "Conformance. Unifies SPF and DKIM mechanisms and tells "
+                "receivers what to do if checks fail."
+            ),
+            "Doppelganger Domain": (
+                "A domain that looks very similar to a legitimate domain "
+                "(e.g., paypa1.com vs paypal.com) to trick users."
+            ),
+            "Typosquatting": (
+                "Registering domains that are very similar to popular "
+                "domains, relying on users making typos."
+            ),
+            "Homograph Attack": (
+                "Using characters that look alike (e.g., Cyrillic 'a' vs "
+                "Latin 'a') to spoof domains."
+            ),
+            "Zero-Day": (
+                "A newly discovered vulnerability or threat that has no "
+                "known fix or signature yet."
+            ),
+            "ML Confidence": (
+                "The probability score (0-1) from the Machine Learning "
+                "model indicating how likely the email is phishing."
+            ),
         }
 
         for term, definition in glossary.items():
