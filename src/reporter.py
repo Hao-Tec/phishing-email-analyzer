@@ -377,7 +377,9 @@ class EmailReporter:
         """
 
         # Group findings by severity
-        by_severity = {"CRITICAL": [], "HIGH": [], "MEDIUM": [], "LOW": [], "INFO": []}
+        by_severity = {
+            "CRITICAL": [], "HIGH": [], "MEDIUM": [], "LOW": [], "INFO": []
+        }
         other_severities = {}
         for finding in findings:
             severity = finding.get("severity", "LOW")
