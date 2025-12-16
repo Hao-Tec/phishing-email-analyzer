@@ -5,7 +5,6 @@ Integrates with external phishing databases (PhishTank, Google Safe Browsing).
 
 import os
 import requests
-import logging
 from typing import Dict
 
 from src.config import PHISHTANK_API_KEY_ENV, SAFE_BROWSING_API_KEY_ENV
@@ -72,8 +71,9 @@ class ExternalScanners:
                     results.get("in_database", False)
                     and results.get("valid", False)
                 )
-        except Exception as e:
-            logging.warning(f"PhishTank check failed: {e}")
+        except Exception:
+            # Silently fail - do not expose connection details
+            pass
         return False
 
     def _check_safebrowsing(self, url: str) -> bool:
@@ -95,10 +95,11 @@ class ExternalScanners:
                     "threatEntries": [{"url": url}],
                 },
             }
-            response = requests.post(api_url, json=payload)
+            response = requests.post(api_url, json=payload, timeout=10)
             if response.status_code == 200:
                 data = response.json()
                 return bool(data.get("matches"))
-        except Exception as e:
-            logging.warning(f"Safe Browsing check failed: {e}")
+        except Exception:
+            # Silently fail - do not expose API keys in logs
+            pass
         return False
