@@ -99,7 +99,23 @@ The brain of the operation. It initializes all sub-components and runs them in s
 - **Logic**:
   - Fetches the target URL with a standard user-agent.
   - Extracts page title and visible text using `BeautifulSoup`.
-  - Feeds the _actual_ page content to the LLM for deep analysis (detecting fake login forms, credentials harvesting).
+  - Fetches the target URL with a standard user-agent.
+  - Extracts page title and visible text using `BeautifulSoup`.
+  - **Error Handling**: Gracefully reports DNS failures and timeouts as findings, without crashing.
+  - Feeds the _actual_ page content to the LLM for deep analysis.
+
+**llm_analyzer.py (LLMAnalyzer)**
+
+- **Connectivity**: Implements "Fast Fail" checks to prevent hanging on network outages.
+- **Resilience**: Skips AI analysis gracefully if Gemini API is unreachable.
+
+**reporter.py (EmailReporter)**
+
+- **Features**: Generates HTML reports with interactive glossaries explaining technical terms (SPF, DKIM, Typosquatting) to end-users.
+
+**heuristics.py (HeuristicAnalyzer)**
+
+- **Typosquatting**: Enhanced detection using a whitelist of 100+ high-value domains (PayPal, Google, Banks) to catch "doppelganger" domains (e.g., `paypa1.com`).
 
 ## Data Flow
 

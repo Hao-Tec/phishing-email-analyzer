@@ -29,6 +29,11 @@ This release marks the transition to **Version 1.0.0**, delivering a production-
 - **Problem**: Mechanical checks (like SPF failures on forwarded emails) were causing high scores on safe emails.
 - **Solution**: If the AI (LLM) analyzes the content and explicitly marks it as "SAFE", the final score is proactively capped (damped) to prevent false alarms.
 
+### 5. Enhanced Heuristics & Reporting
+
+- **Typosquatting**: Detection logic now checks against a massive whitelist of 100+ global brands to catch "doppelganger" domains (e.g., `paypa1.com`).
+- **User-Friendly Reporting**: HTML reports now include an interactive **Glossary** to explain security terms (SPF, DMARC, Zero-Day) to non-technical users.
+
 ## 🛠️ Code Quality
 
 - **Linting**: Achieved 100% compliance with `flake8` standards, including strict line-length limits (E501) and syntax verification.
