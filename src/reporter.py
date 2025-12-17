@@ -365,6 +365,39 @@ class EmailReporter:
                     font-size: 0.9em;
                     color: #6c757d;
                 }}
+                .nav-links {{
+                    background: #f1f3f5;
+                    padding: 10px 20px;
+                    border-radius: 8px;
+                    margin-bottom: 20px;
+                    display: flex;
+                    gap: 20px;
+                    flex-wrap: wrap;
+                    align-items: center;
+                }}
+                .nav-links a {{
+                    color: #495057;
+                    text-decoration: none;
+                    font-weight: 500;
+                    transition: color 0.2s;
+                    margin-right: 15px;
+                }}
+                .nav-links a:hover {{
+                    color: #212529;
+                    text-decoration: underline;
+                }}
+                .nav-links .cta-link {{
+                    background-color: #0d6efd;
+                    color: white;
+                    padding: 5px 12px;
+                    border-radius: 20px;
+                    font-size: 0.9em;
+                }}
+                .nav-links .cta-link:hover {{
+                    background-color: #0b5ed7;
+                    text-decoration: none;
+                    color: white;
+                }}
             </style>
         </head>
         <body>
@@ -380,8 +413,17 @@ class EmailReporter:
                     {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}</p>
                 </div>
 
+                <div class="nav-links">
+                    <strong>Jump to:</strong>
+                    <a href="#metadata">Metadata</a>
+                    <a href="#findings">Findings</a>
+                    <a href="#glossary">Glossary</a>
+                    {'<a href="#recommendations" class="cta-link">👉 Recommendations</a>'
+                     if EmailReporter._get_recommendations(risk_level, findings) else ''}
+                </div>
+
                 <div class="section">
-                    <h2>Email Metadata</h2>
+                    <h2 id="metadata">Email Metadata</h2>
                     <div class="meta-grid">
                         <div class="meta-item">
                             <label>From</label>
@@ -403,7 +445,7 @@ class EmailReporter:
                 </div>
 
                 <div class="section">
-                    <h2>Findings</h2>
+                    <h2 id="findings">Findings</h2>
                     {'<p>No suspicious patterns detected.</p>'
                      if not findings else ''}
         """
@@ -471,7 +513,7 @@ class EmailReporter:
         if recommendations:
             html += """
                 <div class="section">
-                    <h2>Recommendations</h2>
+                    <h2 id="recommendations">Recommendations</h2>
                     <ul style="line-height: 1.6; color: #212529; font-size: 1.1em;">
             """
             for rec in recommendations:
@@ -483,7 +525,7 @@ class EmailReporter:
 
         html += """
                 <div class="section">
-                    <h2>Glossary</h2>
+                    <h2 id="glossary">Glossary</h2>
                     <div class="glossary-grid">
         """
 
