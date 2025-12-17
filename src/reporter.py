@@ -218,6 +218,17 @@ class EmailReporter:
         }
         risk_color = colors.get(risk_level, "#6c757d")
 
+        # Determine text color for badges based on background contrast
+        # Low Risk (Teal) and Medium Risk (Yellow) need dark text for readability
+        text_colors = {
+            "SAFE": "white",
+            "LOW_RISK": "#212529",
+            "MEDIUM_RISK": "#212529",
+            "HIGH_RISK": "white",
+            "CRITICAL": "white",
+        }
+        text_color = text_colors.get(risk_level, "white")
+
         html = f"""
         <!DOCTYPE html>
         <html lang="en">
@@ -227,6 +238,11 @@ class EmailReporter:
                   content="width=device-width, initial-scale=1.0">
             <title>Phishing Analysis Report</title>
             <style>
+                @media print {{
+                    .print-btn {{ display: none !important; }}
+                    body {{ padding: 0; }}
+                    .container {{ box-shadow: none; max-width: 100%; }}
+                }}
                 body {{
                     font-family: 'Segoe UI', Tahoma, Geneva, Verdana,
                     sans-serif;
@@ -251,11 +267,24 @@ class EmailReporter:
                     display: inline-block;
                     padding: 8px 16px;
                     border-radius: 20px;
-                    color: white;
+                    color: {text_color};
                     font-weight: bold;
                     font-size: 1.2em;
                     background-color: {risk_color};
                 }}
+                .print-btn {{
+                    float: right;
+                    background: #6c757d;
+                    color: white;
+                    border: none;
+                    padding: 8px 16px;
+                    border-radius: 6px;
+                    cursor: pointer;
+                    font-weight: 500;
+                    font-family: inherit;
+                    transition: background 0.2s;
+                }}
+                .print-btn:hover {{ background: #5a6268; }}
                 .score {{
                     font-size: 2.5em;
                     font-weight: bold;
@@ -341,6 +370,9 @@ class EmailReporter:
         <body>
             <div class="container">
                 <div class="header">
+                    <button class="print-btn" onclick="window.print()">
+                        🖨️ Print Report
+                    </button>
                     <h1>Phishing Analysis Report</h1>
                     <div class="score">{score:.1f}/100</div>
                     <div class="badge">{risk_level.replace('_', ' ')}</div>
@@ -429,7 +461,27 @@ class EmailReporter:
 
         html += """
                 </div>
+        """
 
+        # Recommendations Section
+        recommendations = EmailReporter._get_recommendations(
+            risk_level, findings
+        )
+
+        if recommendations:
+            html += """
+                <div class="section">
+                    <h2>Recommendations</h2>
+                    <ul style="line-height: 1.6; color: #212529; font-size: 1.1em;">
+            """
+            for rec in recommendations:
+                html += f"<li>{rec}</li>"
+            html += """
+                    </ul>
+                </div>
+            """
+
+        html += """
                 <div class="section">
                     <h2>Glossary</h2>
                     <div class="glossary-grid">
