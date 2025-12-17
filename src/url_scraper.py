@@ -7,6 +7,9 @@ import requests
 import logging
 from bs4 import BeautifulSoup
 from typing import Dict
+import socket
+import ipaddress
+from urllib.parse import urlparse, urljoin
 
 
 class URLScraper:
@@ -37,6 +40,36 @@ class URLScraper:
             "Accept-Language": "en-US,en;q=0.5",
         }
 
+    def _is_safe_url(self, url: str) -> bool:
+        """
+        Validates that the URL resolves to a public IP address.
+        """
+        try:
+            parsed = urlparse(url)
+            hostname = parsed.hostname
+            if not hostname:
+                return False
+
+            # Resolve IP(s) - check all returned addresses
+            # Use getaddrinfo to support both IPv4 and IPv6
+            addr_info = socket.getaddrinfo(hostname, None)
+
+            for family, type, proto, canonname, sockaddr in addr_info:
+                ip_str = sockaddr[0]
+                ip = ipaddress.ip_address(ip_str)
+                # Check for Private, Loopback, Link Local, and Reserved
+                if (ip.is_private or
+                    ip.is_loopback or
+                    ip.is_link_local or
+                    ip.is_reserved or
+                    ip.is_unspecified):
+                    return False
+
+            return True
+        except Exception:
+            # If DNS fails or other errors, assume unsafe/unreachable
+            return False
+
     def scrape(self, url: str) -> Dict[str, str]:
         """
         Fetch URL and extract title and body text.
@@ -48,18 +81,45 @@ class URLScraper:
             Dict with 'title' and 'text', or None if failed.
         """
         try:
-            response = requests.get(
-                url, headers=self.headers, timeout=self.timeout
-            )
-            response.raise_for_status()
+            # SSRF Protection: Manual redirect handling
+            with requests.Session() as session:
+                current_url = url
+                response = None
 
-            # Limit response size to prevent DoS/memory issues for huge pages
-            if len(response.content) > 2 * 1024 * 1024:  # 2MB limit
-                logging.warning(
-                    f"Page content too large for {url}, scraping partial."
-                )
+                for _ in range(5):  # Limit redirects
+                    if not self._is_safe_url(current_url):
+                        raise ValueError("Potential SSRF detected: blocked private/local IP")
 
-            soup = BeautifulSoup(response.content, "html.parser")
+                    response = session.get(
+                        current_url,
+                        headers=self.headers,
+                        timeout=self.timeout,
+                        allow_redirects=False
+                    )
+
+                    if response.is_redirect:
+                        location = response.headers.get('Location')
+                        if location:
+                            current_url = urljoin(current_url, location)
+                            continue
+                    break
+
+                # If still redirecting after loop, or if response is None
+                if response is None:
+                     raise ValueError("Request failed")
+
+                if response.is_redirect:
+                     raise ValueError("Too many redirects")
+
+                response.raise_for_status()
+
+                # Limit response size to prevent DoS/memory issues for huge pages
+                if len(response.content) > 2 * 1024 * 1024:  # 2MB limit
+                    logging.warning(
+                        f"Page content too large for {url}, scraping partial."
+                    )
+
+                soup = BeautifulSoup(response.content, "html.parser")
 
             # Extract title
             title = (
