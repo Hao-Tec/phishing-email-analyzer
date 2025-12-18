@@ -5,8 +5,11 @@ Fetches and extracts text content from URLs for analysis.
 
 import requests
 import logging
+import socket
+import ipaddress
+import urllib.parse
 from bs4 import BeautifulSoup
-from typing import Dict
+from typing import Dict, Optional
 
 
 class URLScraper:
@@ -37,6 +40,28 @@ class URLScraper:
             "Accept-Language": "en-US,en;q=0.5",
         }
 
+    def _is_safe_url(self, url: str) -> bool:
+        """Validates that the URL does not point to a private IP."""
+        try:
+            parsed = urllib.parse.urlparse(url)
+            hostname = parsed.hostname
+            if not hostname:
+                return False
+
+            # Resolve to IP
+            ip = socket.gethostbyname(hostname)
+            ip_addr = ipaddress.ip_address(ip)
+
+            # Block private, loopback, link-local, and reserved
+            if (ip_addr.is_private or ip_addr.is_loopback or
+                ip_addr.is_link_local or ip_addr.is_reserved):
+                logging.warning(f"Blocked SSRF attempt: {url} resolved to {ip}")
+                return False
+            return True
+        except Exception:
+            # Fail closed on DNS errors or parsing errors
+            return False
+
     def scrape(self, url: str) -> Dict[str, str]:
         """
         Fetch URL and extract title and body text.
@@ -48,10 +73,31 @@ class URLScraper:
             Dict with 'title' and 'text', or None if failed.
         """
         try:
-            response = requests.get(
-                url, headers=self.headers, timeout=self.timeout
-            )
-            response.raise_for_status()
+            # Manual redirect handling to prevent SSRF via redirects
+            current_url = url
+            session = requests.Session()
+            response = None
+
+            for _ in range(5): # Max 5 redirects
+                if not self._is_safe_url(current_url):
+                    return {"url": url, "error": "Blocked: Potential SSRF", "title": "Security Alert"}
+
+                response = session.get(
+                    current_url, headers=self.headers, timeout=self.timeout, allow_redirects=False
+                )
+
+                if response.is_redirect:
+                    location = response.headers.get('Location')
+                    if not location: break
+                    current_url = urllib.parse.urljoin(current_url, location)
+                else:
+                    response.raise_for_status()
+                    break
+            else:
+                 return {"url": url, "error": "Too many redirects", "title": "Scan Failed"}
+
+            if not response:
+                 return {"url": url, "error": "No response", "title": "Scan Failed"}
 
             # Limit response size to prevent DoS/memory issues for huge pages
             if len(response.content) > 2 * 1024 * 1024:  # 2MB limit
@@ -74,7 +120,7 @@ class URLScraper:
                 script.extract()  # rip it out
 
             # Get text
-            text = soup.get_text()
+            text = soup.get_text() # Prefer soup.body.get_text() if body exists? No, soup.get_text() covers all
 
             # Break into lines and remove leading and trailing space on each
             lines = (line.strip() for line in text.splitlines())
