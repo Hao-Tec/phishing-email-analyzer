@@ -218,6 +218,17 @@ class EmailReporter:
         }
         risk_color = colors.get(risk_level, "#6c757d")
 
+        # Determine text color for badges based on background contrast
+        # Low Risk (Teal) and Medium Risk (Yellow) need dark text for readability
+        text_colors = {
+            "SAFE": "white",
+            "LOW_RISK": "#212529",
+            "MEDIUM_RISK": "#212529",
+            "HIGH_RISK": "white",
+            "CRITICAL": "white",
+        }
+        text_color = text_colors.get(risk_level, "white")
+
         html = f"""
         <!DOCTYPE html>
         <html lang="en">
@@ -227,6 +238,11 @@ class EmailReporter:
                   content="width=device-width, initial-scale=1.0">
             <title>Phishing Analysis Report</title>
             <style>
+                @media print {{
+                    .print-btn {{ display: none !important; }}
+                    body {{ padding: 0; }}
+                    .container {{ box-shadow: none; max-width: 100%; }}
+                }}
                 body {{
                     font-family: 'Segoe UI', Tahoma, Geneva, Verdana,
                     sans-serif;
@@ -251,11 +267,24 @@ class EmailReporter:
                     display: inline-block;
                     padding: 8px 16px;
                     border-radius: 20px;
-                    color: white;
+                    color: {text_color};
                     font-weight: bold;
                     font-size: 1.2em;
                     background-color: {risk_color};
                 }}
+                .print-btn {{
+                    float: right;
+                    background: #6c757d;
+                    color: white;
+                    border: none;
+                    padding: 8px 16px;
+                    border-radius: 6px;
+                    cursor: pointer;
+                    font-weight: 500;
+                    font-family: inherit;
+                    transition: background 0.2s;
+                }}
+                .print-btn:hover {{ background: #5a6268; }}
                 .score {{
                     font-size: 2.5em;
                     font-weight: bold;
@@ -336,11 +365,47 @@ class EmailReporter:
                     font-size: 0.9em;
                     color: #6c757d;
                 }}
+                .nav-links {{
+                    background: #f1f3f5;
+                    padding: 10px 20px;
+                    border-radius: 8px;
+                    margin-bottom: 20px;
+                    display: flex;
+                    gap: 20px;
+                    flex-wrap: wrap;
+                    align-items: center;
+                }}
+                .nav-links a {{
+                    color: #495057;
+                    text-decoration: none;
+                    font-weight: 500;
+                    transition: color 0.2s;
+                    margin-right: 15px;
+                }}
+                .nav-links a:hover {{
+                    color: #212529;
+                    text-decoration: underline;
+                }}
+                .nav-links .cta-link {{
+                    background-color: #0d6efd;
+                    color: white;
+                    padding: 5px 12px;
+                    border-radius: 20px;
+                    font-size: 0.9em;
+                }}
+                .nav-links .cta-link:hover {{
+                    background-color: #0b5ed7;
+                    text-decoration: none;
+                    color: white;
+                }}
             </style>
         </head>
         <body>
             <div class="container">
                 <div class="header">
+                    <button class="print-btn" onclick="window.print()">
+                        🖨️ Print Report
+                    </button>
                     <h1>Phishing Analysis Report</h1>
                     <div class="score">{score:.1f}/100</div>
                     <div class="badge">{risk_level.replace('_', ' ')}</div>
@@ -348,8 +413,17 @@ class EmailReporter:
                     {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}</p>
                 </div>
 
+                <div class="nav-links">
+                    <strong>Jump to:</strong>
+                    <a href="#metadata">Metadata</a>
+                    <a href="#findings">Findings</a>
+                    <a href="#glossary">Glossary</a>
+                    {'<a href="#recommendations" class="cta-link">👉 Recommendations</a>'
+                     if EmailReporter._get_recommendations(risk_level, findings) else ''}
+                </div>
+
                 <div class="section">
-                    <h2>Email Metadata</h2>
+                    <h2 id="metadata">Email Metadata</h2>
                     <div class="meta-grid">
                         <div class="meta-item">
                             <label>From</label>
@@ -371,7 +445,7 @@ class EmailReporter:
                 </div>
 
                 <div class="section">
-                    <h2>Findings</h2>
+                    <h2 id="findings">Findings</h2>
                     {'<p>No suspicious patterns detected.</p>'
                      if not findings else ''}
         """
@@ -429,9 +503,29 @@ class EmailReporter:
 
         html += """
                 </div>
+        """
 
+        # Recommendations Section
+        recommendations = EmailReporter._get_recommendations(
+            risk_level, findings
+        )
+
+        if recommendations:
+            html += """
                 <div class="section">
-                    <h2>Glossary</h2>
+                    <h2 id="recommendations">Recommendations</h2>
+                    <ul style="line-height: 1.6; color: #212529; font-size: 1.1em;">
+            """
+            for rec in recommendations:
+                html += f"<li>{rec}</li>"
+            html += """
+                    </ul>
+                </div>
+            """
+
+        html += """
+                <div class="section">
+                    <h2 id="glossary">Glossary</h2>
                     <div class="glossary-grid">
         """
 
