@@ -20,7 +20,10 @@ class VirusTotalScanner:
     def __init__(self):
         """Initialize with API key."""
         self.api_key = os.getenv("VIRUSTOTAL_API_KEY")
-        self.headers = {"x-apikey": self.api_key} if self.api_key else {}
+        self.headers = {
+            "x-apikey": self.api_key,
+            "User-Agent": "phishing-email-analyzer/1.0"
+        } if self.api_key else {}
 
     def scan_url(self, url: str) -> Dict:
         """
@@ -42,7 +45,9 @@ class VirusTotalScanner:
 
             # Check if already analyzed
             response = requests.get(
-                f"{self.BASE_URL}/urls/{url_id}", headers=self.headers
+                f"{self.BASE_URL}/urls/{url_id}",
+                headers=self.headers,
+                timeout=15
             )
 
             if response.status_code == 200:
@@ -69,7 +74,10 @@ class VirusTotalScanner:
         try:
             data = {"url": url}
             response = requests.post(
-                f"{self.BASE_URL}/urls", headers=self.headers, data=data
+                f"{self.BASE_URL}/urls",
+                headers=self.headers,
+                data=data,
+                timeout=15
             )
 
             if response.status_code == 200:
@@ -108,7 +116,9 @@ class VirusTotalScanner:
 
         try:
             response = requests.get(
-                f"{self.BASE_URL}/files/{sha256_hash}", headers=self.headers
+                f"{self.BASE_URL}/files/{sha256_hash}",
+                headers=self.headers,
+                timeout=15
             )
 
             if response.status_code == 200:
