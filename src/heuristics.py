@@ -38,6 +38,9 @@ URGENCY_PATTERN = (
 # Text is lowercased before check, so we don't strictly need IGNORECASE.
 URGENCY_REGEX = re.compile(URGENCY_PATTERN)
 
+# Pre-compute trusted targets for doppelganger detection
+TRUSTED_TARGETS = WHITELIST_DOMAINS.union(PLATFORM_DOMAINS)
+
 
 class HeuristicAnalyzer:
     """
@@ -460,19 +463,25 @@ class HeuristicAnalyzer:
                     return
 
             # Check against trusted domains for similarity
-            targets = WHITELIST_DOMAINS.union(PLATFORM_DOMAINS)
-            for target in targets:
+            # OPTIMIZATION: Use pre-computed set and reused SequenceMatcher
+            matcher = difflib.SequenceMatcher(None, b=sender_domain)
+            len_s = len(sender_domain)
+
+            for target in TRUSTED_TARGETS:
                 # OPTIMIZATION: Quick check based on length and character set
                 # ratio() is expensive (O(N*M)), so we filter first.
                 # Max possible ratio is determined by lengths:
                 # 2 * min_len / (len1 + len2) >= 0.85
-                len_s, len_t = len(sender_domain), len(target)
+                len_t = len(target)
                 if len_s + len_t == 0:
                     continue
                 if 2 * min(len_s, len_t) / (len_s + len_t) <= 0.85:
                     continue
 
-                matcher = difflib.SequenceMatcher(None, sender_domain, target)
+                # Reuse matcher by setting sequence 1 (target)
+                # Sequence 2 (sender) is cached in matcher
+                matcher.set_seq1(target)
+
                 # quick_ratio() is an upper bound on ratio()
                 if matcher.quick_ratio() <= 0.85:
                     continue
