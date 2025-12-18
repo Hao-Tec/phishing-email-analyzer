@@ -243,6 +243,19 @@ class EmailReporter:
                     body {{ padding: 0; }}
                     .container {{ box-shadow: none; max-width: 100%; }}
                 }}
+                .skip-link {{
+                    position: absolute;
+                    top: -40px;
+                    left: 0;
+                    background: #212529;
+                    color: white;
+                    padding: 8px;
+                    z-index: 100;
+                    transition: top 0.2s;
+                }}
+                .skip-link:focus {{
+                    top: 0;
+                }}
                 body {{
                     font-family: 'Segoe UI', Tahoma, Geneva, Verdana,
                     sans-serif;
@@ -349,6 +362,8 @@ class EmailReporter:
                     grid-template-columns: repeat(auto-fit,
                         minmax(250px, 1fr));
                     gap: 15px;
+                    margin: 0;
+                    padding: 0;
                 }}
                 .glossary-item {{
                     background: #f1f3f5;
@@ -364,6 +379,7 @@ class EmailReporter:
                 .glossary-def {{
                     font-size: 0.9em;
                     color: #6c757d;
+                    margin: 0;
                 }}
                 .nav-links {{
                     background: #f1f3f5;
@@ -401,6 +417,7 @@ class EmailReporter:
             </style>
         </head>
         <body>
+            <a href="#metadata" class="skip-link">Skip to report content</a>
             <div class="container">
                 <div class="header">
                     <button class="print-btn" onclick="window.print()">
@@ -526,7 +543,7 @@ class EmailReporter:
         html += """
                 <div class="section">
                     <h2 id="glossary">Glossary</h2>
-                    <div class="glossary-grid">
+                    <dl class="glossary-grid">
         """
 
         glossary = {
@@ -570,13 +587,13 @@ class EmailReporter:
         for term, definition in glossary.items():
             html += f"""
                         <div class="glossary-item">
-                            <span class="glossary-term">{term}</span>
-                            <span class="glossary-def">{definition}</span>
+                            <dt class="glossary-term">{term}</dt>
+                            <dd class="glossary-def">{definition}</dd>
                         </div>
             """
 
         html += """
-                    </div>
+                    </dl>
                 </div>
             </div>
         </body>
