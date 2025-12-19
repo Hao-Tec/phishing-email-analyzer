@@ -91,3 +91,8 @@ debug_*.json
 # Large Datasets
 Phishing Detection Dataset/
 Phishing URL dataset/
+
+# Private Email Files (Never commit user's private emails)
+samples/*alert*.eml
+samples/network.eml
+samples/private_*.eml
