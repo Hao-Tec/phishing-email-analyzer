@@ -219,7 +219,8 @@ class EmailReporter:
         risk_color = colors.get(risk_level, "#6c757d")
 
         # Determine text color for badges based on background contrast
-        # Low Risk (Teal) and Medium Risk (Yellow) need dark text for readability
+        # Low Risk (Teal) and Medium Risk (Yellow) need dark text for
+        # readability
         text_colors = {
             "SAFE": "white",
             "LOW_RISK": "#212529",
@@ -435,8 +436,12 @@ class EmailReporter:
                     <a href="#metadata">Metadata</a>
                     <a href="#findings">Findings</a>
                     <a href="#glossary">Glossary</a>
-                    {'<a href="#recommendations" class="cta-link">👉 Recommendations</a>'
-                     if EmailReporter._get_recommendations(risk_level, findings) else ''}
+                    {(
+                        '<a href="#recommendations" class="cta-link">'
+                        '👉 Recommendations</a>'
+                    ) if EmailReporter._get_recommendations(
+                        risk_level, findings
+                    ) else ''}
                 </div>
 
                 <div class="section">
@@ -531,7 +536,8 @@ class EmailReporter:
             html += """
                 <div class="section">
                     <h2 id="recommendations">Recommendations</h2>
-                    <ul style="line-height: 1.6; color: #212529; font-size: 1.1em;">
+                    <ul style="line-height: 1.6; color: #212529;
+                         font-size: 1.1em;">
             """
             for rec in recommendations:
                 html += f"<li>{rec}</li>"

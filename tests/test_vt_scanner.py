@@ -4,6 +4,7 @@ import base64
 import os
 from src.vt_scanner import VirusTotalScanner
 
+
 class TestVirusTotalScanner(unittest.TestCase):
     def setUp(self):
         self.api_key = "dummy_api_key"
@@ -42,8 +43,12 @@ class TestVirusTotalScanner(unittest.TestCase):
 
         # Verify call
         url_id = base64.urlsafe_b64encode(url.encode()).decode().strip("=")
-        expected_url = f"https://www.virustotal.com/api/v3/urls/{url_id}"
-        mock_get.assert_called_with(expected_url, headers=self.headers, timeout=15)
+        expected_url = (
+            f"https://www.virustotal.com/api/v3/urls/{url_id}"
+        )
+        mock_get.assert_called_with(
+            expected_url, headers=self.headers, timeout=15
+        )
 
     @patch("src.vt_scanner.requests.post")
     @patch("src.vt_scanner.requests.get")
@@ -105,3 +110,4 @@ class TestVirusTotalScanner(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
