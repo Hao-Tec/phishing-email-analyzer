@@ -104,10 +104,11 @@ class TestVirusTotalScanner(unittest.TestCase):
         # Expect submission attempted
         mock_post.assert_called_once()
 
+
         # Check result fallback
         self.assertEqual(result["status"], "unknown")
         self.assertEqual(result["malicious"], 0)
 
+
 if __name__ == "__main__":
     unittest.main()
-
