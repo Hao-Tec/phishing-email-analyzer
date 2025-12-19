@@ -41,6 +41,22 @@ URGENCY_REGEX = re.compile(URGENCY_PATTERN)
 # Pre-compute trusted targets for doppelganger detection
 TRUSTED_TARGETS = WHITELIST_DOMAINS.union(PLATFORM_DOMAINS)
 
+# OPTIMIZATION: Pre-computed tuple for fast endswith checks
+SUSPICIOUS_EXTENSIONS_TUPLE = tuple(SUSPICIOUS_EXTENSIONS)
+# Pre-compute stripped extensions for content-type checks
+SUSPICIOUS_CONTENT_TYPE_SUFFIXES = tuple(
+    ext.lstrip(".") for ext in SUSPICIOUS_EXTENSIONS
+)
+
+# OPTIMIZATION: Module-level constant to avoid re-creation in loop
+URL_SHORTENERS = [
+    "bit.ly",
+    "tinyurl.com",
+    "short.url",
+    "ow.ly",
+    "goo.gl",
+]
+
 
 class HeuristicAnalyzer:
     """
@@ -339,14 +355,8 @@ class HeuristicAnalyzer:
                 )
 
             # Check for URL shorteners
-            shorteners = [
-                "bit.ly",
-                "tinyurl.com",
-                "short.url",
-                "ow.ly",
-                "goo.gl",
-            ]
-            if any(shortener in domain for shortener in shorteners):
+            # OPTIMIZATION: Use module-level constant
+            if any(shortener in domain for shortener in URL_SHORTENERS):
                 self._add_finding(
                     "url_obfuscation",
                     "HIGH",
@@ -394,7 +404,8 @@ class HeuristicAnalyzer:
             content_type = att.get("content_type", "").lower()
 
             # Check Extension
-            if any(filename.endswith(ext) for ext in SUSPICIOUS_EXTENSIONS):
+            # OPTIMIZATION: Use tuple for fast endswith check (C implementation)
+            if filename.endswith(SUSPICIOUS_EXTENSIONS_TUPLE):
                 self._add_finding(
                     "suspicious_attachment",
                     "HIGH",
@@ -404,9 +415,9 @@ class HeuristicAnalyzer:
 
             # Check for suspicious content-type mismatch
             if content_type.startswith("application/"):
-                suspicious_ext = any(
-                    content_type.endswith(ext.strip("."))
-                    for ext in SUSPICIOUS_EXTENSIONS
+                # OPTIMIZATION: Use tuple for fast endswith check
+                suspicious_ext = content_type.endswith(
+                    SUSPICIOUS_CONTENT_TYPE_SUFFIXES
                 )
                 if not suspicious_ext:
                     pass  # This is normal for most files
