@@ -56,8 +56,6 @@ class EmailParser:
             if email_path.suffix.lower() == ".gz":
                 with gzip.open(email_path, "rb") as f:
                     raw_content = f.read()
-                with gzip.open(email_path, "rb") as f:
-                    raw_content = f.read()
                     msg = email.message_from_bytes(
                         raw_content, policy=policy.default
                     )
