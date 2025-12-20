@@ -305,6 +305,20 @@ class EmailReporter:
                     color: {risk_color};
                     margin: 10px 0;
                 }}
+                .risk-meter {{
+                    height: 10px;
+                    background: #e9ecef;
+                    border-radius: 5px;
+                    margin: 10px auto;
+                    max-width: 300px;
+                    overflow: hidden;
+                }}
+                .risk-fill {{
+                    height: 100%;
+                    background: {risk_color};
+                    width: {score}%;
+                    transition: width 1s ease-in-out;
+                }}
                 .section {{ margin-bottom: 30px; }}
                 h2 {{
                     color: #343a40;
@@ -426,6 +440,11 @@ class EmailReporter:
                     </button>
                     <h1>Phishing Analysis Report</h1>
                     <div class="score">{score:.1f}/100</div>
+                    <div class="risk-meter" role="progressbar"
+                         aria-valuenow="{score}" aria-valuemin="0"
+                         aria-valuemax="100" aria-label="Phishing Risk Score">
+                        <div class="risk-fill"></div>
+                    </div>
                     <div class="badge">{risk_level.replace('_', ' ')}</div>
                     <p>Generated on
                     {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}</p>
