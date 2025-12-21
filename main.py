@@ -7,6 +7,7 @@ import argparse
 import sys
 import os
 import logging
+import signal
 from pathlib import Path
 from dotenv import load_dotenv
 from rich.console import Console
@@ -226,5 +227,17 @@ def _print_console_summary(result: dict):
             console.print(f" - [{c}][{sev}][/{c}] {f.get('description')}")
 
 
+def _graceful_exit(signum, frame):
+    """Handle Ctrl+C gracefully without traceback."""
+    print("\n[!] Operation cancelled by user.")
+    sys.exit(0)
+
+
 if __name__ == "__main__":
-    main()
+    # Register signal handler for graceful Ctrl+C
+    signal.signal(signal.SIGINT, _graceful_exit)
+    try:
+        main()
+    except KeyboardInterrupt:
+        print("\n[!] Operation cancelled by user.")
+        sys.exit(0)
