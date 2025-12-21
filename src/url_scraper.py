@@ -5,6 +5,9 @@ Fetches and extracts text content from URLs for analysis.
 
 import requests
 import logging
+import socket
+import ipaddress
+from urllib.parse import urlparse, urljoin
 from bs4 import BeautifulSoup
 from typing import Dict
 
@@ -37,6 +40,33 @@ class URLScraper:
             "Accept-Language": "en-US,en;q=0.5",
         }
 
+    def _is_safe_ip(self, hostname: str) -> bool:
+        """
+        Resolves hostname (IPv4/IPv6) and checks if it points to a private/reserved IP.
+        """
+        try:
+            # Use getaddrinfo to get all IPs (IPv4 and IPv6)
+            # family=0 means both IPv4 and IPv6
+            # type=socket.SOCK_STREAM ensures we check what HTTP would use
+            addr_info = socket.getaddrinfo(hostname, None, family=0, type=socket.SOCK_STREAM)
+
+            for family, _, _, _, sockaddr in addr_info:
+                ip = sockaddr[0]
+                ip_obj = ipaddress.ip_address(ip)
+
+                # Check for private, loopback, link-local, or reserved IPs
+                if (ip_obj.is_private or
+                    ip_obj.is_loopback or
+                    ip_obj.is_link_local or
+                    ip_obj.is_reserved or
+                    str(ip_obj).startswith('169.254.')): # Explicit check for link-local/AWS metadata
+                    return False
+            return True
+        except Exception:
+            # If we can't resolve it, it might be safer to block or let requests fail naturally.
+            # But here we probably want to fail if we can't verify safety.
+            return False
+
     def scrape(self, url: str) -> Dict[str, str]:
         """
         Fetch URL and extract title and body text.
@@ -48,18 +78,64 @@ class URLScraper:
             Dict with 'title' and 'text', or None if failed.
         """
         try:
-            response = requests.get(
-                url, headers=self.headers, timeout=self.timeout
-            )
+            # SSRF Protection: Check the initial URL
+            parsed_url = urlparse(url)
+            if not parsed_url.hostname:
+                 return {"url": url, "error": "Invalid URL", "title": "Scan Failed"}
+
+            if not self._is_safe_ip(parsed_url.hostname):
+                return {"url": url, "error": "Blocked: Resolved to private/restricted IP", "title": "Scan Blocked"}
+
+            # Manual redirect handling to check intermediate URLs
+            current_url = url
+            session = requests.Session()
+            response = None
+
+            # Limit redirects to avoid infinite loops
+            for _ in range(5):
+                response = session.get(
+                    current_url,
+                    headers=self.headers,
+                    timeout=self.timeout,
+                    allow_redirects=False,
+                    stream=True # Use stream to check headers/size before download
+                )
+
+                if response.is_redirect:
+                    next_url = response.headers.get('Location')
+                    if not next_url:
+                        break
+
+                    # Handle relative redirects correctly using current_url
+                    next_url = urljoin(current_url, next_url)
+
+                    # Check next URL
+                    next_parsed = urlparse(next_url)
+                    if next_parsed.hostname and not self._is_safe_ip(next_parsed.hostname):
+                        return {"url": url, "error": "Blocked: Redirected to private/restricted IP", "title": "Scan Blocked"}
+
+                    current_url = next_url
+                else:
+                    break
+
+            if response is None:
+                 return {"url": url, "error": "No response", "title": "Scan Failed"}
+
+            # Check final response status
             response.raise_for_status()
 
             # Limit response size to prevent DoS/memory issues for huge pages
-            if len(response.content) > 2 * 1024 * 1024:  # 2MB limit
-                logging.warning(
-                    f"Page content too large for {url}, scraping partial."
-                )
+            if int(response.headers.get('content-length', 0)) > 2 * 1024 * 1024:
+                 logging.warning(f"Page content too large for {url}, scraping partial.")
 
-            soup = BeautifulSoup(response.content, "html.parser")
+            # Read content (streamed)
+            content = b""
+            for chunk in response.iter_content(chunk_size=8192):
+                content += chunk
+                if len(content) > 2 * 1024 * 1024:
+                    break
+
+            soup = BeautifulSoup(content, "html.parser")
 
             # Extract title
             title = (
