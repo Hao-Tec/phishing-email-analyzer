@@ -4,6 +4,7 @@ Formats analysis results into clear, human-readable reports.
 """
 
 import json
+import html as html_lib
 from typing import Dict, List
 from datetime import datetime
 from pathlib import Path
@@ -454,6 +455,7 @@ class EmailReporter:
                     <strong>Jump to:</strong>
                     <a href="#metadata">Metadata</a>
                     <a href="#findings">Findings</a>
+                    <a href="#artifacts">Extracted Data</a>
                     <a href="#glossary">Glossary</a>
                     {(
                         '<a href="#recommendations" class="cta-link">'
@@ -564,6 +566,55 @@ class EmailReporter:
                     </ul>
                 </div>
             """
+
+        # Extracted Data Section
+        extracted = analysis_result.get("extracted_data", {})
+        urls = extracted.get("urls", [])
+        attachments = extracted.get("attachments", [])
+
+        if urls or attachments:
+            html += """
+                <div class="section">
+                    <h2 id="artifacts">Extracted Artifacts</h2>
+            """
+
+            if urls:
+                html += "<h3>URLs Found</h3><ul>"
+                for u in urls:
+                    url_str = u.get('url', 'N/A')
+                    # Escape URL for href attribute and display
+                    safe_url = html_lib.escape(url_str)
+
+                    # Create display version (truncated)
+                    disp_url = (safe_url[:80] + '...') if len(safe_url) > 80 else safe_url
+
+                    domain = html_lib.escape(str(u.get('domain', 'Unknown')))
+
+                    html += (
+                        f"<li><a href='{safe_url}' target='_blank' "
+                        f"rel='noopener noreferrer' style='color: #0d6efd; "
+                        f"word-break: break-all;'>{disp_url}</a><br>"
+                        f"<span style='color: #6c757d; font-size: 0.9em;'>"
+                        f"Domain: {domain}</span></li>"
+                    )
+                html += "</ul>"
+
+            if attachments:
+                html += "<h3>Attachments</h3><ul>"
+                for a in attachments:
+                    filename = html_lib.escape(str(a.get('filename', 'Unknown')))
+                    content_type = html_lib.escape(str(a.get('content_type', 'Unknown')))
+                    size = html_lib.escape(str(a.get('size', '0')))
+
+                    html += (
+                        f"<li><strong>{filename}</strong> "
+                        f"<span style='color: #6c757d;'>("
+                        f"{content_type}, {size} bytes)"
+                        f"</span></li>"
+                    )
+                html += "</ul>"
+
+            html += "</div>"
 
         html += """
                 <div class="section">
