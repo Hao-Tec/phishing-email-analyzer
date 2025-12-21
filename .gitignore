@@ -78,6 +78,10 @@ push_to_github.py
 batch_summary.txt
 report.html
 report.json
+report.txt
+report_*.html
+report_*.json
+test_html.html
 
 # ML Models (Large binaries)
 models/*.pkl
