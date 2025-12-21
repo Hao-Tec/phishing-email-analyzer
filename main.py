@@ -100,9 +100,18 @@ Examples:
             with console.status(f"[bold green]Analyzing {args.file}...[/bold green]"):
                 result = analyzer_engine.analyze_email(args.file)
 
-            if args.format == "json":
+            # Auto-detect format from output file extension if not specified
+            output_format = args.format
+            if args.output and output_format == "text":
+                ext = Path(args.output).suffix.lower()
+                if ext == ".html":
+                    output_format = "html"
+                elif ext == ".json":
+                    output_format = "json"
+
+            if output_format == "json":
                 report = EmailReporter.generate_json_report(result)
-            elif args.format == "html":
+            elif output_format == "html":
                 report = EmailReporter.generate_html_report(result)
             else:
                 report = EmailReporter.generate_text_report(result)
