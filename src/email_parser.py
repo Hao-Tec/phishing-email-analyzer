@@ -390,14 +390,31 @@ class EmailParser:
                 if part.get_content_disposition() == "attachment":
                     filename = part.get_filename("")
                     if filename:
-                        # Extract content for OCR if possible
-                        content = part.get_payload(decode=True)
+                        content_type = part.get_content_type()
+                        # OPTIMIZATION: Only load content for images (for OCR)
+                        # For other files (e.g. large videos/zips), skip
+                        # loading content to save memory.
+                        is_image = content_type.startswith("image/")
+                        content = None
+                        size = 0
+
+                        if is_image:
+                            content = part.get_payload(decode=True)
+                            size = len(content) if content else 0
+                        else:
+                            # Try to get size without decoding
+                            payload = part.get_payload()
+                            if payload:
+                                # Estimate size if encoded (Base64 is ~4/3 larger)
+                                # This is an approximation for report display
+                                size = int(len(str(payload)) * 0.75)
+
                         attachments.append(
                             {
                                 "filename": filename,
-                                "size": len(content) if content else 0,
-                                "content_type": part.get_content_type(),
-                                "content": content,  # Added content for OCR
+                                "size": size,
+                                "content_type": content_type,
+                                "content": content,  # Only present for images
                             }
                         )
 

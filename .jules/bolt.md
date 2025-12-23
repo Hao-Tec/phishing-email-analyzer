@@ -9,3 +9,7 @@
 ## 2024-05-26 - Optimized Suffix Checking and List Allocation
 **Learning:** Checking string suffixes using a generator expression like `any(s.endswith(x) for x in list)` is significantly slower (~92%) than passing a tuple directly to `endswith()` (e.g., `s.endswith(tuple)`), which is implemented in C. Additionally, defining lists (like URL shorteners) inside frequently called methods causes unnecessary re-allocation.
 **Action:** Converted constant lists to module-level tuples for use with `endswith()`, and moved list definitions outside of loops/methods. This simplifies the code and drastically improves the performance of suffix checks in tight loops.
+
+## 2024-05-27 - Lazy Loading of Non-Image Attachment Content
+**Learning:** The `EmailParser` was decoding and loading the full content of every attachment into memory (`part.get_payload(decode=True)`), regardless of type. This caused massive memory spikes when processing emails with large non-image attachments (e.g., video files, large PDFs) that were not actually used by downstream analyzers (like OCR).
+**Action:** Modified `src/email_parser.py` to check the `content_type` first. Only attachments starting with `image/` are fully decoded and loaded into memory for OCR. For other types, the content is skipped (`None`), and size is estimated from the raw payload, significantly reducing memory footprint for heavy emails.
