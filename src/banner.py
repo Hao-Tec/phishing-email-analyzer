@@ -68,7 +68,7 @@ def print_banner():
     console.print(
         " [bold yellow]VERSION[/bold yellow]: [red]v1.0.0[/red]   "
         " [bold yellow]BUILD[/bold yellow]: [blue]STABLE[/blue]   "
-        " [bold yellow]CODED BY[/bold yellow]: [bold white]The TECHMASTER[/bold white]"
+        " [bold yellow]CODED BY[/bold yellow]: [bold white]AbdulWaheed Habeeb[/bold white]"
     )
     console.print(
         " [bold yellow]GITHUB[/bold yellow]:  [underline green]https://github.com/Hao-Tec/phishing-email-analyzer[/underline green]"
