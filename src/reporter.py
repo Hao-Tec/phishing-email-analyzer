@@ -4,6 +4,7 @@ Formats analysis results into clear, human-readable reports.
 """
 
 import json
+import html as html_lib
 from typing import Dict, List
 from datetime import datetime
 from pathlib import Path
@@ -207,6 +208,8 @@ class EmailReporter:
         score = analysis_result.get("phishing_suspicion_score", 0)
         risk_level = analysis_result.get("risk_level", "UNKNOWN")
         findings = analysis_result.get("findings", [])
+        extracted_data = analysis_result.get("extracted_data", {})
+        has_artifacts = bool(extracted_data.get("urls") or extracted_data.get("attachments"))
 
         # Color coding
         colors = {
@@ -440,9 +443,11 @@ class EmailReporter:
                     </button>
                     <h1>Phishing Analysis Report</h1>
                     <div class="score">{score:.1f}/100</div>
-                    <div class="risk-meter" role="progressbar"
+                    <div class="risk-meter" role="meter"
                          aria-valuenow="{score}" aria-valuemin="0"
-                         aria-valuemax="100" aria-label="Phishing Risk Score">
+                         aria-valuemax="100" aria-label="Phishing Risk Score"
+                         aria-valuetext="{score:.1f} out of 100, {risk_level.replace('_', ' ')}"
+                         title="Risk Score: {score:.1f}/100 ({risk_level.replace('_', ' ')})">
                         <div class="risk-fill"></div>
                     </div>
                     <div class="badge">{risk_level.replace('_', ' ')}</div>
@@ -454,6 +459,7 @@ class EmailReporter:
                     <strong>Jump to:</strong>
                     <a href="#metadata">Metadata</a>
                     <a href="#findings">Findings</a>
+                    {'<a href="#extracted-data">Extracted Artifacts</a>' if has_artifacts else ''}
                     <a href="#glossary">Glossary</a>
                     {(
                         '<a href="#recommendations" class="cta-link">'
@@ -542,9 +548,27 @@ class EmailReporter:
             for finding in severity_findings:
                 html += generate_finding_html(severity, finding)
 
-        html += """
-                </div>
-        """
+        html += """</div>"""
+
+        # Extracted Data Section
+        if has_artifacts:
+            html += '<div class="section"><h2 id="extracted-data">Extracted Artifacts</h2>'
+            urls = extracted_data.get("urls", [])
+            if urls:
+                html += '<h3>URLs</h3><table><thead><tr><th>Domain</th><th>URL</th></tr></thead><tbody>'
+                for u in urls:
+                    d, l = html_lib.escape(str(u.get('domain', 'N/A'))), html_lib.escape(str(u.get('url', 'N/A')))
+                    html += f'<tr><td>{d}</td><td style="word-break: break-all;">{l}</td></tr>'
+                html += '</tbody></table>'
+
+            atts = extracted_data.get("attachments", [])
+            if atts:
+                html += '<h3>Attachments</h3><table><thead><tr><th>Filename</th><th>Type</th><th>Size</th></tr></thead><tbody>'
+                for a in atts:
+                    f, t = html_lib.escape(str(a.get('filename', 'N/A'))), html_lib.escape(str(a.get('content_type', 'N/A')))
+                    html += f'<tr><td>{f}</td><td>{t}</td><td>{a.get("size", 0)} bytes</td></tr>'
+                html += '</tbody></table>'
+            html += '</div>'
 
         # Recommendations Section
         recommendations = EmailReporter._get_recommendations(
