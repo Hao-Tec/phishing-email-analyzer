@@ -42,7 +42,8 @@ class URLScraper:
 
     def _validate_url(self, url: str) -> None:
         """
-        Validates that the URL does not point to a private/local IP (SSRF protection).
+        Validates that the URL does not point to a private/local IP.
+        SSRF protection. Raises ValueError if unsafe.
         Raises ValueError if unsafe.
         """
         try:
@@ -66,12 +67,16 @@ class URLScraper:
                         or ip.is_reserved
                         or ip.is_multicast
                     ):
-                        raise ValueError(f"Blocked access to private/local IP: {ip_str}")
+                        raise ValueError(
+                            f"Blocked access to private/local IP: {ip_str}"
+                        )
 
             except socket.gaierror:
-                # If we can't resolve it, we can't verify it, so it might be safer to block
-                # but for scraping purposes, if it doesn't resolve, the request will fail anyway.
-                # However, to be strict, we let the request fail naturally or raise here.
+                # If we can't resolve it, we can't verify it, so it might
+                # be safer to block but for scraping purposes, if it doesn't
+                # resolve, the request will fail anyway.
+                # However, to be strict, we let the request fail
+                # naturally or raise here.
                 pass
 
         except Exception as e:
@@ -84,7 +89,8 @@ class URLScraper:
         """
         Fetch URL and extract title and body text.
 
-        Implements SSRF protection by verifying IPs and handling redirects manually.
+        Implements SSRF protection by verifying IPs and
+        handling redirects manually.
 
         Args:
             url: URL to scrape
@@ -108,23 +114,25 @@ class URLScraper:
                         headers=self.headers,
                         timeout=self.timeout,
                         allow_redirects=False,
-                        stream=True # prevent downloading massive content for headers check
+                        stream=True,  # prevent large content download
                     )
 
                     if response.is_redirect:
-                        location = response.headers.get('Location')
+                        location = response.headers.get("Location")
                         if not location:
                             break
 
                         # Handle relative redirects
-                        if location.startswith('/'):
+                        if location.startswith("/"):
                             parsed_current = urlparse(current_url)
-                            location = f"{parsed_current.scheme}://{parsed_current.netloc}{location}"
+                            scheme = parsed_current.scheme
+                            netloc = parsed_current.netloc
+                            location = f"{scheme}://{netloc}{location}"
 
                         # Validate the next hop
                         self._validate_url(location)
                         current_url = location
-                        response.close() # close previous connection
+                        response.close()  # close previous connection
                     else:
                         break
 
@@ -133,7 +141,8 @@ class URLScraper:
 
             # Limit response size
             # We need to read content now since we used stream=True
-            if int(response.headers.get('content-length', 0)) > 2 * 1024 * 1024:
+            content_len = int(response.headers.get("content-length", 0))
+            if content_len > 2 * 1024 * 1024:
                 logging.warning(f"Page content header too large for {url}")
                 # We could abort here, but let's try reading safely up to limit
 
@@ -141,7 +150,9 @@ class URLScraper:
             for chunk in response.iter_content(chunk_size=8192):
                 content += chunk
                 if len(content) > 2 * 1024 * 1024:
-                    logging.warning(f"Page content too large for {url}, scraping partial.")
+                    logging.warning(
+                        f"Page content too large for {url}, scraping partial."
+                    )
                     break
 
             soup = BeautifulSoup(content, "html.parser")
@@ -164,9 +175,7 @@ class URLScraper:
             # Break into lines and remove leading and trailing space on each
             lines = (line.strip() for line in text.splitlines())
             # Break multi-headlines into a line each
-            chunks = (
-                phrase.strip() for line in lines for phrase in line.split("  ")
-            )
+            chunks = (phrase.strip() for line in lines for phrase in line.split("  "))
             # Drop blank lines
             text = "\n".join(chunk for chunk in chunks if chunk)
 
@@ -179,16 +188,13 @@ class URLScraper:
         except Exception as e:
             # Sanitize error message
             error_msg = str(e)
-            if (
-                "NameResolutionError" in error_msg
-                or "getaddrinfo failed" in error_msg
-            ):
+            if "NameResolutionError" in error_msg or "getaddrinfo failed" in error_msg:
                 short_msg = "DNS resolution failed (Domain not found)"
             elif "ConnectTimeout" in error_msg:
                 short_msg = "Connection timed out"
             elif "Blocked access" in error_msg:
                 short_msg = "Access denied (Security restricted)"
             else:
-                short_msg = str(e).split('(')[0].strip()
+                short_msg = str(e).split("(")[0].strip()
 
             return {"url": url, "error": short_msg, "title": "Scan Failed"}
