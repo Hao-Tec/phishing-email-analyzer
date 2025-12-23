@@ -440,9 +440,11 @@ class EmailReporter:
                     </button>
                     <h1>Phishing Analysis Report</h1>
                     <div class="score">{score:.1f}/100</div>
-                    <div class="risk-meter" role="progressbar"
+                    <div class="risk-meter" role="meter"
                          aria-valuenow="{score}" aria-valuemin="0"
-                         aria-valuemax="100" aria-label="Phishing Risk Score">
+                         aria-valuemax="100" aria-label="Phishing Risk Score"
+                         aria-valuetext="{score:.1f}/100 - {risk_level.replace('_', ' ')}"
+                         title="Risk Score: {score:.1f}/100 ({risk_level.replace('_', ' ')})">
                         <div class="risk-fill"></div>
                     </div>
                     <div class="badge">{risk_level.replace('_', ' ')}</div>
