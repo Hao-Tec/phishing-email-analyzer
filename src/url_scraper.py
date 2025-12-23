@@ -5,6 +5,9 @@ Fetches and extracts text content from URLs for analysis.
 
 import requests
 import logging
+import socket
+import ipaddress
+from urllib.parse import urlparse, urljoin
 from bs4 import BeautifulSoup
 from typing import Dict
 
@@ -48,18 +51,38 @@ class URLScraper:
             Dict with 'title' and 'text', or None if failed.
         """
         try:
-            response = requests.get(
-                url, headers=self.headers, timeout=self.timeout
-            )
-            response.raise_for_status()
+            target_url = url
+            # SSRF Protection: Manually follow redirects (limit 5) & check IPs
+            for _ in range(5):
+                host = urlparse(target_url).hostname
+                if not host: raise ValueError("Invalid URL")
 
-            # Limit response size to prevent DoS/memory issues for huge pages
-            if len(response.content) > 2 * 1024 * 1024:  # 2MB limit
-                logging.warning(
-                    f"Page content too large for {url}, scraping partial."
-                )
+                # Resolve & validate IP (blocks private/loopback/link-local)
+                for _, _, _, _, (ip, *_) in socket.getaddrinfo(host, None):
+                    if ipaddress.ip_address(ip).is_private:
+                        raise ValueError(f"Blocked access to sensitive IP: {ip}")
 
-            soup = BeautifulSoup(response.content, "html.parser")
+                resp = requests.get(target_url, headers=self.headers,
+                                  timeout=self.timeout, allow_redirects=False, stream=True)
+
+                if 300 <= resp.status_code < 400:
+                    if 'Location' not in resp.headers: break
+                    target_url = urljoin(target_url, resp.headers['Location'])
+                    continue
+                break
+            else:
+                raise ValueError("Too many redirects")
+
+            resp.raise_for_status()
+            # Enforce 2MB limit on content download
+            content = b""
+            for chunk in resp.iter_content(chunk_size=8192):
+                content += chunk
+                if len(content) > 2 * 1024 * 1024:
+                    logging.warning(f"Page content too large for {url}, scraping partial.")
+                    break
+
+            soup = BeautifulSoup(content, "html.parser")
 
             # Extract title
             title = (
