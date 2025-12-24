@@ -392,11 +392,20 @@ class EmailParser:
                     if filename:
                         # Extract content for OCR if possible
                         content = part.get_payload(decode=True)
+                        content_type = part.get_content_type()
+                        size = len(content) if content else 0
+
+                        # OPTIMIZATION: Only store content for images to save memory.
+                        # We need it for OCR, but for other files (videos, archives),
+                        # storing the full bytes is wasteful as we only need metadata.
+                        if not content_type.startswith("image/"):
+                            content = None
+
                         attachments.append(
                             {
                                 "filename": filename,
-                                "size": len(content) if content else 0,
-                                "content_type": part.get_content_type(),
+                                "size": size,
+                                "content_type": content_type,
                                 "content": content,  # Added content for OCR
                             }
                         )
