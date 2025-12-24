@@ -522,16 +522,22 @@ class EmailReporter:
         # Helper function to generate finding HTML
         def generate_finding_html(severity, finding):
             sev_icon = icons.get(severity, "⚪")
+            # Escape dynamic content to prevent XSS
+            heuristic = html_lib.escape(str(finding.get('heuristic', 'Unknown')))
+            description = html_lib.escape(str(finding.get('description', '')))
+
             finding_html = f"""
                     <div class="finding {severity}">
                         <strong>{sev_icon} [{severity}]
-                        {finding.get('heuristic', 'Unknown')}</strong>
-                        <p>{finding.get('description', '')}</p>
+                        {heuristic}</strong>
+                        <p>{description}</p>
             """
             if finding.get("details"):
                 finding_html += "<ul>"
                 for k, v in finding.get("details", {}).items():
-                    finding_html += f"<li>{k}: {v}</li>"
+                    safe_k = html_lib.escape(str(k))
+                    safe_v = html_lib.escape(str(v))
+                    finding_html += f"<li>{safe_k}: {safe_v}</li>"
                 finding_html += "</ul>"
             finding_html += "</div>"
             return finding_html
