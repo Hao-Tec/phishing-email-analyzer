@@ -13,6 +13,8 @@ from pathlib import Path
 from email.utils import parseaddr
 from bs4 import BeautifulSoup
 
+from src.config import MAX_EMAIL_SIZE
+
 try:
     from urlextract import URLExtract
 except ImportError:
@@ -55,7 +57,8 @@ class EmailParser:
             # Handle .eml.gz
             if email_path.suffix.lower() == ".gz":
                 with gzip.open(email_path, "rb") as f:
-                    raw_content = f.read()
+                    # Security: Limit read size to prevent DoS
+                    raw_content = f.read(MAX_EMAIL_SIZE)
                     msg = email.message_from_bytes(
                         raw_content, policy=policy.default
                     )
@@ -77,7 +80,8 @@ class EmailParser:
             # Handle standard .eml / .txt
             else:
                 with open(email_path, "rb") as f:
-                    raw_content = f.read()
+                    # Security: Limit read size to prevent DoS
+                    raw_content = f.read(MAX_EMAIL_SIZE)
                     msg = email.message_from_bytes(
                         raw_content, policy=policy.default
                     )
