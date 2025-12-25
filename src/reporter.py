@@ -437,7 +437,7 @@ class EmailReporter:
             <div class="container">
                 <div class="header">
                     <button class="print-btn" onclick="window.print()">
-                        🖨️ Print Report
+                        <span aria-hidden="true">🖨️</span> Print Report
                     </button>
                     <h1>Phishing Analysis Report</h1>
                     <div class="score">{score:.1f}/100</div>
@@ -453,7 +453,7 @@ class EmailReporter:
                     {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}</p>
                 </div>
 
-                <div class="nav-links">
+                <nav class="nav-links" aria-label="Quick Navigation">
                     <strong>Jump to:</strong>
                     <a href="#metadata">Metadata</a>
                     <a href="#findings">Findings</a>
@@ -465,7 +465,7 @@ class EmailReporter:
                     ) if EmailReporter._get_recommendations(
                         risk_level, findings
                     ) else ''}
-                </div>
+                </nav>
 
                 <div class="section">
                     <h2 id="metadata">Email Metadata</h2>
@@ -524,7 +524,7 @@ class EmailReporter:
             sev_icon = icons.get(severity, "⚪")
             finding_html = f"""
                     <div class="finding {severity}">
-                        <strong>{sev_icon} [{severity}]
+                        <strong><span aria-hidden="true">{sev_icon}</span> [{severity}]
                         {finding.get('heuristic', 'Unknown')}</strong>
                         <p>{finding.get('description', '')}</p>
             """
