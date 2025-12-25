@@ -280,6 +280,10 @@ EMAIL_INFRASTRUCTURE_DOMAINS = {
 # Minimum URL length that's considered valid
 MIN_URL_LENGTH = 10
 
+# Maximum email size to process (to prevent DoS/Zip bombs)
+# 50MB limit
+MAX_EMAIL_SIZE = 50 * 1024 * 1024
+
 # --- New Configurations for Enhancements ---
 
 # External API Keys
