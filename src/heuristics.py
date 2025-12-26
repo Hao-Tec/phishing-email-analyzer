@@ -84,6 +84,25 @@ class HeuristicAnalyzer:
         self.heuristic_scores = {}
         self.details = []
 
+        # OPTIMIZATION: Pre-calculate sender's trusted ecosystems
+        # This avoids re-checking sender membership for every URL
+        self._current_sender_ecosystems = None
+        sender = email_data.get("sender", "")
+        if sender and "@" in sender:
+            sender_domain = sender.split("@")[1].lower()
+            matching_ecosystems = []
+            for root, related in TRUSTED_DOMAIN_GROUPS.items():
+                if (
+                    self._is_subdomain(sender_domain, root)
+                    or any(
+                        self._is_subdomain(sender_domain, d)
+                        for d in related
+                    )
+                ):
+                    matching_ecosystems.append((root, related))
+
+            self._current_sender_ecosystems = matching_ecosystems
+
         # Run checks
         self._check_urgency_keywords(email_data)
         self._check_ocr_content(email_data)
@@ -191,18 +210,14 @@ class HeuristicAnalyzer:
             return True
 
         # Check against configured trusted ecosystems
-        for ecosystem_root, related_domains in TRUSTED_DOMAIN_GROUPS.items():
-            # Check if sender is in this ecosystem
-            sender_is_member = (
-                self._is_subdomain(sender_domain, ecosystem_root)
-                or any(
-                    self._is_subdomain(sender_domain, d)
-                    for d in related_domains
-                )
-            )
+        # OPTIMIZATION: Use pre-calculated sender ecosystems if available
+        ecosystems_to_check = getattr(
+            self, "_current_sender_ecosystems", None
+        )
 
-            if sender_is_member:
-                # Check if link is also in this ecosystem
+        if ecosystems_to_check is not None:
+            # Iterate only through ecosystems the sender is part of
+            for ecosystem_root, related_domains in ecosystems_to_check:
                 if (
                     self._is_subdomain(link_domain, ecosystem_root)
                     or any(
@@ -211,6 +226,28 @@ class HeuristicAnalyzer:
                     )
                 ):
                     return True
+        else:
+            # Fallback (legacy/test support)
+            for ecosystem_root, related_domains in TRUSTED_DOMAIN_GROUPS.items():
+                # Check if sender is in this ecosystem
+                sender_is_member = (
+                    self._is_subdomain(sender_domain, ecosystem_root)
+                    or any(
+                        self._is_subdomain(sender_domain, d)
+                        for d in related_domains
+                    )
+                )
+
+                if sender_is_member:
+                    # Check if link is also in this ecosystem
+                    if (
+                        self._is_subdomain(link_domain, ecosystem_root)
+                        or any(
+                            self._is_subdomain(link_domain, d)
+                            for d in related_domains
+                        )
+                    ):
+                        return True
 
         return False
 
