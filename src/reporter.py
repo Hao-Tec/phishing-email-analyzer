@@ -242,6 +242,7 @@ class EmailReporter:
             <style>
                 @media print {{
                     .print-btn {{ display: none !important; }}
+                    .copy-btn {{ display: none !important; }}
                     body {{ padding: 0; }}
                     .container {{ box-shadow: none; max-width: 100%; }}
                 }}
@@ -264,6 +265,35 @@ class EmailReporter:
                     background-color: #f8f9fa;
                     margin: 0;
                     padding: 20px;
+                }}
+                /* Copy Button Styles */
+                .copy-btn {{
+                    background: transparent;
+                    border: 1px solid #dee2e6;
+                    border-radius: 4px;
+                    color: #6c757d;
+                    cursor: pointer;
+                    font-size: 0.8em;
+                    margin-left: 8px;
+                    padding: 2px 6px;
+                    transition: all 0.2s;
+                    vertical-align: middle;
+                    display: inline-flex;
+                    align-items: center;
+                    gap: 4px;
+                }}
+                .copy-btn:hover {{
+                    background: #e9ecef;
+                    color: #495057;
+                    border-color: #adb5bd;
+                }}
+                .copy-btn:active {{
+                    transform: translateY(1px);
+                }}
+                .copy-btn.copied {{
+                    background: #d1e7dd;
+                    border-color: #198754;
+                    color: #0f5132;
                 }}
                 .container {{
                     max-width: 900px;
@@ -431,6 +461,22 @@ class EmailReporter:
                     color: white;
                 }}
             </style>
+            <script>
+                function copyToClipboard(btn) {{
+                    const text = btn.getAttribute('data-url');
+                    navigator.clipboard.writeText(text).then(function() {{
+                        const originalHtml = btn.innerHTML;
+                        btn.innerHTML = '✅ Copied!';
+                        btn.classList.add('copied');
+                        setTimeout(function() {{
+                            btn.innerHTML = originalHtml;
+                            btn.classList.remove('copied');
+                        }}, 2000);
+                    }}, function(err) {{
+                        console.error('Could not copy text: ', err);
+                    }});
+                }}
+            </script>
         </head>
         <body>
             <a href="#metadata" class="skip-link">Skip to report content</a>
@@ -595,7 +641,13 @@ class EmailReporter:
                     html += (
                         f"<li><a href='{safe_url}' target='_blank' "
                         f"rel='noopener noreferrer' style='color: #0d6efd; "
-                        f"word-break: break-all;'>{disp_url}</a><br>"
+                        f"word-break: break-all;' "
+                        f"aria-label='{safe_url} (opens in new tab)'>{disp_url}</a>"
+                        f"<button class='copy-btn' "
+                        f"data-url='{safe_url}' "
+                        f"onclick='copyToClipboard(this)' "
+                        f"aria-label='Copy URL to clipboard' "
+                        f"title='Copy URL'>📋 Copy</button><br>"
                         f"<span style='color: #6c757d; font-size: 0.9em;'>"
                         f"Domain: {domain}</span></li>"
                     )
