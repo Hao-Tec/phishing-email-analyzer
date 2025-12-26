@@ -231,6 +231,12 @@ class EmailReporter:
         }
         text_color = text_colors.get(risk_level, "white")
 
+        # Escape metadata fields to prevent XSS
+        sender_safe = html_lib.escape(metadata.get('sender', 'N/A'))
+        recipient_safe = html_lib.escape(metadata.get('recipient', 'N/A'))
+        subject_safe = html_lib.escape(metadata.get('subject', 'N/A'))
+        date_safe = html_lib.escape(metadata.get('date', 'N/A'))
+
         html = f"""
         <!DOCTYPE html>
         <html lang="en">
@@ -472,19 +478,19 @@ class EmailReporter:
                     <div class="meta-grid">
                         <div class="meta-item">
                             <label>From</label>
-                            <span>{metadata.get('sender', 'N/A')}</span>
+                            <span>{sender_safe}</span>
                         </div>
                         <div class="meta-item">
                             <label>To</label>
-                            <span>{metadata.get('recipient', 'N/A')}</span>
+                            <span>{recipient_safe}</span>
                         </div>
                         <div class="meta-item">
                             <label>Subject</label>
-                            <span>{metadata.get('subject', 'N/A')}</span>
+                            <span>{subject_safe}</span>
                         </div>
                         <div class="meta-item">
                             <label>Date</label>
-                            <span>{metadata.get('date', 'N/A')}</span>
+                            <span>{date_safe}</span>
                         </div>
                     </div>
                 </div>
@@ -522,16 +528,25 @@ class EmailReporter:
         # Helper function to generate finding HTML
         def generate_finding_html(severity, finding):
             sev_icon = icons.get(severity, "⚪")
+            # Escape finding content
+            heuristic_safe = html_lib.escape(
+                finding.get('heuristic', 'Unknown')
+            )
+            description_safe = html_lib.escape(
+                finding.get('description', '')
+            )
             finding_html = f"""
                     <div class="finding {severity}">
                         <strong>{sev_icon} [{severity}]
-                        {finding.get('heuristic', 'Unknown')}</strong>
-                        <p>{finding.get('description', '')}</p>
+                        {heuristic_safe}</strong>
+                        <p>{description_safe}</p>
             """
             if finding.get("details"):
                 finding_html += "<ul>"
                 for k, v in finding.get("details", {}).items():
-                    finding_html += f"<li>{k}: {v}</li>"
+                    key_safe = html_lib.escape(str(k))
+                    val_safe = html_lib.escape(str(v))
+                    finding_html += f"<li>{key_safe}: {val_safe}</li>"
                 finding_html += "</ul>"
             finding_html += "</div>"
             return finding_html
@@ -563,7 +578,7 @@ class EmailReporter:
                          font-size: 1.1em;">
             """
             for rec in recommendations:
-                html += f"<li>{rec}</li>"
+                html += f"<li>{html_lib.escape(rec)}</li>"
             html += """
                     </ul>
                 </div>
