@@ -430,7 +430,33 @@ class EmailReporter:
                     text-decoration: none;
                     color: white;
                 }}
+                .copy-btn {{
+                    background: none;
+                    border: 1px solid #dee2e6;
+                    border-radius: 4px;
+                    cursor: pointer;
+                    padding: 2px 6px;
+                    margin-left: 8px;
+                    font-size: 0.9em;
+                    transition: all 0.2s;
+                }}
+                .copy-btn:hover {{
+                    background-color: #e9ecef;
+                }}
             </style>
+            <script>
+                function copyUrl(btn) {{
+                    const url = btn.getAttribute('data-url');
+                    navigator.clipboard.writeText(url).then(() => {{
+                        btn.innerText = '✅';
+                        setTimeout(() => {{ btn.innerText = '📋'; }}, 2000);
+                    }}).catch(err => {{
+                        console.error('Failed to copy:', err);
+                        btn.innerText = '❌';
+                        setTimeout(() => {{ btn.innerText = '📋'; }}, 2000);
+                    }});
+                }}
+            </script>
         </head>
         <body>
             <a href="#metadata" class="skip-link">Skip to report content</a>
@@ -595,7 +621,10 @@ class EmailReporter:
                     html += (
                         f"<li><a href='{safe_url}' target='_blank' "
                         f"rel='noopener noreferrer' style='color: #0d6efd; "
-                        f"word-break: break-all;'>{disp_url}</a><br>"
+                        f"word-break: break-all;'>{disp_url}</a>"
+                        f"<button class='copy-btn' data-url='{safe_url}' "
+                        f"onclick='copyUrl(this)' aria-label='Copy URL' "
+                        f"title='Copy URL'>📋</button><br>"
                         f"<span style='color: #6c757d; font-size: 0.9em;'>"
                         f"Domain: {domain}</span></li>"
                     )
