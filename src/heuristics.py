@@ -68,6 +68,7 @@ class HeuristicAnalyzer:
         self.score = 0.0
         self.heuristic_scores = {}  # Track individual scores
         self.details = []
+        self._current_sender_ecosystems = None
 
     def analyze(self, email_data: Dict) -> Tuple[float, List[Dict]]:
         """
@@ -83,6 +84,21 @@ class HeuristicAnalyzer:
         self.score = 0.0
         self.heuristic_scores = {}
         self.details = []
+        self._current_sender_ecosystems = None
+
+        # Pre-compute sender's ecosystem for optimization
+        sender = email_data.get("sender", "")
+        if "@" in sender:
+            sender_domain = sender.split("@")[1].lower()
+            self._current_sender_ecosystems = set()
+
+            # Check if sender belongs to any trusted ecosystem
+            for ecosystem_root, related_domains in TRUSTED_DOMAIN_GROUPS.items():
+                if self._is_subdomain(sender_domain, ecosystem_root) or any(
+                    self._is_subdomain(sender_domain, d)
+                    for d in related_domains
+                ):
+                    self._current_sender_ecosystems.add(ecosystem_root)
 
         # Run checks
         self._check_urgency_keywords(email_data)
@@ -190,7 +206,26 @@ class HeuristicAnalyzer:
         ):
             return True
 
-        # Check against configured trusted ecosystems
+        # Optimization: Use pre-computed sender ecosystems if available
+        # Fallback to full check if called directly (e.g. in tests)
+        if self._current_sender_ecosystems is not None:
+            # Check if link belongs to any of the sender's ecosystems
+            for ecosystem_root in self._current_sender_ecosystems:
+                related_domains = TRUSTED_DOMAIN_GROUPS.get(
+                    ecosystem_root, set()
+                )
+
+                if (
+                    self._is_subdomain(link_domain, ecosystem_root)
+                    or any(
+                        self._is_subdomain(link_domain, d)
+                        for d in related_domains
+                    )
+                ):
+                    return True
+            return False
+
+        # Fallback: Check against all configured trusted ecosystems
         for ecosystem_root, related_domains in TRUSTED_DOMAIN_GROUPS.items():
             # Check if sender is in this ecosystem
             sender_is_member = (
