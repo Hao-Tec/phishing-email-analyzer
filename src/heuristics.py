@@ -469,13 +469,12 @@ class HeuristicAnalyzer:
                 return
 
             # Skip if sender domain is a subdomain of trusted domains
-            # Pre-compute the whitelist set once (avoid O(N) allocation
-            # per email)
-            if not hasattr(self, '_whitelist_set'):
-                self._whitelist_set = \
-                    WHITELIST_DOMAINS.union(PLATFORM_DOMAINS)
-            for trusted in self._whitelist_set:
-                if self._is_subdomain(sender_domain, trusted):
+            # OPTIMIZATION: Reverse lookup in hash set (O(D) vs O(N))
+            # Check sender domain parts against TRUSTED_TARGETS
+            parts = sender_domain.split('.')
+            for i in range(len(parts)):
+                domain_check = ".".join(parts[i:])
+                if domain_check in TRUSTED_TARGETS:
                     return
 
             # Check against trusted domains for similarity
