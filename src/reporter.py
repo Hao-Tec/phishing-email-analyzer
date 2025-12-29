@@ -231,208 +231,380 @@ class EmailReporter:
                   content="width=device-width, initial-scale=1.0">
             <title>Phishing Analysis Report</title>
             <style>
+                @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+                
+                :root {{
+                    --primary: #6366f1;
+                    --primary-dark: #4f46e5;
+                    --danger: #ef4444;
+                    --warning: #f59e0b;
+                    --success: #10b981;
+                    --info: #3b82f6;
+                    --dark: #1e293b;
+                    --darker: #0f172a;
+                    --light: #f8fafc;
+                    --glass: rgba(255,255,255,0.95);
+                    --shadow: 0 25px 50px -12px rgba(0,0,0,0.25);
+                    --shadow-sm: 0 4px 6px -1px rgba(0,0,0,0.1);
+                }}
+                
                 @media print {{
-                    .print-btn {{ display: none !important; }}
-                    body {{ padding: 0; }}
+                    .print-btn, .theme-toggle {{ display: none !important; }}
+                    body {{ background: white !important; padding: 0; }}
                     .container {{ box-shadow: none; max-width: 100%; }}
+                    .header {{ background: var(--dark) !important; -webkit-print-color-adjust: exact; }}
                 }}
-                .skip-link {{
-                    position: absolute;
-                    top: -40px;
-                    left: 0;
-                    background: #212529;
-                    color: white;
-                    padding: 8px;
-                    z-index: 100;
-                    transition: top 0.2s;
-                }}
-                .skip-link:focus {{
-                    top: 0;
-                }}
+                
+                * {{ box-sizing: border-box; }}
+                
                 body {{
-                    font-family: 'Segoe UI', Tahoma, Geneva, Verdana,
-                    sans-serif;
-                    background-color: #f8f9fa;
+                    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+                    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+                    min-height: 100vh;
                     margin: 0;
-                    padding: 20px;
+                    padding: 40px 20px;
+                    line-height: 1.6;
                 }}
+                
                 .container {{
                     max-width: 900px;
                     margin: 0 auto;
-                    background: white;
-                    padding: 30px;
-                    border-radius: 12px;
-                    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+                    background: var(--glass);
+                    backdrop-filter: blur(20px);
+                    border-radius: 24px;
+                    box-shadow: var(--shadow);
+                    overflow: hidden;
                 }}
+                
                 .header {{
-                    border-bottom: 2px solid #eee;
-                    padding-bottom: 20px;
-                    margin-bottom: 20px;
-                }}
-                .badge {{
-                    display: inline-block;
-                    padding: 8px 16px;
-                    border-radius: 20px;
-                    color: {text_color};
-                    font-weight: bold;
-                    font-size: 1.2em;
-                    background-color: {risk_color};
-                }}
-                .print-btn {{
-                    float: right;
-                    background: #6c757d;
+                    background: linear-gradient(135deg, var(--darker) 0%, var(--dark) 100%);
                     color: white;
-                    border: none;
-                    padding: 8px 16px;
-                    border-radius: 6px;
+                    padding: 40px;
+                    text-align: center;
+                    position: relative;
+                }}
+                
+                .header h1 {{
+                    font-size: 2rem;
+                    font-weight: 700;
+                    margin: 0 0 20px 0;
+                    letter-spacing: -0.5px;
+                }}
+                
+                .print-btn {{
+                    position: absolute;
+                    top: 20px;
+                    right: 20px;
+                    background: rgba(255,255,255,0.1);
+                    color: white;
+                    border: 1px solid rgba(255,255,255,0.2);
+                    padding: 10px 20px;
+                    border-radius: 12px;
                     cursor: pointer;
                     font-weight: 500;
                     font-family: inherit;
-                    transition: background 0.2s;
+                    font-size: 0.9em;
+                    transition: all 0.3s ease;
+                    backdrop-filter: blur(10px);
                 }}
-                .print-btn:hover {{ background: #5a6268; }}
+                
+                .print-btn:hover {{
+                    background: rgba(255,255,255,0.2);
+                    transform: translateY(-2px);
+                }}
+                
                 .score {{
-                    font-size: 2.5em;
-                    font-weight: bold;
-                    color: {risk_color};
+                    font-size: 4rem;
+                    font-weight: 700;
+                    background: linear-gradient(135deg, {risk_color}, {risk_color}99);
+                    -webkit-background-clip: text;
+                    -webkit-text-fill-color: transparent;
+                    background-clip: text;
                     margin: 10px 0;
+                    text-shadow: none;
                 }}
+                
                 .risk-meter {{
-                    height: 10px;
-                    background: #e9ecef;
-                    border-radius: 5px;
-                    margin: 10px auto;
-                    max-width: 300px;
+                    height: 8px;
+                    background: rgba(255,255,255,0.2);
+                    border-radius: 10px;
+                    margin: 20px auto;
+                    max-width: 350px;
                     overflow: hidden;
+                    position: relative;
                 }}
+                
                 .risk-fill {{
                     height: 100%;
+                    background: linear-gradient(90deg, {risk_color}, {risk_color}dd);
+                    width: 0%;
+                    border-radius: 10px;
+                    animation: fillMeter 1.5s ease-out forwards;
+                    box-shadow: 0 0 20px {risk_color}66;
+                }}
+                
+                @keyframes fillMeter {{
+                    to {{ width: {score}%; }}
+                }}
+                
+                .badge {{
+                    display: inline-flex;
+                    align-items: center;
+                    gap: 8px;
+                    padding: 12px 28px;
+                    border-radius: 50px;
+                    color: {text_color};
+                    font-weight: 600;
+                    font-size: 1.1em;
                     background: {risk_color};
-                    width: {score}%;
-                    transition: width 1s ease-in-out;
+                    box-shadow: 0 4px 15px {risk_color}44;
+                    margin-top: 15px;
+                    text-transform: uppercase;
+                    letter-spacing: 1px;
                 }}
-                .section {{ margin-bottom: 30px; }}
+                
+                .header p {{
+                    margin: 15px 0 0 0;
+                    opacity: 0.7;
+                    font-size: 0.9em;
+                }}
+                
+                .content {{ padding: 40px; }}
+                
+                .nav-links {{
+                    background: linear-gradient(135deg, #f1f5f9, #e2e8f0);
+                    padding: 16px 24px;
+                    border-radius: 16px;
+                    margin-bottom: 30px;
+                    display: flex;
+                    gap: 12px;
+                    flex-wrap: wrap;
+                    align-items: center;
+                    box-shadow: var(--shadow-sm);
+                }}
+                
+                .nav-links strong {{
+                    color: var(--dark);
+                    margin-right: 10px;
+                }}
+                
+                .nav-links a {{
+                    color: #64748b;
+                    text-decoration: none;
+                    font-weight: 500;
+                    padding: 8px 16px;
+                    border-radius: 10px;
+                    transition: all 0.2s ease;
+                    font-size: 0.9em;
+                }}
+                
+                .nav-links a:hover {{
+                    background: white;
+                    color: var(--primary);
+                    box-shadow: var(--shadow-sm);
+                }}
+                
+                .nav-links .cta-link {{
+                    background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+                    color: white !important;
+                    font-weight: 600;
+                }}
+                
+                .nav-links .cta-link:hover {{
+                    transform: translateY(-2px);
+                    box-shadow: 0 4px 12px rgba(99,102,241,0.4);
+                }}
+                
+                .section {{
+                    margin-bottom: 35px;
+                    animation: fadeIn 0.5s ease-out;
+                }}
+                
+                @keyframes fadeIn {{
+                    from {{ opacity: 0; transform: translateY(10px); }}
+                    to {{ opacity: 1; transform: translateY(0); }}
+                }}
+                
                 h2 {{
-                    color: #343a40;
-                    border-left: 5px solid {risk_color};
-                    padding-left: 10px;
+                    color: var(--dark);
+                    font-size: 1.4rem;
+                    font-weight: 600;
+                    margin: 0 0 20px 0;
+                    padding-left: 15px;
+                    border-left: 4px solid var(--primary);
+                    display: flex;
+                    align-items: center;
+                    gap: 10px;
                 }}
+                
+                .meta-grid {{
+                    display: grid;
+                    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+                    gap: 16px;
+                }}
+                
+                .meta-item {{
+                    background: linear-gradient(135deg, #f8fafc, #f1f5f9);
+                    padding: 20px;
+                    border-radius: 16px;
+                    border: 1px solid #e2e8f0;
+                    transition: all 0.2s ease;
+                }}
+                
+                .meta-item:hover {{
+                    transform: translateY(-2px);
+                    box-shadow: var(--shadow-sm);
+                }}
+                
+                .meta-item label {{
+                    display: block;
+                    color: #64748b;
+                    font-size: 0.8em;
+                    font-weight: 500;
+                    text-transform: uppercase;
+                    letter-spacing: 0.5px;
+                    margin-bottom: 6px;
+                }}
+                
+                .meta-item span {{
+                    font-weight: 600;
+                    font-size: 1em;
+                    color: var(--dark);
+                    word-break: break-word;
+                }}
+                
+                .finding {{
+                    background: linear-gradient(135deg, #fef3c7, #fef9c3);
+                    border-left: 5px solid var(--warning);
+                    padding: 20px;
+                    margin-bottom: 16px;
+                    border-radius: 0 16px 16px 0;
+                    transition: all 0.2s ease;
+                }}
+                
+                .finding:hover {{
+                    transform: translateX(5px);
+                }}
+                
+                .finding.HIGH, .finding.CRITICAL {{
+                    background: linear-gradient(135deg, #fee2e2, #fecaca);
+                    border-left-color: var(--danger);
+                }}
+                
+                .finding.LOW, .finding.INFO {{
+                    background: linear-gradient(135deg, #d1fae5, #a7f3d0);
+                    border-left-color: var(--success);
+                }}
+                
+                .finding strong {{
+                    color: var(--dark);
+                    font-size: 1em;
+                }}
+                
+                .finding p {{
+                    margin: 8px 0 0 0;
+                    color: #475569;
+                    font-size: 0.95em;
+                }}
+                
+                .glossary-grid {{
+                    display: grid;
+                    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+                    gap: 16px;
+                }}
+                
+                .glossary-item {{
+                    background: linear-gradient(135deg, #f8fafc, #f1f5f9);
+                    padding: 20px;
+                    border-radius: 16px;
+                    border: 1px solid #e2e8f0;
+                    transition: all 0.2s ease;
+                }}
+                
+                .glossary-item:hover {{
+                    border-color: var(--primary);
+                }}
+                
+                .glossary-term {{
+                    font-weight: 600;
+                    color: var(--primary);
+                    margin-bottom: 8px;
+                }}
+                
+                .glossary-def {{
+                    font-size: 0.9em;
+                    color: #64748b;
+                    line-height: 1.5;
+                }}
+                
                 table {{
                     width: 100%;
                     border-collapse: collapse;
-                    margin-top: 10px;
+                    margin-top: 15px;
+                    border-radius: 12px;
+                    overflow: hidden;
                 }}
+                
                 th, td {{
-                    padding: 12px;
+                    padding: 14px 18px;
                     text-align: left;
-                    border-bottom: 1px solid #dee2e6;
                 }}
-                th {{ background-color: #f8f9fa; color: #495057; }}
-                .finding {{
-                    background-color: #fff3cd;
-                    border-left: 4px solid #ffc107;
-                    padding: 15px;
-                    margin-bottom: 15px;
-                }}
-                .finding.HIGH {{
-                    background-color: #f8d7da;
-                    border-left-color: #dc3545;
-                }}
-                .finding.LOW {{
-                    background-color: #d1e7dd;
-                    border-left-color: #198754;
-                }}
-                .meta-grid {{
-                    display: grid;
-                    grid-template-columns: repeat(auto-fit,
-                    minmax(200px, 1fr));
-                    gap: 20px;
-                    background: #f8f9fa;
-                    padding: 20px;
-                    border-radius: 8px;
-                }}
-                .meta-item label {{
-                    display: block;
-                    color: #6c757d;
-                    font-size: 0.9em;
-                }}
-                .meta-item span {{
-                    font-weight: 500;
-                    font-size: 1.1em;
-                    color: #212529;
-                    word-break: break-word;
-                    overflow-wrap: break-word;
-                    display: block;
-                }}
-                .glossary-grid {{
-                    display: grid;
-                    grid-template-columns: repeat(auto-fit,
-                        minmax(250px, 1fr));
-                    gap: 15px;
-                    margin: 0;
-                    padding: 0;
-                }}
-                .glossary-item {{
-                    background: #f1f3f5;
-                    padding: 15px;
-                    border-radius: 8px;
-                }}
-                .glossary-term {{
-                    font-weight: bold;
-                    color: #495057;
-                    display: block;
-                    margin-bottom: 5px;
-                }}
-                .glossary-def {{
-                    font-size: 0.9em;
-                    color: #6c757d;
-                    margin: 0;
-                }}
-                .nav-links {{
-                    background: #f1f3f5;
-                    padding: 10px 20px;
-                    border-radius: 8px;
-                    margin-bottom: 20px;
-                    display: flex;
-                    gap: 20px;
-                    flex-wrap: wrap;
-                    align-items: center;
-                }}
-                .nav-links a {{
-                    color: #495057;
-                    text-decoration: none;
-                    font-weight: 500;
-                    transition: color 0.2s;
-                    margin-right: 15px;
-                }}
-                .nav-links a:hover {{
-                    color: #212529;
-                    text-decoration: underline;
-                }}
-                .nav-links .cta-link {{
-                    background-color: #0d6efd;
+                
+                th {{
+                    background: var(--dark);
                     color: white;
-                    padding: 5px 12px;
-                    border-radius: 20px;
-                    font-size: 0.9em;
+                    font-weight: 600;
+                    font-size: 0.85em;
+                    text-transform: uppercase;
+                    letter-spacing: 0.5px;
                 }}
-                .nav-links .cta-link:hover {{
-                    background-color: #0b5ed7;
-                    text-decoration: none;
-                    color: white;
-                }}
+                
+                tr:nth-child(even) {{ background: #f8fafc; }}
+                tr:hover {{ background: #f1f5f9; }}
+                
+                td {{ color: #475569; border-bottom: 1px solid #e2e8f0; }}
+                
                 .copy-btn {{
-                    background: none;
-                    border: 1px solid #dee2e6;
-                    border-radius: 4px;
+                    background: white;
+                    border: 1px solid #e2e8f0;
+                    border-radius: 8px;
                     cursor: pointer;
-                    padding: 2px 6px;
-                    margin-left: 8px;
-                    font-size: 0.9em;
-                    transition: all 0.2s;
+                    padding: 6px 12px;
+                    margin-left: 10px;
+                    font-size: 0.85em;
+                    transition: all 0.2s ease;
+                    box-shadow: var(--shadow-sm);
                 }}
+                
                 .copy-btn:hover {{
-                    background-color: #e9ecef;
+                    background: var(--primary);
+                    color: white;
+                    border-color: var(--primary);
+                    transform: scale(1.05);
+                }}
+                
+                .skip-link {{
+                    position: absolute;
+                    top: -50px;
+                    left: 20px;
+                    background: var(--dark);
+                    color: white;
+                    padding: 12px 20px;
+                    border-radius: 8px;
+                    z-index: 100;
+                    transition: top 0.3s;
+                    font-weight: 500;
+                }}
+                
+                .skip-link:focus {{ top: 20px; }}
+                
+                @media (max-width: 768px) {{
+                    body {{ padding: 20px 10px; }}
+                    .header {{ padding: 30px 20px; }}
+                    .header h1 {{ font-size: 1.5rem; }}
+                    .score {{ font-size: 3rem; }}
+                    .content {{ padding: 25px 20px; }}
+                    .print-btn {{ position: static; margin-bottom: 20px; }}
                 }}
             </style>
             <script>
@@ -472,6 +644,7 @@ class EmailReporter:
                     {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}</p>
                 </div>
 
+                <div class="content">
                 <div class="nav-links">
                     <strong>Jump to:</strong>
                     <a href="#metadata">Metadata</a>
