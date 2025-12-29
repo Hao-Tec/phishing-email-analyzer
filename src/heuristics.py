@@ -68,6 +68,7 @@ class HeuristicAnalyzer:
         self.score = 0.0
         self.heuristic_scores = {}  # Track individual scores
         self.details = []
+        self._current_sender_ecosystems = None  # Cache for sender's ecosystems
 
     def analyze(self, email_data: Dict) -> Tuple[float, List[Dict]]:
         """
@@ -83,6 +84,19 @@ class HeuristicAnalyzer:
         self.score = 0.0
         self.heuristic_scores = {}
         self.details = []
+        self._current_sender_ecosystems = None
+
+        # Pre-compute sender ecosystems
+        sender = email_data.get("sender", "")
+        sender_domain = ""
+        if "@" in sender:
+            sender_domain = sender.split("@")[1].lower()
+            self._current_sender_ecosystems = set()
+            for ecosystem_root, related_domains in TRUSTED_DOMAIN_GROUPS.items():
+                if self._is_subdomain(sender_domain, ecosystem_root) or any(
+                    self._is_subdomain(sender_domain, d) for d in related_domains
+                ):
+                    self._current_sender_ecosystems.add(ecosystem_root)
 
         # Run checks
         self._check_urgency_keywords(email_data)
@@ -191,26 +205,30 @@ class HeuristicAnalyzer:
             return True
 
         # Check against configured trusted ecosystems
-        for ecosystem_root, related_domains in TRUSTED_DOMAIN_GROUPS.items():
-            # Check if sender is in this ecosystem
-            sender_is_member = (
-                self._is_subdomain(sender_domain, ecosystem_root)
+        # OPTIMIZATION: Use pre-computed sender ecosystems if available
+        if self._current_sender_ecosystems is not None:
+            # Fast path: only check ecosystems the sender is known to be in
+            candidate_ecosystems = self._current_sender_ecosystems
+        else:
+            # Slow path: check all ecosystems (fallback for isolated calls)
+            candidate_ecosystems = [
+                root
+                for root, related in TRUSTED_DOMAIN_GROUPS.items()
+                if self._is_subdomain(sender_domain, root)
+                or any(self._is_subdomain(sender_domain, d) for d in related)
+            ]
+
+        for ecosystem_root in candidate_ecosystems:
+            related_domains = TRUSTED_DOMAIN_GROUPS[ecosystem_root]
+            # Check if link is in this ecosystem
+            if (
+                self._is_subdomain(link_domain, ecosystem_root)
                 or any(
-                    self._is_subdomain(sender_domain, d)
+                    self._is_subdomain(link_domain, d)
                     for d in related_domains
                 )
-            )
-
-            if sender_is_member:
-                # Check if link is also in this ecosystem
-                if (
-                    self._is_subdomain(link_domain, ecosystem_root)
-                    or any(
-                        self._is_subdomain(link_domain, d)
-                        for d in related_domains
-                    )
-                ):
-                    return True
+            ):
+                return True
 
         return False
 
