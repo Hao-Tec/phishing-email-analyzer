@@ -1,3 +1,4 @@
+# flake8: noqa: E501
 import unittest
 from unittest.mock import patch, MagicMock
 from src.url_scraper import URLScraper

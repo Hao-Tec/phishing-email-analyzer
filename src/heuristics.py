@@ -404,7 +404,7 @@ class HeuristicAnalyzer:
             content_type = att.get("content_type", "").lower()
 
             # Check Extension
-            # OPTIMIZATION: Use tuple for fast endswith check (C implementation)
+            # Use tuple for fast endswith check (C-level optimization)
             if filename.endswith(SUSPICIOUS_EXTENSIONS_TUPLE):
                 self._add_finding(
                     "suspicious_attachment",

@@ -1,3 +1,4 @@
+# flake8: noqa: E501
 """
 Reporter Module
 Formats analysis results into clear, human-readable reports.
@@ -80,8 +81,7 @@ class EmailReporter:
         report.append("DETECTED ELEMENTS")
         report.append("-" * 80)
         report.append(
-            f"URLs Found:           "
-            f"{analysis_result.get('urls_detected', 0)}"
+            f"URLs Found:           " f"{analysis_result.get('urls_detected', 0)}"
         )
         report.append(
             f"Attachments Found:    "
@@ -140,8 +140,7 @@ class EmailReporter:
                 report.append(f"   Domain: {url_obj.get('domain', 'N/A')}")
                 if url_obj.get("displayed_text"):
                     report.append(
-                        f"   Displayed Text: "
-                        f"{url_obj.get('displayed_text', 'N/A')}"
+                        f"   Displayed Text: " f"{url_obj.get('displayed_text', 'N/A')}"
                     )
             report.append("")
 
@@ -149,23 +148,15 @@ class EmailReporter:
             report.append("EXTRACTED ATTACHMENTS")
             report.append("-" * 80)
             for i, attachment in enumerate(attachments, 1):
-                report.append(
-                    f"{i}. {attachment.get('filename', 'N/A')}"
-                )
-                report.append(
-                    f"   Type: {attachment.get('content_type', 'N/A')}"
-                )
-                report.append(
-                    f"   Size: {attachment.get('size', 0)} bytes"
-                )
+                report.append(f"{i}. {attachment.get('filename', 'N/A')}")
+                report.append(f"   Type: {attachment.get('content_type', 'N/A')}")
+                report.append(f"   Size: {attachment.get('size', 0)} bytes")
             report.append("")
 
         # Recommendations
         report.append("RECOMMENDATIONS")
         report.append("-" * 80)
-        recommendations = EmailReporter._get_recommendations(
-            risk_level, findings
-        )
+        recommendations = EmailReporter._get_recommendations(risk_level, findings)
         for i, rec in enumerate(recommendations, 1):
             report.append(f"• {rec}")
 
@@ -470,8 +461,10 @@ class EmailReporter:
                     <div class="risk-meter" role="meter"
                          aria-valuenow="{score}" aria-valuemin="0"
                          aria-valuemax="100" aria-label="Phishing Risk Score"
-                         aria-valuetext="{score:.1f}/100 - {risk_level.replace('_', ' ')}"
-                         title="Risk Score: {score:.1f}/100 ({risk_level.replace('_', ' ')})">
+                         aria-valuetext="{score:.1f}/100 - "
+                         "{risk_level.replace('_', ' ')}"
+                         title="Risk Score: {score:.1f}/100 "
+                         "({risk_level.replace('_', ' ')})">
                         <div class="risk-fill"></div>
                     </div>
                     <div class="badge">{risk_level.replace('_', ' ')}</div>
@@ -522,9 +515,7 @@ class EmailReporter:
         """
 
         # Group findings by severity
-        by_severity = {
-            "CRITICAL": [], "HIGH": [], "MEDIUM": [], "LOW": [], "INFO": []
-        }
+        by_severity = {"CRITICAL": [], "HIGH": [], "MEDIUM": [], "LOW": [], "INFO": []}
         other_severities = {}
         for finding in findings:
             severity = finding.get("severity", "LOW")
@@ -542,15 +533,15 @@ class EmailReporter:
             "MEDIUM": "🟠",
             "LOW": "🟡",
             "INFO": "🔵",
-            "SAFE": "🟢"
+            "SAFE": "🟢",
         }
 
         # Helper function to generate finding HTML
         def generate_finding_html(severity, finding):
             sev_icon = icons.get(severity, "⚪")
             # Escape dynamic content to prevent XSS
-            heuristic = html_lib.escape(str(finding.get('heuristic', 'Unknown')))
-            description = html_lib.escape(str(finding.get('description', '')))
+            heuristic = html_lib.escape(str(finding.get("heuristic", "Unknown")))
+            description = html_lib.escape(str(finding.get("description", "")))
 
             finding_html = f"""
                     <div class="finding {severity}">
@@ -583,9 +574,7 @@ class EmailReporter:
         """
 
         # Recommendations Section
-        recommendations = EmailReporter._get_recommendations(
-            risk_level, findings
-        )
+        recommendations = EmailReporter._get_recommendations(risk_level, findings)
 
         if recommendations:
             html += """
@@ -615,14 +604,16 @@ class EmailReporter:
             if urls:
                 html += "<h3>URLs Found</h3><ul>"
                 for u in urls:
-                    url_str = u.get('url', 'N/A')
+                    url_str = u.get("url", "N/A")
                     # Escape URL for href attribute and display
                     safe_url = html_lib.escape(url_str)
 
                     # Create display version (truncated)
-                    disp_url = (safe_url[:80] + '...') if len(safe_url) > 80 else safe_url
+                    disp_url = (
+                        (safe_url[:80] + "...") if len(safe_url) > 80 else safe_url
+                    )
 
-                    domain = html_lib.escape(str(u.get('domain', 'Unknown')))
+                    domain = html_lib.escape(str(u.get("domain", "Unknown")))
 
                     html += (
                         f"<li><a href='{safe_url}' target='_blank' "
@@ -639,9 +630,11 @@ class EmailReporter:
             if attachments:
                 html += "<h3>Attachments</h3><ul>"
                 for a in attachments:
-                    filename = html_lib.escape(str(a.get('filename', 'Unknown')))
-                    content_type = html_lib.escape(str(a.get('content_type', 'Unknown')))
-                    size = html_lib.escape(str(a.get('size', '0')))
+                    filename = html_lib.escape(str(a.get("filename", "Unknown")))
+                    content_type = html_lib.escape(
+                        str(a.get("content_type", "Unknown"))
+                    )
+                    size = html_lib.escape(str(a.get("size", "0")))
 
                     html += (
                         f"<li><strong>{filename}</strong> "
@@ -761,13 +754,9 @@ class EmailReporter:
         report.append(f"SAFE (0-29):         {risk_counts['SAFE']} emails")
         report.append(f"LOW_RISK (30-59):    {risk_counts['LOW_RISK']} emails")
         report.append(
-            f"MEDIUM_RISK (60-84): {risk_counts.get('MEDIUM_RISK')} "
-            f"emails"
+            f"MEDIUM_RISK (60-84): {risk_counts.get('MEDIUM_RISK')} " f"emails"
         )
-        report.append(
-            f"HIGH_RISK (85-99):   {risk_counts.get('HIGH_RISK')} "
-            f"emails"
-        )
+        report.append(f"HIGH_RISK (85-99):   {risk_counts.get('HIGH_RISK')} " f"emails")
         report.append(f"CRITICAL (100):      {risk_counts['CRITICAL']} emails")
         report.append(f"ERRORS:              {risk_counts['ERROR']} emails")
         report.append("")
@@ -786,10 +775,7 @@ class EmailReporter:
                 file_path = Path(result.get("file", "")).name
                 score = result.get("phishing_suspicion_score", 0)
                 risk_level = result.get("risk_level", "UNKNOWN")
-                subject = (
-                    result.get("email_metadata", {})
-                    .get("subject", "N/A")[:50]
-                )
+                subject = result.get("email_metadata", {}).get("subject", "N/A")[:50]
 
                 report.append(f"{i}. {file_path}")
                 report.append(f"   Subject: {subject}")
@@ -823,21 +809,15 @@ class EmailReporter:
         report.append("EMAIL ANALYSIS ERROR REPORT")
         report.append("=" * 80)
         report.append("")
-        report.append(
-            "File: " + str(error_result.get("file", "Unknown"))
-        )
-        report.append(
-            "Error: " + str(error_result.get("error", "Unknown error"))
-        )
+        report.append("File: " + str(error_result.get("file", "Unknown")))
+        report.append("Error: " + str(error_result.get("error", "Unknown error")))
         report.append("")
         report.append("=" * 80)
 
         return "\n".join(report)
 
     @staticmethod
-    def _get_recommendations(
-        risk_level: str, findings: List[Dict]
-    ) -> List[str]:
+    def _get_recommendations(risk_level: str, findings: List[Dict]) -> List[str]:
         """
         Generate recommendations based on risk level and findings.
 
@@ -860,8 +840,7 @@ class EmailReporter:
                 "Minor phishing indicators. Exercise normal caution."
             )
             recommendations.append(
-                "Do not click links unless you verify the sender "
-                "independently."
+                "Do not click links unless you verify the sender " "independently."
             )
 
         elif risk_level == "MEDIUM_RISK":
@@ -870,8 +849,7 @@ class EmailReporter:
                 "Exercise heightened caution."
             )
             recommendations.append(
-                "Do NOT click links or download attachments from "
-                "this email."
+                "Do NOT click links or download attachments from " "this email."
             )
             recommendations.append(
                 "Verify any requests directly with the sender using "
@@ -879,47 +857,31 @@ class EmailReporter:
             )
 
         elif risk_level == "HIGH_RISK":
-            recommendations.append(
-                "Email is highly suspicious and likely malicious."
-            )
+            recommendations.append("Email is highly suspicious and likely malicious.")
             recommendations.append(
                 "DO NOT interact with any links, attachments, or "
                 "requests in this email."
             )
             recommendations.append(
-                "Report this email to your IT security team or "
-                "email provider."
+                "Report this email to your IT security team or " "email provider."
             )
-            recommendations.append(
-                "Delete the email immediately if possible."
-            )
+            recommendations.append("Delete the email immediately if possible.")
 
         elif risk_level == "CRITICAL":
             recommendations.append("ALERT: Email is critical phishing threat.")
-            recommendations.append(
-                "DO NOT open attachments or click any links."
-            )
-            recommendations.append(
-                "IMMEDIATELY report to your IT security team."
-            )
-            recommendations.append(
-                "Do not reply or forward this email."
-            )
-            recommendations.append(
-                "Consider blocking the sender's email address."
-            )
+            recommendations.append("DO NOT open attachments or click any links.")
+            recommendations.append("IMMEDIATELY report to your IT security team.")
+            recommendations.append("Do not reply or forward this email.")
+            recommendations.append("Consider blocking the sender's email address.")
 
         # Add specific recommendations based on findings
-        high_severity_findings = [
-            f for f in findings if f.get("severity") == "HIGH"
-        ]
+        high_severity_findings = [f for f in findings if f.get("severity") == "HIGH"]
         if any(
             f.get("heuristic") == "suspicious_attachment"
             for f in high_severity_findings
         ):
             recommendations.append(
-                "This email contains potentially dangerous file "
-                "attachments."
+                "This email contains potentially dangerous file " "attachments."
             )
 
         if any(

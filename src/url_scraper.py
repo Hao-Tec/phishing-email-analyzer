@@ -1,3 +1,4 @@
+# flake8: noqa: E501
 """
 URL Scraper Module
 Fetches and extracts text content from URLs for analysis.
