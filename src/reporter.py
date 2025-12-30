@@ -597,6 +597,47 @@ class EmailReporter:
                 }}
                 
                 .skip-link:focus {{ top: 20px; }}
+
+                /* Accessibility focus styles */
+                :focus-visible {{
+                    outline: 2px solid var(--primary);
+                    outline-offset: 2px;
+                    border-radius: 4px;
+                }}
+
+                #back-to-top {{
+                    position: fixed;
+                    bottom: 30px;
+                    right: 30px;
+                    background: var(--primary);
+                    color: white;
+                    width: 44px;
+                    height: 44px;
+                    border-radius: 50%;
+                    border: none;
+                    cursor: pointer;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    box-shadow: 0 4px 12px rgba(99,102,241,0.4);
+                    transition: all 0.3s ease;
+                    opacity: 0;
+                    visibility: hidden;
+                    transform: translateY(20px);
+                    z-index: 1000;
+                    font-size: 1.2rem;
+                }}
+
+                #back-to-top.visible {{
+                    opacity: 1;
+                    visibility: visible;
+                    transform: translateY(0);
+                }}
+
+                #back-to-top:hover {{
+                    background: var(--primary-dark);
+                    transform: translateY(-2px);
+                }}
                 
                 @media (max-width: 768px) {{
                     body {{ padding: 20px 10px; }}
@@ -605,6 +646,18 @@ class EmailReporter:
                     .score {{ font-size: 3rem; }}
                     .content {{ padding: 25px 20px; }}
                     .print-btn {{ position: static; margin-bottom: 20px; }}
+                }}
+
+                .sr-only {{
+                    position: absolute;
+                    width: 1px;
+                    height: 1px;
+                    padding: 0;
+                    margin: -1px;
+                    overflow: hidden;
+                    clip: rect(0, 0, 0, 0);
+                    white-space: nowrap;
+                    border: 0;
                 }}
             </style>
             <script>
@@ -619,10 +672,27 @@ class EmailReporter:
                         setTimeout(() => {{ btn.innerText = '📋'; }}, 2000);
                     }});
                 }}
+
+                // Back to Top functionality
+                window.addEventListener('scroll', () => {{
+                    const backToTop = document.getElementById('back-to-top');
+                    if (window.scrollY > 300) {{
+                        backToTop.classList.add('visible');
+                    }} else {{
+                        backToTop.classList.remove('visible');
+                    }}
+                }});
+
+                function scrollToTop() {{
+                    window.scrollTo({{ top: 0, behavior: 'smooth' }});
+                }}
             </script>
         </head>
         <body>
             <a href="#metadata" class="skip-link">Skip to report content</a>
+            <button id="back-to-top" onclick="scrollToTop()" aria-label="Back to Top">
+                ↑
+            </button>
             <div class="container">
                 <div class="header">
                     <button class="print-btn" onclick="window.print()">
@@ -791,7 +861,8 @@ class EmailReporter:
                     html += (
                         f"<li><a href='{safe_url}' target='_blank' "
                         f"rel='noopener noreferrer' style='color: #0d6efd; "
-                        f"word-break: break-all;'>{disp_url}</a>"
+                        f"word-break: break-all;'>{disp_url}"
+                        f"<span class='sr-only'> (opens in new window)</span></a>"
                         f"<button class='copy-btn' data-url='{safe_url}' "
                         f"onclick='copyUrl(this)' aria-label='Copy URL' "
                         f"title='Copy URL'>📋</button><br>"
